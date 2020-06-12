@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <style>
+        body > .container {
+            padding-top: 10px;
+        }
+        .card-title {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <div class="form-inline row">
+                <label for="tenantName" class="col-md-2">Tenant Name:</label>
+                <input class="form-control col-md-8" type="text" placeholder="tenant.onmicrosoft.com" id="tenantName" />
+                <input type="submit" class="btn btn-primary col-md-2" type="button" id="doCheck" name="doCheck" value="Check Tenant" />
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md">Tenant ID:</div>
+            <div class="col-md"><span id="tenantId"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md">Tenant Location:</div>
+            <div class="col-md"><span id="tenantLocation"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md">B2B Availability:</div>
+            <div class="col-md"><span id="tenantB2BAvailable"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md">Tenant Region:</div>
+            <div class="col-md"><span id="tenantRegion"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md">Tenant Whitelisted:</div>
+            <div class="col-md"><span id="tenantWhiteListed"></span></div>  
+        </div>
+        <div class="row" id="messages">
+            <div class="col-md" id="message"></div>
+        </div>
+        <div class="card fixed-bottom">
+            <div class="card-body">
+                <div class="card-title">
+                    <div class="row">
+                        <div class="col-md-11">Raw Results</div>
+                        <div class="col-md-1">
+                            <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle">Toggle</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-text">
+                    <div id="result" style="display:none;">Results will show here...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function getTenantId(token_endpoint) {
+            return token_endpoint.replace("https://login.microsoftonline.us/", "")
+                        .replace("/oauth2/token", "")
+                        .replace("https://login.microsoftonline.com/", "");
+        }
+
+        function getTenantLocation(tenant_region_scope) {
+            if(tenant_region_scope == "USG") {
+                return "Fairfax";
+            }
+            else if(tenant_region_scope == "USGov") {
+                return "Arlington";
+            }
+            else {
+                return "Commercial - " + tenant_region_scope;
+            }
+        }
+
+        function getB2BAvailability(tenant_region_scope) {
+            if(tenant_region_scope == "USG") {
+                return "Not Available";
+            }
+            else if(tenant_region_scope == "USGov") {
+                return "Available";
+            }
+            else {
+                return "Available";
+            }
+        }
+
+        function isWhiteListed(cloud_instance_name, tenant_region_scope) {
+            if(tenant_region_scope == "USG" && cloud_instance_name == "microsoftonline.com") {
+                return "No";
+            }
+            else if(tenant_region_scope == "USGov" && cloud_instance_name == "microsoftonline.com") {
+                return "No - Unexpected!";
+            }
+            else {
+                return "Yes";
+            }
+        }
+
+        function getTenantRegion(tenant_region_scope, tenant_region_sub_scope) {
+
+            if(tenant_region_sub_scope == "DODCON") {
+                return "GCCH (IL4)";
+            }
+            else if(tenant_region_sub_scope == "DOD") {
+                return "DOD (IL5)";
+            }
+            else if(tenant_region_sub_scope == "GCC") {
+                return "GCC (IL2)";
+            }
+            else if(tenant_region_scope == "USG" || tenant_region_scope == "USGov") {
+                return "Azure Gov Only";
+            }
+            else {
+                return "Worldwide";
+            }
+        }
+
+        $("#showHide").click(function() {
+            $("#result").toggle();
+        });
+
+        $("#messages").hide();
+
+        $("#doCheck").click(function() {
+            $("#message").text("Loading...");
+            $("#messages").show();
+            $("#tenantLocation").text("");
+            $("#tenantWhiteListed").text("");
+            $("#tenantRegion").text("");
+            $("#tenantId").text("");
+            $("#result").text("");
+            $("#tenantB2BAvailable").text("");
+
+            tenant_name = $("#tenantName").val();
+            $.getJSON("https://login.microsoftonline.com/" + tenant_name + "/.well-known/openid-configuration")
+                .done(function(data){
+                    $("#message").text("Processing Response...");
+
+                    $("#result").text(JSON.stringify(data));
+
+                    $("#tenantLocation").text(getTenantLocation(data.tenant_region_scope));
+                    $("#tenantB2BAvailable").text(getB2BAvailability(data.tenant_region_scope));
+                    $("#tenantWhiteListed").text(isWhiteListed(data.cloud_instance_name, data.tenant_region_scope));
+                    $("#tenantRegion").text(getTenantRegion(data.tenant_region_scope, data.tenant_region_sub_scope));
+                    $("#tenantId").text(getTenantId(data.token_endpoint));
+                    $("#messages").hide();
+                })
+                .fail(function(data){
+                    $("#message").html("<b>An Error occured, expand the results to see details.</b>");
+                    $("#result").html(JSON.stringify(data));
+                });
+            return false;
+        });
+    </script>
+</body>
+</html>
