@@ -176,7 +176,7 @@
                     $("#messages").hide();
                 })
                 .fail(function(data){
-                    if(data.responseJSON.error != "invalid_tenant") {
+                    if(data.responseJSON.error == "invalid_tenant") {
                         $("#message").html("<b>The tenant or domain name <i>" + tenant_name + "</i> does not appear to be in use or registered in Azure AD.</b>");
                     }
                     else {
