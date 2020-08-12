@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://alcdn.msauth.net/lib/1.3.0/js/msal.js" integrity="sha384-xeOjp8/l8VazdeNFRbrC9LWPR1InyrS8E1Na/0lv6V2r09iwX6vJC47FXlczokMi" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">Experimental Platform</a>
+            <a class="text-white" href="/">Tenant Checker</a>
+            <a class="text-white" href="aadspa.html">AAD Extension Viewer</a>
+            <div class="btn-group ml-auto dropleft">
+                <button type="button" id="SignIn" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sign In
+                </button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" id="loginPopup" onclick="signIn(this.id)">Sign in using Popup</button>
+                    <button class="dropdown-item" id="loginRedirect" onclick="signIn(this.id)">Sign in using Redirect</button>
+                </div>
+            </div>
+        </nav>
+        <div id="errors"></div>
+        <p>buffer space</p>
+
+        <div class="container">
+            <button type="button" class="btn btn-default" onclick="getSecureScores()">Get Secure Scores</button>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script src="./aadspa.js"></script>
+    </body>
+</html>
