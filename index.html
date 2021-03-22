@@ -1,13 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Mcweetools</title>
-  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="https://dmcwee.github.io/styles.3ff695c00d717f2d2a11.css"></head>
+</head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 border-bottom shadow-sm">
     <a routerLink="/" class="navbar-brand">McWee Tools</a>
@@ -30,10 +30,104 @@
     </div>
   </nav>
 
-  <app-root></app-root>
+  <div class="container">
+    <form action="#" onsubmit="checkTenant()">
+        <div class="form-inline row">
+            <label for="tenantName" class="col-md-2">Tenant Name:</label>
+            <input class="form-control col-md-8" type="text" placeholder="tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
+            <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant">
+        </div>
+        <div class="form-inline row">
+            <label for="msCloud" class="col-md-2">Select a cloud:</label>
+            <input class="col-md-1" type="radio" name="msCloud" value="https://login.microsoftonline.com/" selected="true" checked="true" />Commercial and GCC
+            <input class="col-md-1" type="radio" name="msCloud" value="https://login.microsoftonline.us/" />GCCH and DOD
+        </div>
+    </form>
+    <div class="container" id="results" style="display:none">
+    </div>
 
+    <script type="text/x-handlebars-template" id="results-display">
+      <div class="row">
+        <div class="col-md">Tenant ID:</div>
+        <div class="col-md">{{tenantId token_endpoint }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md">Tenant Location:</div>
+          <div class="col-md">{{tenantLocation tenant_region_scope }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md">B2B Availability:</div>
+          <div class="col-md">{{tenantB2BAvailable tenant_region_scope }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md">Tenant Region:</div>
+          <div class="col-md">{{tenantRegion tenant_region_scope tenant_region_sub_scope }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md">Tenant Whitelisted:</div>
+          <div class="col-md">{{tenantWhiteListed cloud_instance_name tenant_region_scope}}</div>  
+      </div>
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <div class="row">
+                    <div class="col-md-11">Raw Results</div>
+                    <div class="col-md-1">
+                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult()">Toggle</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text" style="display:none;" id="result">
+                <div >{{stringify this }}</div>
+            </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="results-error">
+      {{#if invalidTenant}}
+      <div class="row">
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-md-10"><b>The tenant or domain name does not appear to be in use or registered in Azure AD.</b><br/>You can expand the results to see more details.</div>
+      </div>
+      {{/if}}
+      {{#if error}}
+      <div class="row">
+          <div class="col-md-1">&nbsp;</div>
+          <div class="col-md-10" ><b>An Error <i>{{ error }}</i> occured, expand the results to see details.</b></div>
+          <div class="col-md-1">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-md-10" >{{ errorDescription }}</div>
+        <div class="col-md-1">&nbsp;</div>
+      </div>
+      {{/if}}
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <div class="row">
+                    <div class="col-md-11">Raw Results</div>
+                    <div class="col-md-1">
+                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult()">Toggle</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-text" style="display:none;" id="result">
+                <div >{{stringify result }}</div>
+            </div>
+        </div>
+      </div>
+    </script>
+  </div>
+
+  <!-- importing bootstrap.js and supporting js libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://dmcwee.github.io/runtime-es2015.5620e605b13fc2b59aa4.js" type="module"></script><script src="https://dmcwee.github.io/runtime-es5.5620e605b13fc2b59aa4.js" nomodule defer></script><script src="https://dmcwee.github.io/polyfills-es5.177e85a9724683782539.js" nomodule defer></script><script src="https://dmcwee.github.io/polyfills-es2015.f332a089ad1600448873.js" type="module"></script><script src="https://dmcwee.github.io/main-es2015.56a0ba11ff50fd2b1261.js" type="module"></script><script src="https://dmcwee.github.io/main-es5.56a0ba11ff50fd2b1261.js" nomodule defer></script></body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript" src="./ui.js"></script>
+  <script type="text/javascript" src="./handlebarHelpers.js"></script>
+</body>
 </html>
