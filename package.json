@@ -24,10 +24,10 @@
     "node.js",
     "msal.js"
   ],
-  "author": "",
+  "author": "David McWee",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/dmcwee/dmcwee.github.io/issues"
   },
   "homepage": "",
   "dependencies": {
