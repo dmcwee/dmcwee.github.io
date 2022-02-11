@@ -2,25 +2,11 @@
 layout: post
 title: SharePoint 2010 and Windows Azure App Fabric Access Control (ACS)
 date: 2011-09-27 16:24:11.000000000 -04:00
-
-
-
-
-
 categories:
 - Microsoft
+- SharePoint
+tags:
 - SharePoint 2010
-tags: []
-
-  
-
-  
-  
-
-  
-  
-  
-  
   
 permalink: "/2011/09/27/sharepoint-2010-and-windows-azure-app-fabric-access-control-acs/"
 ---

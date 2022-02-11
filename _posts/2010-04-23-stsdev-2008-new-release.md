@@ -2,23 +2,10 @@
 layout: post
 title: STSDev 2008 New Release
 date: 2010-04-23 09:42:01.000000000 -04:00
-
-
-
-
-
 categories:
+
+tags:
 - STSDev 2008
-tags: []
-
-  
-
-
-  
-  
-  
-  
-  
 permalink: "/2010/04/23/stsdev-2008-new-release/"
 ---
 I have just released completed work on STSDev 2008 Version 2.0.1 which provides a number of fixes to the original 2.0 version.

@@ -2,40 +2,20 @@
 layout: post
 title: Client Side Rendering of Form Fields
 date: 2014-11-14 00:40:56.000000000 -05:00
-
-
-
-
-
 categories:
+- Microsoft
 - SharePoint
+tags:
 - SharePoint 2013
-tags: []
-
-
-
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
 permalink: "/2014/11/14/client-side-rendering-of-form-fields/"
 ---
-I've been working on a site migration from SharePoint 2010 to SharePoint 2013 and a lot of what we did in 2010 was to customize forms the user interacts with.&nbsp; One of the requirements we had was to ensure a Project Name and Project Alias field did not contain the same information.&nbsp; In SharePoint 2010 this had been done by adding some JavaScript to the page, grabbing each control by HTML Element ID, and then comparing their values.&nbsp; When we migrated these fields all got new HTML Element IDs so our validation logic was broken.
+I've been working on a site migration from SharePoint 2010 to SharePoint 2013 and a lot of what we did in 2010 was to customize forms the user interacts with. One of the requirements we had was to ensure a Project Name and Project Alias field did not contain the same information. In SharePoint 2010 this had been done by adding some JavaScript to the page, grabbing each control by HTML Element ID, and then comparing their values. When we migrated these fields all got new HTML Element IDs so our validation logic was broken.
 
-Obviously, we could go and update the JavaScript to use the new IDs, but if we migrated to another environment or performed and upgrade in the future we would probably have an issue again.&nbsp; Instead SharePoint 2013 added Client Side Rendering which allows us to control the form's rendering&nbsp;using JavaScript which would should allow our solution to be more portable and enable the field validation.
+Obviously, we could go and update the JavaScript to use the new IDs, but if we migrated to another environment or performed and upgrade in the future we would probably have an issue again. Instead SharePoint 2013 added Client Side Rendering which allows us to control the form's renderingusing JavaScript which would should allow our solution to be more portable and enable the field validation.
 
-I have written a couple of other blogs about the Client Side[Rendering&nbsp;of a&nbsp;View](http://davidmcwee.com/2014/01/28/sharepoint-contacts-on-a-map-with-client-side-rendering/ "SharePoint Contacts on a Map with Client Side Rendering")and[&nbsp;Rendering of&nbsp;Specific Field(s)](http://davidmcwee.com/2014/02/12/more-customizations-with-client-side-rendering/ "More customizations with Client Side Rendering").&nbsp; While those were useful I found I was still missing a lot of information about how we could add the validation, what was needed to make sure values provided in the form were saved,&nbsp;and how to make the controls interact.
+I have written a couple of other blogs about the Client Side[Renderingof aView](http://davidmcwee.com/2014/01/28/sharepoint-contacts-on-a-map-with-client-side-rendering/ "SharePoint Contacts on a Map with Client Side Rendering")and[Rendering ofSpecific Field(s)](http://davidmcwee.com/2014/02/12/more-customizations-with-client-side-rendering/ "More customizations with Client Side Rendering"). While those were useful I found I was still missing a lot of information about how we could add the validation, what was needed to make sure values provided in the form were saved,and how to make the controls interact.
 
-Before we begin a word of caution:&nbsp; Once a Field Template is provided the template must provide the UI Controls for the user to interact with, a method to retrieve the value specified by the user, a method of displaying the previously specified value, and any validation INCLUDING if the field is required or not.&nbsp; The example below will include elements of all of this, but your implementation may differ based on your scenario.
+Before we begin a word of caution: Once a Field Template is provided the template must provide the UI Controls for the user to interact with, a method to retrieve the value specified by the user, a method of displaying the previously specified value, and any validation INCLUDING if the field is required or not. The example below will include elements of all of this, but your implementation may differ based on your scenario.
 
 First, remember that we need to write good JavaScript that does not pollute the global JS space, so remember to wrap everything in your self executing function.
 
@@ -43,7 +23,7 @@ First, remember that we need to write good JavaScript that does not pollute the 
 > //overrideContext code below  
 > })();
 
-Second, we are going to specify an override on the Edit Form for our specific fields, you may also want to do this on a new form but in our case the Project Alias was not available on the new form so we didn't worry about it there.&nbsp; Remember once we provide the override for the Field we are fully responsible for the type of input(s)/controls the user will have to interact, retrieving the value for SharePoint, and performing any 'Required' field validation along with any other custom validation we may want.&nbsp; In order to provide the override in the proper format we must create our OverrideContext object with the proper properties.
+Second, we are going to specify an override on the Edit Form for our specific fields, you may also want to do this on a new form but in our case the Project Alias was not available on the new form so we didn't worry about it there. Remember once we provide the override for the Field we are fully responsible for the type of input(s)/controls the user will have to interact, retrieving the value for SharePoint, and performing any 'Required' field validation along with any other custom validation we may want. In order to provide the override in the proper format we must create our OverrideContext object with the proper properties.
 
 > var overrideCtx = {};  
 > overrideCtx.Templates = {};
@@ -61,7 +41,7 @@ Second, we are going to specify an override on the Edit Form for our specific fi
 > 
 > SPClientTemplates.TemplateManager.RegisterTemplateOverrides(overrideCtx);
 
-At this point we have now specified that we want to override&nbsp;the ProjectAlias and ProjectName&nbsp;fields when the Edit Form is rendered.&nbsp; However, since we have not returned any HTML formatted controls from either function if we placed all this in a JavaScript file and added it as the JS Link on the Edit form what would actually happen is the ProjectAlias and ProjectName&nbsp;input control wouldn't exist.
+At this point we have now specified that we want to overridethe ProjectAlias and ProjectNamefields when the Edit Form is rendered. However, since we have not returned any HTML formatted controls from either function if we placed all this in a JavaScript file and added it as the JS Link on the Edit form what would actually happen is the ProjectAlias and ProjectNameinput control wouldn't exist.
 
 Focusing on the ProjectAlias Field we can add the following to return an HTML TextBox for the user to make use of.
 
@@ -72,17 +52,17 @@ Focusing on the ProjectAlias Field we can add the following to return an HTML Te
 > 
 > return String.format('\<input type="text" id="{0}" name="{0}" /\>', controlId);
 
-Now we have a simple text box that will render because the function provided to EditForm is expected to return HTML that can be directly embedded in the page for rendering.&nbsp; Also we are controlling the ID and Name attributes of our HTML Element so our validation later will be much easier.&nbsp; While we have the control being rendered, if you actually try to provide a value nothing will get saved because we haven't specified how to get the value from the control.&nbsp; So before we return our HTML string we need to register our "getter" method so SharePoint knows how to get the value for our overridden field.
+Now we have a simple text box that will render because the function provided to EditForm is expected to return HTML that can be directly embedded in the page for rendering. Also we are controlling the ID and Name attributes of our HTML Element so our validation later will be much easier. While we have the control being rendered, if you actually try to provide a value nothing will get saved because we haven't specified how to get the value from the control. So before we return our HTML string we need to register our "getter" method so SharePoint knows how to get the value for our overridden field.
 
 > ctx.registerGetValueCallback(ctx.fieldName, function() {  
 > return $get(controlId).value;  
 > });
 
-_$get is a SharePoint provided function which return the HTML DOM object and is&nbsp;similar to the jQuery $("#" + controlId).&nbsp; I've used only the SharePoint functionality here to prevent confusion with other JS libraries._
+_$get is a SharePoint provided function which return the HTML DOM object and issimilar to the jQuery $("#" + controlId). I've used only the SharePoint functionality here to prevent confusion with other JS libraries._
 
-**Important thing to note:** &nbsp; The first argument to the register function is the Field's Name, if you use any other value your function will still get called, but the value you return will not get applied to the field it should be associated with.&nbsp; I originally used the controlId as the first argument but found the values were never saved, it took a lot of searching and trial and error to finally realize the issue.
+**Important thing to note:**  The first argument to the register function is the Field's Name, if you use any other value your function will still get called, but the value you return will not get applied to the field it should be associated with. I originally used the controlId as the first argument but found the values were never saved, it took a lot of searching and trial and error to finally realize the issue.
 
-Now that we can retrieve and save our control's value we can implement validation.&nbsp; In order to provide validation we need to create a Validator object that implements&nbsp;the Validate(...) function.
+Now that we can retrieve and save our control's value we can implement validation. In order to provide validation we need to create a Validator object that implementsthe Validate(...) function.
 
 > //Added the Field Validator just below the declaration of overrideCtx.Templates = {};  
 > fieldValidator = function() {  
@@ -100,7 +80,7 @@ Now that we can retrieve and save our control's value we can implement validatio
 > };  
 > };
 
-In the above code you can see we did hard code the HTML IDs, while this was done in our dev code we did move to saving each of the Control IDs as properties so they could be retrieved later and the code would be more generic.&nbsp; However, the idea is that we will get the two controls value's and compare them, if they match we will set isError to true and provide a message back to the user.
+In the above code you can see we did hard code the HTML IDs, while this was done in our dev code we did move to saving each of the Control IDs as properties so they could be retrieved later and the code would be more generic. However, the idea is that we will get the two controls value's and compare them, if they match we will set isError to true and provide a message back to the user.
 
 Now we need to add our Validator to the Form's list of Validators in association with our field and we also need to handle a validation error.
 
@@ -114,7 +94,7 @@ These lines handle creating a validator set, so you can have multiple validators
 > SPFormControl\_AppendValidationErrorMessage(controlId, errorResult);  
 > });
 
-These lines handle the Validation Callback, but this function is not always called.&nbsp; This function is invoked when the input fails validation or if the previous attempt to save failed validation.&nbsp; The nice thing is that all we really need to do, in this case, is pass along the results as well as the HTML Element ID to the SPFormControl\_AppendValidationErrorMessage function.&nbsp; You could consider adding other logic here to clear, update, or add suggestions to the user for possible "good" values if validation fails.&nbsp; The errorResult object provided two properties errorMessage which is the message you specified, and validationError which is the Boolean value you specified in your Validation object.
+These lines handle the Validation Callback, but this function is not always called. This function is invoked when the input fails validation or if the previous attempt to save failed validation. The nice thing is that all we really need to do, in this case, is pass along the results as well as the HTML Element ID to the SPFormControl\_AppendValidationErrorMessage function. You could consider adding other logic here to clear, update, or add suggestions to the user for possible "good" values if validation fails. The errorResult object provided two properties errorMessage which is the message you specified, and validationError which is the Boolean value you specified in your Validation object.
 
-Once all of this is added, you now have a functioning form override with field dependencies.&nbsp; Here is the entire [JavaScript file in PDF format](http://dmcwee.files.wordpress.com/2014/11/displaytemplatejs.pdf)for you to view.
+Once all of this is added, you now have a functioning form override with field dependencies. Here is the entire [JavaScript file in PDF format](http://dmcwee.files.wordpress.com/2014/11/displaytemplatejs.pdf)for you to view.
 

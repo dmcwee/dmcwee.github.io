@@ -3,26 +3,13 @@ layout: post
 title: Visual Studio 2010 SharePoint List Template Error
 date: 2011-01-26 00:15:13.000000000 -05:00
 
-
-
-
-
 categories:
 - Microsoft
-- SharePoint 2010
+- SharePoint
 tags:
 - List Template
 - Visual Studio 2010
-
-  
-    05:40:35";}
-  
-
-
-  
-  
-  
-  
+- SharePoint 2010
   
 permalink: "/2011/01/26/visual-studio-2010-sharepoint-list-template-error/"
 ---

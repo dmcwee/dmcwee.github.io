@@ -2,40 +2,14 @@
 layout: post
 title: AngularJS Module for Azure Mobile Services
 date: 2014-07-08 11:03:35.000000000 -04:00
-
-
-
-
-
 categories:
 - AngularJS
+tags: 
 - AngularJS Module for Azure Mobile Services
 - Azure
 - CodePlex
 - Mobile Web Services
 - NuGet
-tags: []
-
-
-
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
 permalink: "/2014/07/08/angularjs-module-for-azure-mobile-services/"
 ---
 A few months back a coworker introduced me to AngularJS as an alternative to using KnockoutJS.&nbsp; Around the same time Microsoft was pushing a bunch of videos and "How To's" on the Azure Mobile Services.&nbsp; After walking through the AngularJS tutorial and playing with the Azure Mobile Services "To Do" Demo I decided it would be interesting to mesh these two items together, use AngularJS in the UI to communicate with Azure Mobile Services for data storage, and who know what else in the future.

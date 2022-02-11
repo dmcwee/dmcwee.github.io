@@ -2,25 +2,14 @@
 layout: post
 title: IE11 Broke SharePoint 2010
 date: 2014-01-15 15:42:30.000000000 -05:00
-
-
-
-
-
 categories:
 - Microsoft
-- SharePoint 2010
+- SharePoint
+
 tags:
 - IE11
 - User Agent
-
-  
-
-
-  
-  
-  
-  
+- SharePoint 2010
   
 permalink: "/2014/01/15/why-ie11-broke-sharepoint-2010/"
 ---

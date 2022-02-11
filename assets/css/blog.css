@@ -1,0 +1,45 @@
+.blog-header {
+    line-height: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Time New Roman", serif*/;
+    font-size: 2.25rem;
+}
+
+/** Icons */
+.svg-icon { 
+    width: 16px; 
+    height: 16px; 
+    display: inline-block; 
+    fill: #828282; 
+    vertical-align: text-top; 
+}
+
+.blog-footer {
+    border-top: .05rem solid #e5e5e5;
+    padding: 2.5rem 0;
+    color: #727272;
+    background-color: #f9f9f9;
+    line-height: 1;
+}
+
+h1 {
+    font-family: lato, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: lato, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: .9rem;
+    line-height: 1.3rem;
+}

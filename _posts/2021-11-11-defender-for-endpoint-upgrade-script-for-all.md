@@ -3,11 +3,8 @@ layout: post
 title: Defender for Endpoint Upgrade Script - FOR ALL!
 date: 2021-11-11 12:18:55.000000000 -05:00
 
-
-
-
-
-categories: []
+categories:
+- MDE
 tags:
 - Defender for Endpoint
 - MDE

@@ -2,23 +2,11 @@
 layout: post
 title: Site Collection Content Type vs. Content Type Hub
 date: 2014-01-13 13:25:20.000000000 -05:00
-
-
-
-
-
 categories:
 - Microsoft
+- SharePoint
+tags:
 - SharePoint 2010
-tags: []
-
-
-  
-
-  
-  
-  
-  
   
 permalink: "/2014/01/13/site-collection-content-type-vs-content-type-hub/"
 ---

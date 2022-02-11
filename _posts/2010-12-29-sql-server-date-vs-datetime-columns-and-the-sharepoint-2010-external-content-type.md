@@ -4,25 +4,12 @@ title: SQL Server Date vs. DateTime columns and the SharePoint 2010 External Con
   Type
 date: 2010-12-29 11:32:46.000000000 -05:00
 
-
-
-
-
 categories:
 - Microsoft
-- SharePoint 2010
+- SharePoint
 tags:
 - External Content Types
-
-  
-  
-    05:16:12";}
-
-
-  
-  
-  
-  
+- SharePoint 2010
   
 permalink: "/2010/12/29/sql-server-date-vs-datetime-columns-and-the-sharepoint-2010-external-content-type/"
 ---

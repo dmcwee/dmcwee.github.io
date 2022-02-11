@@ -4,8 +4,9 @@ title: User Profile Personalized Links
 date: 2012-03-01 23:52:03.000000000 -05:00
 categories:
 - Microsoft
+- SharePoint
+tags: 
 - SharePoint 2010
-tags: []
 permalink: "/2012/03/01/user-profile-personalized-links/"
 ---
 Recently my company performed a migration for our old production environment to a new production environment so we had a more stable and robust platform to support the company, including providing leadership with better business intelligence about our operations. As part of the migration one of my goals was to launch My Sites for our internal users so they had somewhere to store information they were working on.

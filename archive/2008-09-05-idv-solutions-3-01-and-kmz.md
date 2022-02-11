@@ -2,25 +2,12 @@
 layout: post
 title: IDV Solutions 3.01 and KMZ
 date: 2008-09-05 10:48:35.000000000 -04:00
-
-
-
-
-
 categories:
 - GeoSpatial
 tags:
 - IDV
 - IDV Solutions
-
-  
-
-
-  
-  
-  
-  
-  
+published: false  
 permalink: "/2008/09/05/idv-solutions-3-01-and-kmz/"
 ---
 IDV solutions has released its latest Visual Fusion Suite and Visual Fusion Experience solutions for SharePoint. Along with the 2.0 capabilities of GeoEncoding items in a list IDV has now enhanced their ability to draw data feeds from KML files as well as providing KML output of SharePoint list items. I have installed this latest version to a site currently used to track events in the Georgia conflict, if you would like to see it in action click [here](https://georgia.harmonieweb.org/).

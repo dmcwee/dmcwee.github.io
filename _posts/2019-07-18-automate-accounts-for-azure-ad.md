@@ -3,11 +3,12 @@ layout: post
 title: Automate Accounts for Azure AD
 date: 2019-07-18 16:43:32.000000000 -04:00
 categories:
+- AAD
+tags:
 - Azure Active Directory (AAD)
-- Security &amp; Identity
+- Security and Identity
 - SharePoint
 - SharePoint Online (SPO)
-tags:
 - Flow
 - Forms
 - Microsoft
