@@ -4,6 +4,8 @@ title: Azure AD MFA managed by User Account Administrator Role
 date: 2019-02-22 09:47:55.000000000 -05:00
 categories:
 - AAD
+- Security
+- Identity
 tags:
 - Azure
 - Azure Active Directory (AAD)

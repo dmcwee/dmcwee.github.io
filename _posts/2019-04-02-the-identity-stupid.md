@@ -4,6 +4,7 @@ title: The Identity stupid!
 date: 2019-04-02 09:51:15.000000000 -04:00
 categories:
 - AAD
+- Identity
 tags: 
 - Azure
 - Azure Active Directory (AAD)

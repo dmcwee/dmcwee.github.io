@@ -5,6 +5,7 @@ date: 2021-11-11 12:18:55.000000000 -05:00
 
 categories:
 - MDE
+- Security
 tags:
 - Defender for Endpoint
 - MDE

@@ -4,6 +4,7 @@ title: Incorporate Azure AD with your Angular App
 date: 2019-06-14 16:06:51.000000000 -04:00
 categories:
 - AAD
+- Identity
 tags: 
 - Angular
 - Azure

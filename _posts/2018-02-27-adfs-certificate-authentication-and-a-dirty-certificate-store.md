@@ -1,9 +1,10 @@
 ---
 layout: post
-title: 'ADFS: Certificate Authentication and A Dirty Certificate Store'
+title: ADFS:Certificate Authentication and A Dirty Certificate Store
 date: 2018-02-27 14:12:49.000000000 -05:00
 categories:
 - AAD
+- Identity
 tags:
 - AD FS
 - ADFS

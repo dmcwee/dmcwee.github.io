@@ -39,6 +39,10 @@ navbar:
   link: /about
 
 secondary-navbar:
+- name: Identity
+  link: /categories/identity
+- name: Security
+  link: /categories/security
 - name: Defender for Endpoint
   link: /categories/mde
 - name: Defender for Identity

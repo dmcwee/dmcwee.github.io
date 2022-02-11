@@ -4,6 +4,8 @@ title: O365 MFA vs Azure AD MFA
 date: 2018-12-04 15:44:20.000000000 -05:00
 categories:
 - AAD
+- Security
+- Identity
 tags:
 - Azure Authenticator App
 - Multi Factor Authentication

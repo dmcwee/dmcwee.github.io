@@ -4,6 +4,7 @@ title: Defender for Endpoint Unified Package for Server 2016 and 2012 R2
 date: 2021-11-01 16:40:29.000000000 -04:00
 categories:
 - MDE
+- Security
 tags:
 - Defender for Endpoint
 - MDE
