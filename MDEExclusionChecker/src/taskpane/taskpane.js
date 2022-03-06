@@ -5,6 +5,8 @@
 
 /* global console, document, Excel, Office */
 
+const exclusionListUrl = "https://raw.githubusercontent.com/dmcwee/dmcwee.github.io/master/MDEExclusionChecker/exclusionList/mde-exclusions.json";
+
 Office.onReady((info) => {
   if (info.host === Office.HostType.Excel) {
     document.getElementById("sideload-msg").style.display = "none";
@@ -31,10 +33,9 @@ export async function run() {
       log(`range values: ${JSON.stringify(range.values)}`);
 
       //get the mde exclusions
-      //https://raw.githubusercontent.com/dmcwee/myofficeaddin/master/web_resources/mde-exclusions.json
-      log("Calling https://raw.githubusercontent.com/dmcwee/myofficeaddin/master/web_resources/mde-exclusions.json");
+      log(`Calling ${exclusionListUrl}`);
       let response = await fetch(
-        "https://raw.githubusercontent.com/dmcwee/myofficeaddin/master/web_resources/mde-exclusions.json"
+        exclusionListUrl
       );
       if (response.ok) {
         log(`Response was OK.`);
@@ -77,9 +78,6 @@ function validateRange(range, defaultList) {
     validatedRange.push(compareExclusionToDefaultList(exclusion[0], defaultList));
     log(`validated range after push is now ${JSON.stringify(validatedRange)}`);
   }
-  //range.values.forEach((exclusion) => {
-  //  validatedRange.push(compareExclusionToDefaultList(exclusion[0], defaultList));
-  //});
   return validatedRange;
 }
 
