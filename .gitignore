@@ -3,5 +3,4 @@ package-lock.json
 server.js
 _site/
 .sass-cache/
-assets/
 .vscode/

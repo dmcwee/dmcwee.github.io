@@ -182,7 +182,7 @@
     },
     {
         "name":"DNS: Server File, folder, and process exclusions",
-        "path":[
+        "paths":[
             "\\\\System32\\\\Dns\\\\(.)*\\\\(.)*\\.log",
             "\\\\System32\\\\Dns\\\\(.)*\\\\(.)*\\.dns",
             "\\\\System32\\\\Dns\\\\(.)*\\\\(.)*\\.scc",
@@ -192,7 +192,7 @@
     },
     {
         "name":"File and Storage Services exclusions",
-        "path":[
+        "paths":[
             "\\\\ClusterStorage",
             "\\\\Local Settings\\\\Temp",
             "\\\\mscs"
@@ -200,7 +200,7 @@
     },
     {
         "name":"Print Server File type, Folder, and Process exclusions",
-        "path":[
+        "paths":[
             "(.)*\\.shd",
             "(.)*\\.spl",
             "\\\\spool\\\\printers\\\\(.)*",
