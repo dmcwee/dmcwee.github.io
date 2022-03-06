@@ -8,7 +8,7 @@
   <Description DefaultValue="Checks the list of exclusions against the built in exclusions in MDE."/>
   <IconUrl DefaultValue="https://dmcwee.github.io/assets/images/mdeexclusionchecker/mde-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://dmcwee.github.io/assets/images/mdeexclusionchecker/mde-64.png"/>
-  <SupportUrl DefaultValue="https://dmcwee.github.io/help"/>
+  <SupportUrl DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/help"/>
   <AppDomains>
     <AppDomain>https://dmcwee.github.io</AppDomain>
   </AppDomains>
@@ -16,7 +16,7 @@
     <Host Name="Workbook"/>
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://dmcwee.github.io/assets/images/mdeexclusionchecker/taskpane.html"/>
+    <SourceLocation DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/taskpane/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -68,8 +68,8 @@
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
-        <bt:Url id="Commands.Url" DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/commands/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://dmcwee.github.io/mdeexclusionchecker/taskpane/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Check your AV Exclusions!"/>
