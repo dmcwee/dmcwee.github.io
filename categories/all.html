@@ -1,18 +1,5 @@
 ---
-layout: default
+layout: page
 title: All Posts
 ---
-<h3>All Posts</h3>
-{% for post in site.posts %}
-
-  <article class="blog-post">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.date | date: "%a, %b %d, %y"}}
-          {% for category in post.categories %}
-          | <a href="/categories/{{ category | slugify }}">{{ category }}</a>
-          {% endfor %}
-      </p>
-      <p>{{ post.excerpt }}</p>
-  </article>
-
-{% endfor %}
+{% include gen-post-list.html posts=site.posts %}

@@ -28,7 +28,7 @@ linkedin_username: dmcwee
 markdown: kramdown
 theme: minima
 show_excerpts: true
-permalink: /:title/
+permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
 

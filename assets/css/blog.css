@@ -48,7 +48,20 @@ h2 {
     text-transform: uppercase;
 }
 
+h3 {
+    font-family: lato, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
 p {
     font-size: .9rem;
     line-height: 1.3rem;
+}
+
+img {
+    display: block;
+    max-width: 750px;
+    max-height: 750px;
 }

@@ -3,16 +3,4 @@ title: Azure Active Directory Posts
 layout: page
 ---
 {% assign catPosts = site.posts | where: "categories", "AAD" %}
-{% for post in catPosts %}
-
-  <article class="blog-post">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.date | date: "%a, %b %d, %y"}}
-          {% for category in post.categories %}
-          | <a href="/categories/{{ category | slugify }}">{{ category }}</a>
-          {% endfor %}
-      </p>
-      <p>{{ post.excerpt }}</p>
-  </article>
-
-{% endfor %}
+{% include gen-post-list.html posts=catPosts %}
