@@ -4,3 +4,4 @@ server.js
 _site/
 .sass-cache/
 .vscode/
+dist/
