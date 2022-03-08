@@ -57,12 +57,15 @@ h3 {
 
 body {
     font-family: lato, sans-serif;
-}
-
-p, li {
     font-size: .9rem;
     line-height: 1.3rem;
 }
+
+/*
+p, li, table {
+    
+}
+*/
 
 img {
     display: block;
