@@ -10,6 +10,7 @@ tags:
 permalink: "/2014/07/24/hero-blog-post-of-the-day/"
 ---
 I was working on a project today where I need to dynamically create a MS Word Document, save it to a SharePoint library, and then present the document to the user for editing. My first attempt was to create an IFrame that would redirect to the document once it was created, but this would only open the document in 'Read Only' Mode.
+<!--more-->
 
 ### Enter the Hero Blog Post
 

@@ -23,6 +23,7 @@ url: "https://dmcwee.github.io" # the base hostname & protocol for your site, e.
 twitter_username: dmcwee
 github_username:  dmcwee
 linkedin_username: dmcwee
+excerpt_separator: <!--more-->
 
 # Build settings
 markdown: kramdown

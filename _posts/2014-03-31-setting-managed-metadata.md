@@ -9,7 +9,7 @@ tags:
 - SharePoint 2010
 permalink: "/2014/03/31/setting-managed-metadata/"
 ---
-I recently had an issue trying to set the Managed Metadata field value on a new list item I was creating in C# code. In the control where the user could select the managed metadata value I was using the OTB Taxonomy Control which was properly bound to my Managed Metadata Field. From that I would then retrieve the 'Value' (Label|Guid)of the Term selected and call the TaxonomyFieldValue PopulateFromLabelGuidPair. This would successfully retrieve a TaxonomyFieldValue and I would this use this as follows:
+I recently had an issue trying to set the Managed Metadata field value on a new list item I was creating in C# code. In the control where the user could select the managed metadata value I was using the OTB Taxonomy Control which was properly bound to my Managed Metadata Field. <!--more--> From that I would then retrieve the 'Value' (Label|Guid)of the Term selected and call the TaxonomyFieldValue PopulateFromLabelGuidPair. This would successfully retrieve a TaxonomyFieldValue and I would this use this as follows:
 
 > TaxonomyFieldValue mmdFieldValue = new TaxonomyFieldValue(string.Empty);  
 > mmdFieldValue.PopulateFromLabelGuidPair(mmdFieldControl.value);  

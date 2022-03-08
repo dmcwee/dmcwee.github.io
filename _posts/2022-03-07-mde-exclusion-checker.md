@@ -2,6 +2,13 @@
 title: MDE Exclusion Checker
 layout: post
 excerpt_separator: <!--more-->
+categories:
+- MDE
+tags:
+- Defender for Endpoint
+- MDE
+- Defender Anti Virus
+- MDAV
 ---
 MDE Exclusion Checker is a tool to compare your existing AV Exclusions against the list of exclusions that are native to Defender for Endpoint AntiVirus.  This tool is a Beta solution and work is continuing to help improve the 'match' vs. 'no match' policies.
 <!--more-->

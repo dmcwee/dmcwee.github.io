@@ -13,6 +13,7 @@ tags:
 permalink: "/2013/09/18/sharepoint-2010-and-jquery-2-x/"
 ---
 Recently, I was working with a coworker who had created a javascript dashboard using jQuery and KnockoutJS in SharePoint. The dashboard had worked perfectly for him, but when I viewed the site none of the data would render. While we were testing the site we noticed that my browser was running inBrowser ModeIE10 with Document Standard IE 7 Standard,but his was running Browser Mode IE 10 with Document Mode: Standards. Having battled with SharePoint 2010using anHTML5 Masterpage I began looking for the Meta tag on the page which should define the appropriate browser mode and noticed he had removed it. I had him add the tag back to the masterpage (from my experience removing the browser mode tag in SP2010 causes all kinds of issues when editing pages, list items, etc) but still found the dashboard was not functioning properly.
+<!--more-->
 
 When we looked at the jQuery include I noticed he was using the latest version from the Microsoft CDN, which happens to be version 2.x. Because I had another site running with jQuery and Knockout I had him revert his version of jQuery to 1.10.x and we found this was working.
 

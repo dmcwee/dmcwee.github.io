@@ -10,6 +10,7 @@ tags:
 permalink: "/2012/03/01/user-profile-personalized-links/"
 ---
 Recently my company performed a migration for our old production environment to a new production environment so we had a more stable and robust platform to support the company, including providing leadership with better business intelligence about our operations. As part of the migration one of my goals was to launch My Sites for our internal users so they had somewhere to store information they were working on.
+<!--more-->
 
 As I was thinking about what would be useful to our employees I ran across the Personalized Links capability available in the User Profile Service Application. In general this capability allows us to "push" links onto a user's My Site. Since our company uses Great Plains for timecards and financial management integrated into SharePoint I thought it would be worthwhile to place the link to an employee's Timecard Entry page along with a link to our primary portal. I then decided a link for Timesheet Reviewers made sense, but I didn't want it to show up on all of the employee's pages, just the employees who actually review timesheets. We have already scoped this link on our portal by using the Business Portal security groups, but since we are working in the context of the My Site we don't have those security groups to rely on.
 

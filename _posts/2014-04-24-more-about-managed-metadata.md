@@ -10,6 +10,7 @@ tags:
 permalink: "/2014/04/24/more-about-managed-metadata/"
 ---
 I recently had more fun with setting Managed Metadata values in SharePoint 2010. This time as part of an event receiver during the Item Adding, Item Updating, and Item Updated events. (There are interesting event ordering challenges which lead to using all of these events, but that is not the focus of this blog.) The challenge I faced was copying values from a Document Set down to documents that were being created/uploaded to the list. Normally, using Shared Properties would negate this but because we wanted use to edit the Managed Metadata Values in the Document Information Panel we could not use shared values because the Document Set would immediately overwrite any changes made to the document. Instead we created an Event Receiver to manually handle the updates from the Document to the Document Set, and from the Document Set to the child documents.
+<!--more-->
 
 The issue arose that copying the Document Set values to the Document didn't work. In the logging we could see our Set function get called and return success, but the values never seemed to stick. I was using code I've [previously blogged about](http://davidmcwee.com/2014/03/31/setting-managed-metadata/ "Setting Managed Metadata"):
 

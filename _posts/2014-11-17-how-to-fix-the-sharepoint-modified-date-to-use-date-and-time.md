@@ -12,6 +12,7 @@ permalink: "/2014/11/17/how-to-fix-the-sharepoint-modified-date-to-use-date-and-
 If you've started using SharePoint 2013 you probably noticed that Microsoft changed the way they present the Modified value. In SharePoint 2010 the Modified field showed a Date/Time stamp, but in SharePoint 2013 the Date/Time is replaced with something like "3 minutes ago". Personally I like this, but some users may not and the Date/Time stamp may be really important especially for Legal Departments or other Audited applications.
 
 Fortunately there is a very simple fix, using the Client Side Rendering to override SharePoint's default rendering of the Modified field.
+<!--more-->
 
 The script is simple enough:
 

@@ -13,6 +13,7 @@ tags:
 permalink: "/2014/03/18/fixing-ie11-enter-key-problem-with-search/"
 ---
 I was recently working for a client who began having issues with the Windows 8.1 baseline and their search center. If you are familiar with Windows 8.1 then you are aware that it comes with IE 11 which has a new User Agent string that can cause some issues with SharePoint (ref: [IE11 Broke SharePoint 2010](http://davidmcwee.com/2014/01/15/why-ie11-broke-sharepoint-2010/ "IE11 Broke SharePoint 2010")). My task was to figure out why when a user entered a search term/key word and hit enter the page simply refreshed.
+<!--more-->
 
 I tried several ideas, including attaching to the form submit action, to no success so I began searching the web for any other possibilities I had not though of. Interestingly, I began running across several similar issues with Firefox from back in the SharePoint 2007days. After doing a little reading I began experimenting using IE11'sdeveloper tools and found it has a similar issue to Firefox from years ago. Here is the problem:
 

@@ -2,7 +2,7 @@
 layout: post
 title: Defender for Endpoint Upgrade Script - FOR ALL!
 date: 2021-11-11 12:18:55.000000000 -05:00
-
+excerpt_separator: <!--more-->
 categories:
 - MDE
 - Security
@@ -13,6 +13,7 @@ tags:
 permalink: "/2021/11/11/defender-for-endpoint-upgrade-script-for-all/"
 ---
 Working with a customer on the MDE Unified Installer for Windows Server 2016/2012R2 we ran into the issue that SCEP was installed and thus blocking the Unified Installer. Therefore, instead of the Install approach we really needed to perform an Upgrade, but would that mean we needed an approach for servers where SCEP had been installed vs. servers where SCEP was not installed? Answer: No!
+<!--more-->
 
 ## MDE Unified Installer Upgrade Script
 

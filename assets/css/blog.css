@@ -44,7 +44,7 @@ h1 {
 h2 {
     font-family: lato, sans-serif;
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: 350;
     text-transform: uppercase;
 }
 
@@ -55,7 +55,11 @@ h3 {
     text-transform: uppercase;
 }
 
-p {
+body {
+    font-family: lato, sans-serif;
+}
+
+p, li {
     font-size: .9rem;
     line-height: 1.3rem;
 }

@@ -25,6 +25,7 @@ permalink: "/2018/02/27/adfs-certificate-authentication-and-a-dirty-certificate-
 I often support ADFS configurations that are used to enable Client Certificate Authentication. Typically, these deployments are straight forward: we have certificates that cover the URLs ([sts url] and certauth.[sts url] see [this article](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/overview/ad-fs-requirements) for more details), we enable the client certificate authentication and it works.
 
 Then there are the other deployments.
+<!--more-->
 
 # The Dirty Certificate Store
 
