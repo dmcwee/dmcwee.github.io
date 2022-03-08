@@ -8,7 +8,7 @@ This page provides helpful information abou the MDE Exclusion checker currently 
 ## Getting Started
 MDE Exclusion Checker is currently in development, so it is not yet available in the Office App Store.  To load the application follow these steps:
 
-1. Download the MDE Exclusion Checker Manifest XML file from [here](https://raw.githubusercontent.com/dmcwee/dmcwee.github.io/master/MDEExclusionChecker/manifest.xml).
+1. Download the MDE Exclusion Checker Manifest XML file from [here]({{ "/mdeexclusionchecker/dist/manifest.prod.xml).
 1. Launch Microsoft Excel, either browser or thick client will work.
 1. On the **Insert** tab click the **Office Add-ins** *(web)* or **Get Add-ins** *(if using thick client)* button.
 ![Office Ribbon Add-In]({{ "/assets/images/mdeexclusionchecker/office_ribbon.png" | relative_url }})
