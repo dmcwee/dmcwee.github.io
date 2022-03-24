@@ -1,0 +1,42 @@
+<div class="position-sticky blog-sidebar">
+    <div class="card my-1 mx-1">
+        <div class="card-body">
+            <h5 class="card-title">Share Post</h5>
+            <ul class="socialmedia-list">
+                <li class="socialmedia-item socialmedia-item-small">
+                    <a href="https://twitter.com/intent/tweet?{{site.url | url_encode}}{{page.url | url_encode}}">
+                        <span class="bi-twitter btn-icon" role="img" aria-label="share on twitter"></span>
+                    </a>
+                </li>
+                <li class="socialmedia-item socialmedia-item-small">
+                    <a href="https://www.linkedin.com/cws/share/?url=?{{site.url | url_encode}}{{page.url | url_encode}}">
+                        <span class="bi-linkedin btn-icon" role="img" aria-label="share on twitter"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card my-1 mx-1">
+        <div class="card-body">
+            <h5 class="card-title">Follow Me</h5>
+            <ul class="socialmedia-list">
+                {% for socialSite in site.socialmedia %}
+                <li class="socialmedia-item socialmedia-item-small">
+                    <a href="{{ socialSite.url }}">
+                        <span class="{{socialSite.iconclass}} btn-icon" role="img" aria-label="{{socialSite.name}}"></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+<!--
+    <div class="card my-1 mx-1">
+        <div class="card-body">
+            <h3 class="card-title">Categories</h3>
+            {% include tag-cloud.html %}
+        </div>
+    </div>
+-->
+</div>

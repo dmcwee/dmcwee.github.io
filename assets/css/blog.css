@@ -25,13 +25,25 @@
     line-height: 1;
 }
 
+.blog-feature {
+    border-radius: 1rem;
+    background-color: #333;
+    color: white;
+}
+
 .summary-card {
+    border-radius: .5rem;
+    background-color: #555;
     padding-right: 0px !important;
     margin-right: 0px !important;
     padding-left: 0px !important;
     margin-left: 0px !important;
-    min-height: 300px;
-    max-height: 300px;
+    height: 300px;
+    color: #fff;
+}
+.summary-card > * > .text-primary,
+.stretched-link {
+    color: #000 !important;
 }
 
 h1 {
@@ -59,6 +71,13 @@ body {
     font-family: lato, sans-serif;
     font-size: .9rem;
     line-height: 1.3rem;
+    /*background-color: #D9E0A8;*/
+    /*background-color: #D5D2CD;*/
+    background-color: #f1f2f6;
+}
+
+a {
+    color: #000;
 }
 
 /*
@@ -71,4 +90,8 @@ img {
     display: block;
     max-width: 750px;
     max-height: 750px;
+}
+
+ol, ul, li {
+    list-style: none;
 }

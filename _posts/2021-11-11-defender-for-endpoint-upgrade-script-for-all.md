@@ -49,7 +49,7 @@ I created a GPO exactly like the directions for [Windows 10/11 or Server 2019](h
 
 For the Task itself the command I used was:
 
-```
+```console
 Program/Script: Powershell
 Arguments: -ExecutionPolicy Bypass \\sharelocation\install.ps1 -OnboardingScript \\sharelocation\WindowsDefenderATPOnboardingScript.cmd -RemoveMMA MMA-MDE-Workspace-Guid
 ```

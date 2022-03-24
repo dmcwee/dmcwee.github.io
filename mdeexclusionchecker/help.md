@@ -22,3 +22,7 @@ MDE Exclusion Checker is currently in development, so it is not yet available in
 ![Office Add-In Uploaded Successfully]({{ "/assets/images/mdeexclusionchecker/addin_loaded_success.png" | relative_url}})
 1. Select two consecutive columns, the first with the list of exclusions, and the second with empty.  Once run the MDE Exclusion tool will populate the second column with the match determination.
 ![Excel Selected Range]({{"/assets/images/mdeexclusionchecker/selected_columns.png" | relative_url}})
+1. Click the Show MDE AV Chceker from the ribbon and in the task panel (you will likely need to scroll down) click *Check Exclusions*.
+![Exclusion Checker Task Panel]({{ "/assets/images/mdeexclusionchecker/taskpanel.png" | relative_url }})
+1. The Excel sheet will update the second column with *No Match* or the match rule that the exclusion applied to.
+![Results]({{"/assets/images/mdeexclusionchecker/results.png" | relative_url }})

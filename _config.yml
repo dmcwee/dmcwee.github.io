@@ -20,18 +20,35 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: "dmcwee.github.io"
 url: "https://dmcwee.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+socialmedia:
+  - name: twitter
+    username: dmcwee
+    iconclass: bi-twitter
+    url: "https://twitter.com/dmcwee"
+  - name: linkedin
+    username: dmcwee
+    iconclass: bi-linkedin
+    url: "https://www.linkedin.com/in/dmcwee/"
+  - name: github
+    username: dmcwee
+    iconclass: bi-github
+    url: "https://github.com/dmcwee"
 twitter_username: dmcwee
 github_username:  dmcwee
 linkedin_username: dmcwee
 excerpt_separator: <!--more-->
+image: /assets/images/me.jpg
 
 # Build settings
 markdown: kramdown
 theme: minima
+highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
+sass:
+  style: compressed
 
 # navbar
 navbar:
@@ -51,6 +68,21 @@ secondary-navbar:
   link: /categories/mdi
 - name: Defender for Office
   link: /categories/mdo
+
+defaults:
+-
+  scope:
+    path: ""
+  values:
+    author: David McWee
+    seo_type: "Site"
+-
+  scope:
+    path: "_posts"
+    type: "posts"
+  values:
+    twitter_summary: true
+    seo_type: "BlogPosting"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
