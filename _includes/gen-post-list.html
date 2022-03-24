@@ -1,8 +1,8 @@
 {% for post in include.posts %}
-  <article class="blog-post">
+  <article class="blog-post my-3">
       <h3>{{ post.title }}</h3>
-      <p>
-          <span class="text-muted blog-date">{{ post.date | date: "%a, %b %d, %y"}}</span>
+      <p class="by-line">
+          <span class="blog-date">{{ post.date | date: "%a, %b %d, %y"}}</span>
           {% for category in post.categories %}
           | <a href="/categories/{{ category }}">{{ category }}</a>
           {% endfor %}
