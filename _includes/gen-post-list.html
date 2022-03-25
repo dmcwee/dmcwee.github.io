@@ -1,16 +1,5 @@
 {% for post in include.posts %}
-  <article class="blog-post my-3">
-      <h3>{{ post.title }}</h3>
-      <p class="by-line">
-          <span class="blog-date">{{ post.date | date: "%a, %b %d, %y"}}</span>
-          {% for category in post.categories %}
-          | <a href="/categories/{{ category }}">{{ category }}</a>
-          {% endfor %}
-      </p>
-      <p>{{ post.excerpt }}</p>
-      <p><a class="link-secondary" href="{{post.url}}">Read more...</a></p>
-  </article>
-
+  {%- include article.html post=post %}
 {% endfor %}
 
   <a href="/categories/all" class="link-secondary">All Posts...</a>
