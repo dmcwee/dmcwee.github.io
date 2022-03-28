@@ -49,9 +49,9 @@ I created a GPO exactly like the directions for [Windows 10/11 or Server 2019](h
 
 For the Task itself the command I used was:
 
-```console
+{% highlight console linenos %}
 Program/Script: Powershell
 Arguments: -ExecutionPolicy Bypass \\sharelocation\install.ps1 -OnboardingScript \\sharelocation\WindowsDefenderATPOnboardingScript.cmd -RemoveMMA MMA-MDE-Workspace-Guid
-```
+{% endhighlight %}
 
 You can refer to my [previous post about using a WMI Filter](https://davidmcwee.com/2021/11/01/defender-for-endpoint-unified-package-for-server-2016-and-2012-r2/) to target deployment to only Server 2012R2 and 2016 instances if your servers aren't segmented into different OUs.

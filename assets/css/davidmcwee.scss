@@ -12,39 +12,7 @@ $calm: #007cc0;
 $bright: #ffc20e;
 $common-font: "Playfair Display", Georgia, "Times New Roman";
 
-@use 'vs';
-
-body {
-    background-color: $backgroundColor;
-    /*font-family: $common-font;*/
-}
-
-a, a:visited {
-    color: $impact;
-}
-
-a:hover {
-    color: $calm;
-}
-
-/** Code formatting */
-pre, code { font-size: 15px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #eef; }
-
-code { padding: 1px 5px; }
-
-pre { padding: 8px 12px; overflow-x: auto; }
-pre > code { border: 0; padding-right: 0; padding-left: 0; }
-
-table {
-    border: solid 1px $revHighContrast;
-    th {
-        border-bottom: solid 1px $impact;
-        border-top: solid 1px $impact;
-    }
-    td {
-        border-bottom: solid 1px $revHighContrast;
-    }
-}
+@import 'base', 'rouge';
 
 .blog-header {
     background-color: $highContrast;
