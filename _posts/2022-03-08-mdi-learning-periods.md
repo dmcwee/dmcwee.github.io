@@ -12,7 +12,7 @@ tags:
 - Security
 - Identity
 ---
-MDI alerts have a number of different learning periods, and each is well documented. However, there is not a single list of all the alerts that have learning periods for easy reference...Until Now.
+MDI alerts have a number of different learning periods, and each is well documented. However, there is not a single list of all the alerts that have learning periods for easy reference, so I have created and will update this list.
 <!--more-->
 
 |Alert Category|Alert|External ID|Learning Period|Learning Period Notes|
