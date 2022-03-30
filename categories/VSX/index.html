@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- seo include -->
+<meta name="description" content="" />
+<link rel="canonical" href="http://localhost:4000/categories/VSX/" />
+<meta property="article:published_time" content="" />
+<script type="application/ld+json">
+    {
+        "@type":"Site",
+        "url":"http://localhost:4000/categories/VSX/",
+        "headline":"Category: VSX",
+        "dateModified":"",
+        "datePublished":"",
+        "author":{
+            "name":"David McWee",
+            "@type":"Person",
+            "url":"http://localhost:4000"
+        },
+        
+        "image":"http://localhost:4000/assets/images/me.jpg",
+        
+        "mainEntityOfPage":{
+            "@type":"WebPage",
+            "@id":"http://localhost:4000",
+            "url":"http://localhost:4000/categories/VSX/"
+        },
+        "description":"",
+        "@context":"https://schema.org"
+    }
+</script>
+
+<!-- facebook seo -->
+<meta property="og:title" content="Category: VSX" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://localhost:4000/categories/VSX/" />
+<meta property="og:site_name" content="David McWee" />
+<meta property="og:type" content="article" />
+<!-- end facebook seo -->
+
+<!-- twitter seo -->
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Category: VSX" />
+<meta name="twitter:description" content="" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="http://localhost:4000/assets/images/me.jpg" />
+
+
+<meta name="twitter:image:alt" content="David McWee's Site Image" />
+
+<!-- end twitter seo -->
+
+<!-- end seo include -->
+
+<!-- startgoogle analytics --><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K5M43KBSNX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K5M43KBSNX');
+</script><!-- end google analytics-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!--<link rel="stylesheet" href="/assets/css/blog.css">-->
+    <link rel="stylesheet" href="/assets/css/davidmcwee.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="David McWee" />
+    <title>David McWee - Category: VSX</title>
+    
+</head><body><div class="container">
+    <header class="blog-header py-3 px-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="link-secondary" href="/tenant-tracker">Tenant Tracker</a>
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo" href="/">David McWee</a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="link-secondary" href="/about">About</a>
+            </div>
+        </div>
+    </header>
+    <div class="nav-scroller py-1 px-3 mb-2 nav-secondary">
+        <nav class="nav d-flex justify-content-between">
+            
+            <a class="p-2 link-secondary" href="/categories/identity">Identity</a>
+            
+            <a class="p-2 link-secondary" href="/categories/security">Security</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mde">Defender for Endpoint</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mdi">Defender for Identity</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mdo">Defender for Office</a>
+            
+        </nav>
+    </div>
+</div><main class="container">
+      <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Category: VSX</h1>
+  </header>
+
+  <div class="post-content">
+    
+<article class="blog-post my-3">
+    <h3>A more complex trip into the Visual Studio 2008 Item Template Area</h3>
+    <p class="by-line">
+        <span class="blog-date">Sun, Dec 21, 08</span>
+        
+        | <a href="/categories/VSX">VSX</a>
+        
+    </p>
+    <p><p>After creating <a href="https://blogs.microlinkllc.com/dmcwee/archive/2008/12/21/a-simple-trip-into-the-visual-studio-2008-item-template-area.aspx">my first</a> Visual Studio Template Item I decided that creating another would be interesting as well. Since I had already done the feature receiver I didn’t feel that creating the web part item template would be as interesting, so I decided to create the Layout Page template.</p>
+
+<p>   </p>
+
+<p>A layout page is a standard aspx page that is stored in SharePoint’s _layouts folder. This page usually consists of an aspx and a cs page (in the case of C#) which the aspx page inherits from. This means my template must include two files which is why this is a more complex activity.</p>
+
+<p>   </p>
+
+<p>I begin by creating a new StsDev2008 project with the layout pages, by default StsDev2008 places the aspx in the LAYOUTS folder in your project and places the class file in the root of the project. The means that the two files are not recognized as being linked in Visual Studio 2008. Therefore when you run the export wizard what you find is that only the aspx or the class file are exported. I find that exporting the aspx is the best method. Before exporting we do need to make some changes, first we need to update the aspx &lt;%@ Page …%&gt; tag with some replacement macros.</p>
+
+<p>   </p>
+
+<p>In the Inherits value in the &lt;%@ Page … %&gt; tag replace the current value with $rootnamespace$.$fileinputname$. This will allow the proper substitutions to occur when the item is added to the project. Now I tried, but failed, to change the &lt;%@ Assembly Name=”…” %&gt; so that it would reference the project name. However, it appears that this does not work (I am still looking into this to see if I can resolve the problem). Because of this limitation I just replaced the assembly name with [Your Assembly] so that a user knows they need to manually replace that value. Now you can export the aspx as an item template.</p>
+
+<p>   </p>
+
+<p>Finally, modify the class file in the same way as documented in my previous blog.</p>
+
+<p>   </p>
+
+<p>By this point you should have created and exported the Item Template so we need to discuss how Visual Studio Templates work. First, the template object is nothing more than a zip file. Inside the zip file is an icon file (.ico) and a template file which is similar to a SharePoint manifest file. Also inside are one or more class, aspx, ascx, etc files which contain the Visual Studio Template Macros. For this blog we will add an additional template item file and update our template manifest file.</p>
+
+<p>   </p>
+
+<p>First you can drag and drop your class file, the one that actually implements the inherited class referenced by your aspx file, into the Item Template zip file. Next you can extract the .vstemplate from the zip file. By double clicking on the vstemplate file Visual Studio will open the file and you will immediately notice it is a simple XML file.</p>
+
+<p>   </p>
+
+<p>Example of my .vstemplate:</p>
+
+<p>&lt;VSTemplate Version=”2.0.0” Type=”Item” xmlns=”…”&gt;</p>
+
+<p>&lt;TemplateData&gt;</p>
+
+<p>&lt;DefaultName&gt;SharePointLayoutPage.aspx&lt;/DefaultName&gt;</p>
+
+<p>&lt;Name&gt;SharePoint Layout Page&lt;/Name&gt;</p>
+
+<p>&lt;Description&gt;&lt;SharePoint Layout Page&lt;/Description&gt;</p>
+
+<p>&lt;ProjectType&gt;CSharp&lt;/ProjectType&gt;</p>
+
+<p>&lt;SortOrder&gt;10&lt;/SortOrder&gt;</p>
+
+<p>&lt;Icon&gt;__TemplateIcon.ico&lt;/Icon&gt;</p>
+
+<p>&lt;/TemplateData&gt;</p>
+
+<p>&lt;TemplateContent&gt;</p>
+
+<p>&lt;References&gt;</p>
+
+<p>…</p>
+
+<p>&lt;/References&gt;</p>
+
+<p>&lt;ProjectItem …&gt;</p>
+
+<p>…</p>
+
+<p>&lt;/TemplateContent&gt;</p>
+
+<p>&lt;/VSTemplate&gt;</p>
+
+<p>   </p>
+
+<p>The ProjectItem tags are what we are interested in. More than likely you have one that references your aspx file. Replace the ProjectItem with the following xml</p>
+
+<p>   </p>
+
+<p>&lt;ProjectItem TargetFileName=”$fileinputname$.aspx” ReplacementParameters=”true”&gt;AppPage1.aspx&lt;/ProjectItem&gt;</p>
+
+<p>&lt;ProjectItem TargetFileName=$fileinputname$.aspx.cs” ReplacementParameters=”true”&gt;AppPage1.aspx.cs&lt;/ProjectItem&gt;</p>
+
+<p>   </p>
+
+<p>What you have just done is to allow the user to change what the filename is, but you will restrict them to using an aspx and aspx.cs extension for the layout page and class file respectively.</p>
+
+<p>   </p>
+
+<p>Once you have saved the template file you can copy it back into the zip file.</p>
+
+<p>   </p>
+
+<p>Now if you are like me and edited the templates in the export folder you are now wondering why your changes didn’t get committed. The reason is that export folder has a copy that is not used of the template. Visual Studio actually uses the templates that appear in the %USERDOCS%/Visual Studio 2008/Templates/ItemTemplates. You may edit this location directly, but if you have already modified your Exported Template item then just copy from the My Exported Templates into the Templates/ItemTemplates folder and you are off and running.</p>
+
+</p>
+    <p><a class="link-secondary" href="/2008/12/21/a-more-complex-trip-into-the-visual-studio-2008-item-template-area/">Read more...</a></p>
+</article>
+<article class="blog-post my-3">
+    <h3>A simple trip into the Visual Studio 2008 Item Template Area</h3>
+    <p class="by-line">
+        <span class="blog-date">Sun, Dec 21, 08</span>
+        
+        | <a href="/categories/VSX">VSX</a>
+        
+    </p>
+    <p><p>I recently ran across a very well done <a href="http://msdn.microsoft.com/en-us/vstudio/cc700976.aspx">video</a>, except the developer was using VB and I’m a C# person, about how to create your own Visual Studio 2008 Item Templates. After watching the video I decided to play around with the <a href="http://www.codeplex.com/stsdev2008">StsDev2008</a> projects and see if I could create a series of item templates for each of the special projects that get created.</p>
+
+<p>   </p>
+
+<p>My first attempt was to create a SharePoint Feature Receiver. This is simple enough to program, but I’m often copying the same code snippet:<br />
+ </p>
+
+<p>SPWebApplication webApp = null;</p>
+
+<p>   </p>
+
+<p>If(properties.Feature.Parent is SPSite)</p>
+
+<p>{</p>
+
+<p>…</p>
+
+<p>}</p>
+
+<p>Else if(Properties.Feature.Parent is SPWebApplication)</p>
+
+<p>{</p>
+
+<p>…</p>
+
+<p>}</p>
+
+<p>   </p>
+
+<p>Foreach(SPWebConfigModification mod in CreateConfigModifications())</p>
+
+<p>{</p>
+
+<p>//Add or Remove based on whether this is the Activated or DeActivated function</p>
+
+<p>}</p>
+
+<p>   </p>
+
+<p>webApp.Farm.Services.GetValue&lt;SPWebService&gt;().ApplyWebConfigModifications();</p>
+
+<p>webApp.Update();</p>
+
+<p>   </p>
+
+<p>Instead I wanted my FeatureReceiver to always have this code in place and then all I would have to do is implement the CreateConfigModifications function.</p>
+
+<p>   </p>
+
+<p>I began by creating my <a href="http://www.codeplex.com/stsdev2008">StsDev2008</a> Simple Feature Project and selected one of the deployment locations (not really important where it was going to since this is just an item template) and I also made sure I had the Include Feature Receiver checked. I then added the custom code (shown above) into the FeatureActivated and FeatureDeactivated functions. Then I created a shell function for the CreateConfigModifications with a List&lt;SPWebConfigModfication&gt; which is created and returned.</p>
+
+<p>   </p>
+
+<p>Next I changed the namespace that was provided to $rootnamespace$ which is a Visual Studio Item Template Replacement Macro. The $rootnamespace$ will be replaced when the user creates the new item with the project’s namespace.</p>
+
+<p>   </p>
+
+<p>Next I changed the class name to $safeitemname$ which will be replaced with the name the user specifies when they create a new object.</p>
+
+<p>   </p>
+
+<p>Finally I used the Export Wizard as described in the <a href="http://msdn.microsoft.com/en-us/vstudio/cc700976.aspx">video</a> to export the project. After the export wizard was complete I tried the Add Item option on the project, and there was my new SharePointFeatureReceiver item.</p>
+
+</p>
+    <p><a class="link-secondary" href="/2008/12/21/a-simple-trip-into-the-visual-studio-2008-item-template-area/">Read more...</a></p>
+</article>
+
+  </div>
+
+</article>
+
+    </main><script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script></body>
+</html>

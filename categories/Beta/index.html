@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- seo include -->
+<meta name="description" content="" />
+<link rel="canonical" href="http://localhost:4000/categories/Beta/" />
+<meta property="article:published_time" content="" />
+<script type="application/ld+json">
+    {
+        "@type":"Site",
+        "url":"http://localhost:4000/categories/Beta/",
+        "headline":"Category: Beta",
+        "dateModified":"",
+        "datePublished":"",
+        "author":{
+            "name":"David McWee",
+            "@type":"Person",
+            "url":"http://localhost:4000"
+        },
+        
+        "image":"http://localhost:4000/assets/images/me.jpg",
+        
+        "mainEntityOfPage":{
+            "@type":"WebPage",
+            "@id":"http://localhost:4000",
+            "url":"http://localhost:4000/categories/Beta/"
+        },
+        "description":"",
+        "@context":"https://schema.org"
+    }
+</script>
+
+<!-- facebook seo -->
+<meta property="og:title" content="Category: Beta" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://localhost:4000/categories/Beta/" />
+<meta property="og:site_name" content="David McWee" />
+<meta property="og:type" content="article" />
+<!-- end facebook seo -->
+
+<!-- twitter seo -->
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Category: Beta" />
+<meta name="twitter:description" content="" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="http://localhost:4000/assets/images/me.jpg" />
+
+
+<meta name="twitter:image:alt" content="David McWee's Site Image" />
+
+<!-- end twitter seo -->
+
+<!-- end seo include -->
+
+<!-- startgoogle analytics --><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K5M43KBSNX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K5M43KBSNX');
+</script><!-- end google analytics-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!--<link rel="stylesheet" href="/assets/css/blog.css">-->
+    <link rel="stylesheet" href="/assets/css/davidmcwee.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="David McWee" />
+    <title>David McWee - Category: Beta</title>
+    
+</head><body><div class="container">
+    <header class="blog-header py-3 px-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="link-secondary" href="/tenant-tracker">Tenant Tracker</a>
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo" href="/">David McWee</a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="link-secondary" href="/about">About</a>
+            </div>
+        </div>
+    </header>
+    <div class="nav-scroller py-1 px-3 mb-2 nav-secondary">
+        <nav class="nav d-flex justify-content-between">
+            
+            <a class="p-2 link-secondary" href="/categories/identity">Identity</a>
+            
+            <a class="p-2 link-secondary" href="/categories/security">Security</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mde">Defender for Endpoint</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mdi">Defender for Identity</a>
+            
+            <a class="p-2 link-secondary" href="/categories/mdo">Defender for Office</a>
+            
+        </nav>
+    </div>
+</div><main class="container">
+      <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Category: Beta</h1>
+  </header>
+
+  <div class="post-content">
+    
+<article class="blog-post my-3">
+    <h3>SharePoint 2010 Standalone Bug</h3>
+    <p class="by-line">
+        <span class="blog-date">Tue, Nov 24, 09</span>
+        
+        | <a href="/categories/Beta">Beta</a>
+        
+        | <a href="/categories/SharePoint 2010">SharePoint 2010</a>
+        
+    </p>
+    <p><div class="bvMsg" id="msgcns!3434442F19CE5B65!337">
+<p>I recently ran the SharePoint 2010 installer, still in Beta, and had no issues during the installation.  My system was configured as a Windows Server 2008 R2 64-bit with a separate Domain Controller.  This was a “clean” server so nothing else was installed.  Next I ran the SharePoint 2010 installer and decided to start by using a StandAlone install, I figured that if this worked then I could proceed to a Farm Installation.</p>
+<p>Before I go any further let me commend Microsoft on improving the SharePoint installation process.  I really appreciate the fact that they have now configured the installer to handle installing all pre-requisites instead of just halting and requiring the user to perform these steps.</p>
+<p>After the installation completed I ran the SharePoint Configuration wizard, but when I got to the last step I suddenly got an error:</p>
+<p>“Unrecognized attribute 'allowInsecureTransport'. Note that attribute names are case-sensitive. (C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\WebClients\Profile\client.config line 56) ---
+\&gt; System.Configuration.ConfigurationErrorsException: Unrecognized attribute 'allowInsecureTransport'. Note that attribute names are case-sensitive. (C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\WebClients\Profile\client.config line 56)”
+
+I checked the file (client.config) and sure enough the line appears as described in he error message above.&nbsp; Not sure if the installation was now broken or not I attempted to access Central Admin, SUCCESS.&nbsp; Next I looked at the SharePoint Web Applications and noticed a Team Site on port 80 had been created.&nbsp; I checked this site to see if it would work, SUCCESS!
+
+Finally I decided to push my luck and see if a Visual Studio 2010 Web Part could be created and deployed to the new SharePoint 2010 environment.&nbsp; SUCCESS!
+
+To date I have not seen any issues resulting from the error message, I am still testing and will update this posting if I run into any issues.
+
+UPDATE 11/24
+
+The Microsoft Team has a resolution for the issue described above.  
+[http://blogs.msdn.com/sharepoint/archive/2009/11/19/installation-notice-for-the-sharepoint-server-public-beta-on-microsoft-windows-server-2008-r2-and-microsoft-windows-7.aspx](http://blogs.msdn.com/sharepoint/archive/2009/11/19/installation-notice-for-the-sharepoint-server-public-beta-on-microsoft-windows-server-2008-r2-and-microsoft-windows-7.aspx)
+
+</p></div>
+</p>
+    <p><a class="link-secondary" href="/2009/11/24/sharepoint-2010-standalone-bug/">Read more...</a></p>
+</article>
+<article class="blog-post my-3">
+    <h3>More information about SharePoint 2010 Revealed</h3>
+    <p class="by-line">
+        <span class="blog-date">Fri, May 15, 09</span>
+        
+        | <a href="/categories/Beta">Beta</a>
+        
+        | <a href="/categories/SharePoint 2010">SharePoint 2010</a>
+        
+    </p>
+    <p><p>A fellow SharePointer, Joel Oleson, posted a very nice <a href="http://www.sharepointjoel.com/Lists/Posts/Post.aspx?ID=224">summary</a> to the recently <a href="http://blogs.msdn.com/sharepoint/archive/2009/05/07/announcing-sharepoint-server-2010-preliminary-system-requirements.aspx">released SharePoint 2010 system requirements</a>.</p>
+
+<p>Two items have really stood out as I reviewed the information.</p>
+
+<p>First, SharePoint 2010 will require a 64-bit platform to run correctly.  Most likely this is due to limitations of memory and providing enough resources for the SharePoint Web Application Pools.  However, it does seem to follow the recent trend Microsoft has established with the release of OCS R2 and Exchange 2010 which both require 64-bit operating systems.</p>
+
+<p>Second, was the requirement to run Server 2008, 64-bit of course.  This will of course provide the latest version of IIS, but may also be a helpful to Microsoft Hyper-V to start cutting into the VMWare market share.  Given that Server 2008 comes with “free” Hyper-V capabilities why would companies then look to spend additional funds to purchase another virtualization capability.</p>
+
+<p>One last significant advancement from Microsoft that has gone a little under the radar, but I believe is going to be a key capability is the release of <a href="http://blogs.technet.com/office_sustained_engineering/archive/2009/04/16/service-pack-2-for-the-2007-microsoft-office-system-due-to-ship-april-28th.aspx">Service Pack 2 for the Microsoft Office 2007 suite</a>.  This service pack as attempted to overcome some of the issues experienced when using Office 2007 with SharePoint 2007 that has forms enabled.  Overcoming this issue will be critical as Microsoft has announced that SharePoint 2010’s security will be claims based thus requiring greater support for authentication schemas that do not use Windows Authentication.</p>
+
+</p>
+    <p><a class="link-secondary" href="/2009/05/15/more-information-about-sharepoint-2010-revealed/">Read more...</a></p>
+</article>
+<article class="blog-post my-3">
+    <h3>SharePoint 2010, or 14 Authentication Revealed</h3>
+    <p class="by-line">
+        <span class="blog-date">Wed, Feb 25, 09</span>
+        
+        | <a href="/categories/Beta">Beta</a>
+        
+        | <a href="/categories/SharePoint 2010">SharePoint 2010</a>
+        
+    </p>
+    <p><p>As the SharePoint conference approaches, October this year, we are beginning to look to the next generation of SharePoint and what it will provide and how it will work. Although this is an older article, 10/2007, as we look forward this is going to be a critical change for us to deal with. Microsoft has announced that SharePoint will use “<a href="http://www.networkworld.com/news/2007/101607-microsoft-switching-sharepoint.html">Claims-based authentication</a>” in the next version. This should really not be that surprising, as I have worked with many of their identity and lifecycle professionals they have often pushed away from Active Directory Domain Trusts and encouraged AD Federation, AKA claims-based authentication.<br />
+Now we look to SharePoint 2010 to be the next system using essentially Federation of user accounts to perform security activities. The one key thing I will be looking for at the conference is if the Client Integration capability which falls away with SharePoint 2007 through Federated Services is still available in 2010.</p>
+
+</p>
+    <p><a class="link-secondary" href="/2009/02/25/sharepoint-2010-or-14-authentication-revealed/">Read more...</a></p>
+</article>
+
+  </div>
+
+</article>
+
+    </main><script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script></body>
+</html>
