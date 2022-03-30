@@ -10,7 +10,7 @@ When switching from one AV to another organizations want to know if they can kee
 <!--more-->
 
 ## Security Baseline
-Security Baseline is available in the Endpoint Manager portal, in the Endpoint Security section.  There are actually several Security Baselines available to choose from, but in this post we are going to focus on the Microsoft Defender for Endpoint Baseline settings. 
+Security Baseline is available in the Endpoint Manager portal, in the Endpoint Security section.  There are actually several Security Baselines available to choose from, but in this post we are going to focus on the **Microsoft Defender for Endpoint Baseline** settings. 
 
 ![Security Baselines]({{ "/assets/images/2022/03/All_Security_Baselines.png" | relative_url}})
 
