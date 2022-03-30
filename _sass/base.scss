@@ -13,6 +13,7 @@ a:hover {
 
 table {
     border: solid 1px $revHighContrast;
+    font-size: .85rem;
     th {
         border-bottom: solid 1px $impact;
         border-top: solid 1px $impact;
@@ -20,4 +21,5 @@ table {
     td {
         border-bottom: solid 1px $revHighContrast;
     }
+    margin-bottom: 2rem !important;
 }
