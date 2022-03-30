@@ -53,7 +53,7 @@ Below are two tables that identify the Security Baseline Label and Value and pro
 |Defender sample submission consent|Send safe samples automatically|Remediation >> Submit Samples Consent| Send safe samples automatically.|
 |Cloud-delivered protection level|High|Cloud Protection >> Cloud-delivered protection level| High|
 |Scan removable drives during full scan|Yes|Scan >> Scan removable drives during full scan|Yes|
-|Defender potentially unwanted app action|Block|Remediation >> Action to take on potentially unwanted apps|*Disable???*|
+|Defender potentially unwanted app action|Block|Remediation >> Action to take on potentially unwanted apps|Enable|
 |Turn on cloud-delivered protection|Yes|Cloud Protection >> Turn on cloud-delivered protection|Yes|
 
 ### Security Baseline to CSP
