@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Get Started with Defender AV
+title: Get Started with Defender AV - Part 1
 categories:
   - MDE
   - Microsoft
