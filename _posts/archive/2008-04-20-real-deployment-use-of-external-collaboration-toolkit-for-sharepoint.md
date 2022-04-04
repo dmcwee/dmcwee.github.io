@@ -1,28 +1,9 @@
 ---
 layout: post
 title: Real Deployment use of External Collaboration Toolkit for SharePoint
-date: 2008-04-20 14:30:00.000000000 -04:00
-
-
-
-
-
 categories:
 - ECTS
 tags: []
-
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/04/20/real-deployment-use-of-external-collaboration-toolkit-for-sharepoint/"
 ---
 Microsoft has released the External Collaboration Toolkit from development, so what does this give you and your organization?&nbsp;
 

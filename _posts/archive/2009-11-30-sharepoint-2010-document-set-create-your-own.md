@@ -1,26 +1,10 @@
 ---
 layout: post
 title: SharePoint 2010 Document Set, Create Your Own
-date: 2009-11-30 00:26:26.000000000 -05:00
-
-
-
-
-
 categories:
 - Microsoft
 - SharePoint 2010
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/11/30/sharepoint-2010-document-set-create-your-own/"
 ---
 In preparing for a demo I wanted to show just how easy and powerful Document Sets in SharePoint 2010 can be.&nbsp; Using the Public Beta I followed [Liam Cleary’s](http://www.helloitsliam.com/archive/2009/10/30/sharepoint-2010-user-experience-–-document-sets.aspx) steps to enable documents sets, but realized that an empty Document Set really doesn’t help show the power.&nbsp; I decided to dive in and see if I could create my own custom Document Set, and here are my successful steps.
 

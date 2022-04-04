@@ -1,11 +1,9 @@
 ---
 layout: post
 title: Web Resource, Solving JavaScript inclusion in your Web Part
-date: 2008-03-03 14:50:49.000000000 -05:00
 categories:
 - Microsoft
 tags: []
-permalink: "/2008/03/03/web-resource-solving-javascript-inclusion-in-your-web-part/"
 ---
 <font face="Calibri" size="2">Working with client side controls requires a lot of javascript, and I have often just written the javascript in the Render or RenderHTML functions of my web controls.  This works, but is NOT the best, or even a recommended method to do this.  So I began looking around and found this nice capability, but there are some major pitfalls to be aware of!</font>
 

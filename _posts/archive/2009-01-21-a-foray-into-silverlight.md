@@ -1,25 +1,9 @@
 ---
 layout: post
 title: A foray into Silverlight
-date: 2009-01-21 13:28:31.000000000 -05:00
-
-
-
-
-
 categories:
 - Silverlight
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/01/21/a-foray-into-silverlight/"
 ---
 I finally have a little time while some code I developed is being tested to take a look at the "new" technologies Microsoft has released. Since my experimentation of Azure flopped, I didn't have a supported system, I decided to turn my attention to Silverlight.
 

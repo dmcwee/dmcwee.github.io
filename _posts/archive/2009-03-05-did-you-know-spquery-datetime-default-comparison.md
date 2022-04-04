@@ -1,26 +1,9 @@
 ---
 layout: post
 title: Did You Know - SPQuery DateTime default comparison
-date: 2009-03-05 01:17:42.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2009/03/05/did-you-know-spquery-datetime-default-comparison/"
 ---
 After hours of wondering why my code kept reporting scheduling conflicts when I could see events did not overlap I discovered a VERY important note in MSDN on the SPQuery page.  
 **...DID YOU KNOW...**

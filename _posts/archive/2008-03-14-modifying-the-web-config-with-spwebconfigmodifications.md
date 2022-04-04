@@ -1,26 +1,9 @@
 ---
 layout: post
 title: Modifying the web.config with SPWebConfigModifications
-date: 2008-03-14 12:23:19.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/03/14/modifying-the-web-config-with-spwebconfigmodifications/"
 ---
 A confusing aspect of using the SPWebConfigModifications is what should you use as the Name of your modification?
 

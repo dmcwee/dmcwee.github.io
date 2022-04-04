@@ -1,26 +1,9 @@
 ---
 layout: post
 title: jQuery to SharePoint Web Services
-date: 2009-08-21 18:27:14.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2009/08/21/jquery-to-sharepoint-web-services-2/"
 ---
 Recently I have been working on a Google Maps integration for SharePoint and one of the desired capabilities was to include items from SharePoint lists on the map.&nbsp; The solution was not going to leverage the AJAX .NET capabilites and would instead be built using standard .NET and jQuery.&nbsp; This presented the major challenge, while we could convert the lists into RSS, GeoRSS, and KML feeds they all required authentication to access these feeds, something that Google Maps does not support in the GGeoXml object.&nbsp; Google Maps are heavily javascript focused so we couldn’t use the SharePoint API to access the items directly especially since we wanted to avoid post backs to the server, and javascript arrays would likely run out of space give the number of possible items.&nbsp; This really left us with one possible solution, javascript calls to the SharePoint Web Services.&nbsp; Fortunately, talking with one of my co-workers he pointed me to a nice, somewhat limited, jQuery plugin for the SharePoint web services available here:
 

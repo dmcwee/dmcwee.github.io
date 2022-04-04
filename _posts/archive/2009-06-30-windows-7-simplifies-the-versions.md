@@ -1,11 +1,9 @@
 ---
 layout: post
 title: Windows 7 Simplifies the Versions
-date: 2009-06-30 12:23:36.000000000 -04:00
 categories:
 - Microsoft
 tags: []
-permalink: "/2009/06/30/windows-7-simplifies-the-versions/"
 ---
 I wrote a while ago about doing some testing with Windows 7 Beta and how I was excited about the new features, interface, etc.&nbsp; I also expressed a concern as many other did about the “Versions” of Windows 7 Microsoft may make available.&nbsp; Well, it looks like someone in Redmond was listening, maybe not to be but they did hear the Windows community, and they have now announced ONLY THREE versions of Windows 7.
 

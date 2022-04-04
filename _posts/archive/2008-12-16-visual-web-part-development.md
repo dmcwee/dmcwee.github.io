@@ -1,26 +1,10 @@
 ---
 layout: post
 title: Visual Web Part Development
-date: 2008-12-16 00:03:31.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 - Visual Studio
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2008/12/16/visual-web-part-development/"
 ---
 So I readily admit that I am often a code junkie, if I can do it in code then I will. However, I have started to look for tools and solutions that let me code less, drag and drop more, and generate solutions that look better faster.  
 I have always wanted to experiment with building WebParts using the Visual Studio GUI, but have often found time lacking, until recently. I have a very complex solution that leverages 'n' Membership Providers to handle provisioning user information into several different systems (MOSS, AD, OCS, Exchange, Adobe Connect, etc). Working with another developer we initially laid out the solution that would tie all these together, however we quickly realized that we had cut our ability to use the standard .NET Membership Controls. Fortunately, we are able to revisit our designs as we use an iterative approach to our solution development and we have moved back toward the .NET Membership Control support. As such we decided to use the CreateUserWizard control to handle our user creation, however we needed to customize this control…A LOT! Enter visual development of web parts.  

@@ -1,26 +1,9 @@
 ---
 layout: post
 title: STSDev 2008 Goes Live
-date: 2008-04-21 15:47:30.000000000 -04:00
-
-
-
-
-
 categories:
 - STSDev 2008
 tags: []
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/04/21/stsdev-2008-goes-live/"
 ---
 STSDev 2008, MicroLink LLC's codeplex project, is now a publicly available CodePlex project. STSDev 2008 is a more production ready version of the original STSDev project created by Ted Pattison and his team. We have taken their code, corrected several build target and application errors as well as improved the ability of users to develop other custom solutions.
 

@@ -1,24 +1,9 @@
 ---
 layout: post
 title: A simple trip into the Visual Studio 2008 Item Template Area
-date: 2008-12-21 15:37:02.000000000 -05:00
-
-
-
-
-
 categories:
 - VSX
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/12/21/a-simple-trip-into-the-visual-studio-2008-item-template-area/"
 ---
 I recently ran across a very well done [video](http://msdn.microsoft.com/en-us/vstudio/cc700976.aspx), except the developer was using VB and I'm a C# person, about how to create your own Visual Studio 2008 Item Templates. After watching the video I decided to play around with the [StsDev2008](http://www.codeplex.com/stsdev2008) projects and see if I could create a series of item templates for each of the special projects that get created.
 

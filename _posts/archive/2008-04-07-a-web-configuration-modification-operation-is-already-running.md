@@ -1,32 +1,9 @@
 ---
 layout: post
 title: A web configuration modification operation is already running.
-date: 2008-04-07 13:30:29.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/04/07/a-web-configuration-modification-operation-is-already-running/"
 ---
 I have been using the SPWebConfigModification class for a while, and every now and then I hit the issue that when I attempt to activate a feature that modifies the web.config file I get the following error:
 

@@ -1,24 +1,9 @@
 ---
 layout: post
 title: Activating Features in a SharePoint Farm
-date: 2008-04-09 00:51:37.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/04/09/activating-features-in-a-sharepoint-farm/"
 ---
 I have been pounding my head against a wall for the last few days trying to get a couple of features to activate in my projects new High Availability Environment (HA).&nbsp; The environment consists of two MOSS Web Front Ends (WFE) named web1 and web2.&nbsp; Our env. also includes web3 which runs the Central Admin site, but does not have any of the externally accessible sites (the ones that run on port 80 and 443).&nbsp; This has lead to the following issues.
 

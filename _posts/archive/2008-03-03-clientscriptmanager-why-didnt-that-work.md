@@ -1,11 +1,9 @@
 ---
 layout: post
 title: ClientScriptManager - why didn't that work
-date: 2008-03-03 14:44:01.000000000 -05:00
 categories:
 - Microsoft
 tags: []
-permalink: "/2008/03/03/clientscriptmanager-why-didnt-that-work/"
 ---
 NET 2.0 added the ClientScriptManager to allow developers a simple method to add javascript and other "Script" capabilites to a web page easily.  However, the documentation never really got developed, so attempting to use it can be a bit trick.
 

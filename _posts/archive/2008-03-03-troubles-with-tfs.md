@@ -1,11 +1,9 @@
 ---
 layout: post
 title: Troubles with TFS
-date: 2008-03-03 14:25:34.000000000 -05:00
 categories:
 - Microsoft
 tags: []
-permalink: "/2008/03/03/troubles-with-tfs/"
 ---
 I recently inherited a project from a fellow ML developer who had been having issues getting the project checked into source code.&nbsp; I attempted checking the code in myselft and received the following error:
 

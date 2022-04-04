@@ -1,26 +1,10 @@
 ---
 layout: post
 title: More information about SharePoint 2010 Revealed
-date: 2009-05-15 10:34:57.000000000 -04:00
-
-
-
-
-
 categories:
 - Beta
 - SharePoint 2010
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/05/15/more-information-about-sharepoint-2010-revealed/"
 ---
 A fellow SharePointer, Joel Oleson, posted a very nice [summary](http://www.sharepointjoel.com/Lists/Posts/Post.aspx?ID=224) to the recently [released SharePoint 2010 system requirements](http://blogs.msdn.com/sharepoint/archive/2009/05/07/announcing-sharepoint-server-2010-preliminary-system-requirements.aspx).
 

@@ -1,25 +1,9 @@
 ---
 layout: post
 title: To Workflow or to Item Event Receive
-date: 2009-06-15 15:39:29.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/06/15/to-workflow-or-to-item-event-receive/"
 ---
 I was recently asked about how to determine when a List Item should be transferred from one list to another.&nbsp; Immediately two possible solutions came to mind, use a Workflow or use an Item Event Receiver.&nbsp; I offered both as “capable” of handling such a need, which of course lead to the next “well which should I use for this…” question and this blog.
 

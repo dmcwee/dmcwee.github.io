@@ -1,24 +1,9 @@
 ---
 layout: post
 title: A more complex trip into the Visual Studio 2008 Item Template Area
-date: 2008-12-21 21:49:51.000000000 -05:00
-
-
-
-
-
 categories:
 - VSX
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/12/21/a-more-complex-trip-into-the-visual-studio-2008-item-template-area/"
 ---
 After creating [my first](https://blogs.microlinkllc.com/dmcwee/archive/2008/12/21/a-simple-trip-into-the-visual-studio-2008-item-template-area.aspx) Visual Studio Template Item I decided that creating another would be interesting as well. Since I had already done the feature receiver I didn't feel that creating the web part item template would be as interesting, so I decided to create the Layout Page template.
 

@@ -1,26 +1,10 @@
 ---
 layout: post
 title: SharePoint 2010 Standalone Bug
-date: 2009-11-24 10:14:36.000000000 -05:00
-
-
-
-
-
 categories:
 - Beta
 - SharePoint 2010
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/11/24/sharepoint-2010-standalone-bug/"
 ---
 <div class="bvMsg" id="msgcns!3434442F19CE5B65!337">
 <p>I recently ran the SharePoint 2010 installer, still in Beta, and had no issues during the installation.  My system was configured as a Windows Server 2008 R2 64-bit with a separate Domain Controller.  This was a “clean” server so nothing else was installed.  Next I ran the SharePoint 2010 installer and decided to start by using a StandAlone install, I figured that if this worked then I could proceed to a Farm Installation.</p>

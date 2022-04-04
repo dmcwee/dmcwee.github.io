@@ -1,24 +1,9 @@
 ---
 layout: post
 title: JavaScript your WebControls
-date: 2008-03-03 14:14:18.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/03/03/javascript-your-webcontrols/"
 ---
 I recently ran into an issue recently where I needed to get javascript access to controls that were created programatically to my WebControl/WebPart.&nbsp; I passed the control's ID to the javascript function, which was rendered as the page was rendered, but was still not able to get access to the control.&nbsp; When I looked at the HTML rendering of the page I found that the ID of the control, when I requested it from within my C# code was not the same as what the webpart rendered in the HTML.&nbsp; 
 

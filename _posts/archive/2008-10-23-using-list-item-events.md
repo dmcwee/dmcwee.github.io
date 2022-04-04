@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Using List Item Events
-date: 2008-10-23 15:12:43.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2008/10/23/using-list-item-events/"
 ---
 Being one of the Sr. Developers on a project, and being responsible for Code Review and a part of the Configuration Management team I recommended we use some versioning of our assemblies. I stand by this decision on the versioning as I do believe it is very important, but when had to start modifying code in the Account Registration process I realized a flaw. I was using a SPItemEventReceiver and had not accounted for the assembly numbers changing which would affect SharePoint's ability to call the correct event receiver. The key issue was I HAD to update the event receiver and without the ability to remove the old event handlers and replace them with the new assembly event receivers I couldn't comply with the Code Review standards for Assembly Versioning.
 

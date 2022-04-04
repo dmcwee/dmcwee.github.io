@@ -1,24 +1,9 @@
 ---
 layout: post
 title: Spell Check Your Code (Funy Storie)
-date: 2008-03-04 09:58:52.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/03/04/spell-check-your-code-funy-storie/"
 ---
 Before I tell this story I must admit that without Spell Check I never would have graduated college.&nbsp; It is not because I mistyped words, I am a horrible speller!
 

@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Free SharePoint Designer
-date: 2009-04-02 10:22:37.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2009/04/02/free-sharepoint-designer/"
 ---
 <font color="#000000"><font size="3"><font face="Calibri">Microsoft, as rumored, has now released SharePoint designer for free.<span>  </span>Here is the link</font></font></font>
 

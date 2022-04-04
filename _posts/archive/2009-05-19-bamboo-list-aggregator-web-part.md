@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Bamboo List Aggregator Web Part
-date: 2009-05-19 15:12:26.000000000 -04:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/05/19/bamboo-list-aggregator-web-part/"
 ---
 A customer I support has the Bamboo List Aggregator web part which allows you to consolidate multiple lists into a single view and display on a site, very helpful in SharePoint!&nbsp; The customer had added one to a page and wanted to be able to set a default “Sort By” and default “Group By” value.&nbsp; He assumed, as did I went I first looked at this issue, that there would be some very simple option to select a default “Sort By” and “Group By” value, but there wasn’t.&nbsp; So looking at the web part on the page understanding that Bamboo has simple provided a nice GUI to the Content Query Web Part I knew there was some way to make this work.&nbsp; So here is how:
 

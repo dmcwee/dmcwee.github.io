@@ -1,11 +1,9 @@
 ---
 layout: post
 title: Installing Visual Studio 2008
-date: 2008-03-03 14:24:30.000000000 -05:00
 categories:
 - Microsoft
 tags: []
-permalink: "/2008/03/03/installing-visual-studio-2008/"
 ---
 In January I&nbsp;attempted installing Visual Studion 2008 and always&nbsp;got an install failure when the Microsoft Visual Studio Web Authoring Component was being installed.&nbsp; I found several postings on the Microsoft Support Site ([http://support.microsoft.com](http://support.microsoft.com/)).&nbsp; After reading thoses posts here is what I have found:
 

@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Custom Save Button for Web Enabled Form
-date: 2009-05-14 11:09:00.000000000 -04:00
-
-
-
-
-
 categories:
 - InfoPath 2007
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/05/14/custom-save-button-for-web-enabled-form/"
 ---
 I recently found the need to submit and save Infopath 2007 browser enabled form data. The submit is very straight forward when using browser enabled forms, but the ability to save the form is not so straight forward or so you might think. After thinking for a little while on how to work around the save capability I found a very simple process to allow users to Submit and Save InfoPath Browser enabled forms back to the SharePoint Library without any custom code.
 
@@ -77,7 +61,7 @@ Now publish your form to the SharePoint site library that was specified in the D
 
 Under the General Settings choose Advanced settings
 
-[![clip_image015]({{ site.baseurl }}/assets/images/2009/05/clip_image0155b35d.png"clip\_image015")]({{ site.baseurl }}/assets/images/2009/05/clip_image0155b35d.png)
+[![clip_image015]({{ site.baseurl }}/assets/images/2009/05/clip_image0155b35d.png "clip\_image015")]({{ site.baseurl }}/assets/images/2009/05/clip_image0155b35d.png)
 
 In Advanced Settings under the Browser-enabled Documents choose Display as a Web page and then click OK
 

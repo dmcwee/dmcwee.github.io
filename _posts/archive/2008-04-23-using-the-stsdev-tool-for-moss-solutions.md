@@ -1,26 +1,9 @@
 ---
 layout: post
 title: Using the StsDev tool for MOSS Solutions
-date: 2008-04-23 00:11:01.000000000 -04:00
-
-
-
-
-
 categories:
 - STSDev 2008
 tags: []
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/04/23/using-the-stsdev-tool-for-moss-solutions/"
 ---
 I have been maintaining and enhancing the stsdev project from codeplex as part of the HarmonieWeb Configuration Management and it is now at a state where most anyone within the company could take the product and make use of it.&nbsp; Here I am working on documenting the changes/bug fixes we have done to get the product to where it is today.
 

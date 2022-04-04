@@ -1,25 +1,9 @@
 ---
 layout: post
 title: How many users can ECTS Handle?
-date: 2008-09-11 02:21:42.000000000 -04:00
-
-
-
-
-
 categories:
 - ECTS
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2008/09/11/how-many-users-can-ects-handle/"
 ---
 How many users can ECTS Handle?
 

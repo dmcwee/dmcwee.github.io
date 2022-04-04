@@ -1,23 +1,8 @@
 ---
 layout: post
 title: My Stolen Credit Card
-date: 2009-10-13 09:21:37.000000000 -04:00
-
-
-
-
-
 categories: []
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2009/10/13/my-stolen-credit-card/"
 ---
 I recently received a herbal supplement in the mail, one which I did not order, so I decided to call the company and find out why I was the “lucky” recipient of this product.&nbsp;&nbsp;
 

@@ -1,25 +1,9 @@
 ---
 layout: post
 title: ECTS Post Installation Issue
-date: 2008-08-08 02:14:27.000000000 -04:00
-
-
-
-
-
 categories:
 - ECTS
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2008/08/08/ects-post-installation-issue/"
 ---
 So I have had the opportunity to go back and work on the ECTS enabled system I worked on earlier this year for DoD. Sadly in my preparation for creating a new site I began working in my ECTS Virtual Machine, but in my haste one day I removed the external USB HD the VM is located on and corrupted the entire VM. As it turns out this has been a nice refresher in installing ECTS and I have found some new issues to write about.
 

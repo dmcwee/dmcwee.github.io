@@ -1,23 +1,8 @@
 ---
 layout: post
 title: A Year in the Life
-date: 2008-09-23 11:09:39.000000000 -04:00
-
-
-
-
-
 categories: []
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/09/23/a-year-in-the-life/"
 ---
 I'm coming around on my one year anniversary with MicroLink and in honor of that I decided I would talk about how I got to MicroLink, the company itself and the work I have been doing for the past year.
 

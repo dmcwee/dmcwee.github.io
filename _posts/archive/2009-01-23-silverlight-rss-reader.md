@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Silverlight RSS Reader
-date: 2009-01-23 16:47:02.000000000 -05:00
-
-
-
-
-
 categories:
 - Silverlight
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2009/01/23/silverlight-rss-reader/"
 ---
 After following [Scott Gu's 8 part blog on Silverlight](http://weblogs.asp.net/scottgu/pages/silverlight-2-end-to-end-tutorial-building-a-digg-search-client.aspx) and using it to get a feed from[Digg](http://www.digg.com) I decided to try out my own Silverlight project. Since I use Twitter, not nearly enough, I thought it would be fun to have a little application that can read the twitter feed and display it in SharePoint.
 

@@ -1,25 +1,9 @@
 ---
 layout: post
 title: Meeting Workspace Template Using Current Site Navigation
-date: 2008-12-04 14:45:47.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-
-  
-  
-  
-  
-  
-permalink: "/2008/12/04/meeting-workspace-template-using-current-site-navigation/"
 ---
 Recently I was asked to provide the same kind of "Current Site Navigation" on a Meeting Workspace template that appears on the site's master page. Amazingly, given the right tools this is actually a VERY simple task. However, in order to accomplish this in the easiest method you will need SharePoint designer.
 

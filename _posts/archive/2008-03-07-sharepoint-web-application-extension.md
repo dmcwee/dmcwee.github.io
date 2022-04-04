@@ -1,24 +1,9 @@
 ---
 layout: post
 title: SharePoint Web Application Extension
-date: 2008-03-07 13:23:36.000000000 -05:00
-
-
-
-
-
 categories:
 - SharePoint 2007
 tags: []
-
-  
-
-  
-  
-  
-  
-  
-permalink: "/2008/03/07/sharepoint-web-application-extension/"
 ---
 The urls below are ficticious so if you attempt to navigate to them.&nbsp; I have no idea what will happen nor do I claim responsibility or support for any content on the www.devsite.org if it even exits.&nbsp; I have used this name in an attempt to provide a complete example of what occoured and how to correct the problem.
 
