@@ -18,7 +18,7 @@ Security Baseline is available in the Endpoint Manager portal, in the Endpoint S
 **Note:** *This is not the only baseline that has Defender AV settings, so you may want to collect the settings from multiple policies.*
 
 ## Getting the settings
-The simpliest way to get the settings is to create a security baseline policy, assign it to nothing, and then look at the various settings under Microsoft Defender to dupliace them to your AV policy.
+The simplest way to get the settings is to create a security baseline policy, assign it to nothing, and then look at the various settings under Microsoft Defender to duplicate them to your AV policy.
 
 There is a challenge here, the labels in *Security Baseline* don't match up with the *Windows 10, Windows 11, and Server Defender* AV Policy. Security Baseline's labels also don't match up to the *Windows 10, Windows 11, and Windows Server (ConfigMgr)* Antivirus Policy. So some translation of the settings is required which is what the table below does: identifies the settings and their values.
 
