@@ -8,6 +8,8 @@ $(document).ready(function() {
 function checkTenant(e) {
     console.debug("checkTenant");
     $("#results").hide();
+    $("#domains").hide();
+    $("#domains").html("");
 
     var tenantName = $("#tenantName").val();
     var serviceEndpoint = $('input[name="msCloud"]:checked').val();
@@ -34,8 +36,27 @@ function checkTenant(e) {
     })
     .finally(() => {
         $("#results").show();
-        return false;
+        //return false;
     });
+
+    tenantDomains(tenantName)
+    .then(response => response.json())
+    .then(result => {
+      handleAutoDiscoverSuccess({
+        domains: result,
+        tenant_name: result.find(element => {
+          if(element.includes("onmicrosoft") && !element.includes("mail.onmicrosoft")) {
+            return true;
+          }
+        })
+      });
+    })
+    .catch(error => {
+      console.error(`[tenantDomains] Caught exception ${error}`);
+    })
+    .finally(() => {
+      $("#domains").show();
+    })
 }
 
 function toggleResult() {
@@ -65,6 +86,25 @@ function handleServiceSuccess(result) {
   $("#results").html(html);
 }
 
+function handleAutoDiscoverSuccess(result) {
+  console.debug(`Result: ${JSON.stringify(result)}`);
+
+  var template = $("#domains-display").html();
+  var templateScript = Handlebars.compile(template);
+  var html = templateScript(result);
+  $("#domains").html(html);
+}
+
 function openIdConfig(tenant_name, discovery_string = "https://login.microsoftonline.com/") {
-    return fetch(`${discovery_string}/${tenant_name.trim()}/.well-known/openid-configuration`);
+  console.log("Calling openId Config");
+  return fetch(`${discovery_string}/${tenant_name.trim()}/.well-known/openid-configuration`);
+}
+
+function tenantDomains(tenant_name, proxy_uri = "https://davidmcweeproxy.azurewebsites.net/api/autodiscover") {
+  console.log("Calling Tenant Domains");
+  return fetch(`${proxy_uri}?tenant=${tenant_name.trim()}`);
+}
+
+function tenantName(tenant_name, proxy_uri = "https://davidmcweeproxy.azurewebsites.net/api/autodiscover"){
+  return fetch(`${proxy_uri}?tenant=${tenant_name.trim()}&domainFilter=onmicrosoft`);
 }
