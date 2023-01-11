@@ -8,6 +8,7 @@ tags: []
 permalink: "/2010/02/08/a-wcf-what-the/"
 ---
 I’ve been working with WCF and SharePoint 2007 and ran across an issue. The scenario is an Account Registration process which allows the user to request access to “protected” sites within a portal. This solution blends some jQuery and WCF using the JSON format for request and response messages. The issue I ran into was when a user requested access to a/several sites I needed to pass the Site ID to the WCF service as part of the user request object.
+<!--more-->
 
 User Request Object
 

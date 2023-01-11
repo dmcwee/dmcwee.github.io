@@ -2,7 +2,7 @@
 layout: post
 title: Defender for Endpoint Upgrade Script - FOR ALL!
 date: 2021-11-11 12:18:55.000000000 -05:00
-
+excerpt_separator: <!--more-->
 categories:
 - MDE
 - Security
@@ -13,6 +13,7 @@ tags:
 permalink: "/2021/11/11/defender-for-endpoint-upgrade-script-for-all/"
 ---
 Working with a customer on the MDE Unified Installer for Windows Server 2016/2012R2 we ran into the issue that SCEP was installed and thus blocking the Unified Installer. Therefore, instead of the Install approach we really needed to perform an Upgrade, but would that mean we needed an approach for servers where SCEP had been installed vs. servers where SCEP was not installed? Answer: No!
+<!--more-->
 
 ## MDE Unified Installer Upgrade Script
 
@@ -48,9 +49,9 @@ I created a GPO exactly like the directions for [Windows 10/11 or Server 2019](h
 
 For the Task itself the command I used was:
 
-```
+{% highlight console linenos %}
 Program/Script: Powershell
 Arguments: -ExecutionPolicy Bypass \\sharelocation\install.ps1 -OnboardingScript \\sharelocation\WindowsDefenderATPOnboardingScript.cmd -RemoveMMA MMA-MDE-Workspace-Guid
-```
+{% endhighlight %}
 
 You can refer to my [previous post about using a WMI Filter](https://davidmcwee.com/2021/11/01/defender-for-endpoint-unified-package-for-server-2016-and-2012-r2/) to target deployment to only Server 2012R2 and 2016 instances if your servers aren't segmented into different OUs.

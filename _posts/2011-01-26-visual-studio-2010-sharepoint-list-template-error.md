@@ -14,6 +14,7 @@ tags:
 permalink: "/2011/01/26/visual-studio-2010-sharepoint-list-template-error/"
 ---
 I was attempting to create a custom FAST Search Center that would have a custom master page, and some web parts added to the search and result pages. My starting point was to grab the FAST Search Center site definition from the site templates in the SharePoint 14 Hive.
+<!--more-->
 
 Next, I added the search tab and result tab lists to the site collection. Again I copied the XML from the SharePoint site definition...well almost. I actually copied all but the root node which had an XML namespace. After pasting this content I noticed under a few nodes, and some attributes, the little squiggly line. When I built the solution I noted warning messages but there were no errors. However, the deployment failed with an XML validation error.
 

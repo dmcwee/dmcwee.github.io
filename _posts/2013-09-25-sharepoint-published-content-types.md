@@ -12,6 +12,7 @@ tags:
 permalink: "/2013/09/25/sharepoint-published-content-types/"
 ---
 I have done a lot of development with SharePoint workflows, especially those developed in Visual Studio. Unless I have been working with a standard list type, I generally create a Content Type that my workflow can be associated with and to ensure the columns and values needed in the workflow will be present. However, creating Content Types is always a painful process, because as you develop the content types and test them you need to delete the original content type, and any list depended up in before you deploy the updated version. This is even worse when you upgrade a solution that is in use in productionbecause you can't easily delete the content type just to add additional fields.
+<!--more-->
 
 Recently, I have been working with Publishing Content Types, usually designed through the SharePoint UI, and what I began to notice was that when the published Content Type was updated in the Content Type Hub those changes were reflected in the sites making use of those Content Types.
 

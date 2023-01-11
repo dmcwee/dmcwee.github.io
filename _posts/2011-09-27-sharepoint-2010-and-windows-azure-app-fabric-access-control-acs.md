@@ -11,6 +11,7 @@ tags:
 permalink: "/2011/09/27/sharepoint-2010-and-windows-azure-app-fabric-access-control-acs/"
 ---
 Last month I was working on a demo for a charitable organization that has lots of volunteers around the country. The charity didn't want to have to create new active directory accounts for each of these volunteers so as part of the demo we integrated SharePoint 2010 site with Windows Azure App Fabric Access Control (ACS), this way we could use Google, Windows Live, and Yahoo! as authentication providers. (Yes I know we could hook directly to each of these providers, but using ACS allowed me to use all the providers with one SharePoint Trusted Provider instead of using three different trust providers). We demoed the site to the charity and they were very excited and happy with the solution.
+<!--more-->
 
 This week we began building a demo for an accounting firm who needs to be able to grant access to external clients. While talking with our Business Developers and other team members I recommended we re-use the ACS access for this new site to give the external users access. I first attempted just enabling the current ACS Trust for my new Account site, but found that it was trying to authenticate me to the original charity site. After a little playing around here are the steps to allow multiple sites to authenticate with a single Windows ACS.
 

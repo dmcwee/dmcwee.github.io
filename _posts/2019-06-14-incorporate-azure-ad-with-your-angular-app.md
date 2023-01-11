@@ -15,6 +15,7 @@ tags:
 permalink: "/2019/06/14/incorporate-azure-ad-with-your-angular-app/"
 ---
 I began my career as a software developer and I still love the opportunity to tinker with code from time to time. Since I usually deal with authentication and identity I have a need from time to time to demonstrate how customers can add their own custom applications to Azure AD and how the protections can be applied. So, I spent a few days recently building and testing my own, single page, custom application based on the latest version of Angular (Typescript).
+<!--more-->
 
 While I could detail what I did to get the project working, it is probably easier to provide the various links I used to learn Angular as well as the libraries I used and added to get the project working.
 

@@ -10,6 +10,7 @@ tags:
 permalink: "/2010/08/20/microsoft-silverlight-4-and-sharepoint-2010-integration/"
 ---
 Recently I was contacted by PACKT Publishing because they have recently published a book **Microsoft Silverlight 4 and SharePoint 2010 Integration** and wanted me to review the book. I’m actually quite excited about this opportunity because it is my first invitation to review a book, and the book is talking about two of my favorite technologies!
+<!--more-->
 
 Currently I have a deadline approaching for a SharePoint 2007 Farm Architecture document, my least favorite thing to do, so I’m not allowing myself a lot of time with “fun” stuff like the topics in this book until the documentation is complete. However, I have reviewed the first chapter and I really can’t wait to get back to it. The first chapter is a very straight forward approach to creating a Silverlight Application and then including it in SharePoint 2010.
 

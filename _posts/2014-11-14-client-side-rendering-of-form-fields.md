@@ -10,6 +10,7 @@ tags:
 permalink: "/2014/11/14/client-side-rendering-of-form-fields/"
 ---
 I've been working on a site migration from SharePoint 2010 to SharePoint 2013 and a lot of what we did in 2010 was to customize forms the user interacts with. One of the requirements we had was to ensure a Project Name and Project Alias field did not contain the same information. In SharePoint 2010 this had been done by adding some JavaScript to the page, grabbing each control by HTML Element ID, and then comparing their values. When we migrated these fields all got new HTML Element IDs so our validation logic was broken.
+<!--more-->
 
 Obviously, we could go and update the JavaScript to use the new IDs, but if we migrated to another environment or performed and upgrade in the future we would probably have an issue again. Instead SharePoint 2013 added Client Side Rendering which allows us to control the form's renderingusing JavaScript which would should allow our solution to be more portable and enable the field validation.
 

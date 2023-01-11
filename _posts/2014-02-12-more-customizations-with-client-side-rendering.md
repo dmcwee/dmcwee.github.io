@@ -10,6 +10,7 @@ tags:
 permalink: "/2014/02/12/more-customizations-with-client-side-rendering/"
 ---
 Recently I posted about how you can use [Client Side Rendering (CSR)to display contacts on a map](http://davidmcwee.com/2014/01/28/sharepoint-contacts-on-a-map-with-client-side-rendering/ "SharePoint Contacts on a Map with Client Side Rendering"). After posting about how to display the entire list data, I decided I wanted to see how CSRcould be used to change the user experience while adding, updating, and viewinglist items, updating items, and viewing items. This post will provide a high level overview of how I was able to change the display during New, Display, and Edit of an individual item and then later I will actually put this together with the Contact Map idea.
+<!--more-->
 
 ## Where's the Documentation?
 

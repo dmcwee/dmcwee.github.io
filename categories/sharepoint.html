@@ -1,18 +1,8 @@
 ---
-title: SharePoint Posts
 layout: page
+category: SharePoint
 ---
-{% assign catPosts = site.posts | where: "categories", "SharePoint" %}
+{% assign catPosts = site.posts | where:"categories",page.category %}
 {% for post in catPosts %}
-
-  <article class="blog-post">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.date | date: "%a, %b %d, %y"}}
-          {% for category in post.categories %}
-          | <a href="/categories/{{ category | slugify }}">{{ category }}</a>
-          {% endfor %}
-      </p>
-      <p>{{ post.excerpt }}</p>
-  </article>
-
+  {%- include article.html post=post %}
 {% endfor %}

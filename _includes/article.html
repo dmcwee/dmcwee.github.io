@@ -1,0 +1,11 @@
+<article class="blog-post my-3">
+    <h3>{{ include.post.title }}</h3>
+    <p class="by-line">
+        <span class="blog-date">{{ include.post.date | date: "%a, %b %d, %y"}}</span>
+        {% for category in include.post.categories %}
+        | <a href="/categories/{{ category }}">{{ category }}</a>
+        {% endfor %}
+    </p>
+    <p>{{ include.post.excerpt }}</p>
+    <p><a class="link-secondary" href="{{include.post.url}}">Read more...</a></p>
+</article>

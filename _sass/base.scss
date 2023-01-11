@@ -1,0 +1,26 @@
+body {
+    background-color: $backgroundColor;
+    /*font-family: $common-font;*/
+}
+
+a, a:visited {
+    color: $impact;
+}
+
+a:hover {
+    color: $calm;
+}
+
+table {
+    border: solid 1px $revHighContrast;
+    width: 100%;
+    font-size: .85rem;
+    th {
+        border-bottom: solid 1px $impact;
+        border-top: solid 1px $impact;
+    }
+    td {
+        border-bottom: solid 1px $revHighContrast;
+    }
+    margin-bottom: 2rem !important;
+}

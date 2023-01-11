@@ -13,6 +13,7 @@ featured: true
 permalink: "/2021/11/01/defender-for-endpoint-unified-package-for-server-2016-and-2012-r2/"
 ---
 Recently Microsoft [announced the public preview of a unified EPP and EDR](https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/defending-windows-server-2012-r2-and-2016/ba-p/2783292) package that allows a similar onboarding approach for these servers as Server 2019, Windows 10, and Windows 11. Recently, a customer I support wanted to test this new method and perform deployment using the GPO methodology.
+<!--more-->
 
 The documentation for how to set up and configure the GPO is available [here](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-server-endpoints?view=o365-worldwide#windows-server-2012-r2-and-windows-server-2016) and provides a great step-by-step guide. However, the guide only addresses linking the GPO to an OU, but for many customers having an OU per Server Version isn't likely. This customer did have their servers were grouped into a couple of OUs, but not by OS version, so we needed to find a WMI Query that would target the correct set of machines.
 

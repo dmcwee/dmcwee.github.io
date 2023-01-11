@@ -1,0 +1,5 @@
+{% for post in include.posts %}
+  {%- include article.html post=post hideSummary=false %}
+{% endfor %}
+
+  <a href="/categories/all" class="link-secondary">All Posts...</a>

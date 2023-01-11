@@ -23,7 +23,7 @@ So the basics of what we need to do are:
 
 ### Advanced Hunting Query
 
-```
+{% highlight powershell linenos %}
 let SoftwareVulns = DeviceTvmSoftwareVulnerabilities
 | join DeviceTvmSoftwareVulnerabilitiesKB on CveId
 | project-rename VulnerabilityName=VulnerabilityDescription, VulnerabilityScore=CvssScore, VulnId=CveId;
@@ -33,6 +33,6 @@ DeviceInfo
 | join kind=innerunique AllVulns on DeviceId
 | project Timestamp, VulnerabilityName, VulnerabilityScore, VulnId, DeviceName, PublicIP, OSArchitecture, OSPlatform, OSBuild, OSDistribution, OSVersion, OSVersionInfo
 | order by VulnerabilityScore, VulnId, Timestamp
-```
+{% endhighlight %}
 
 **Note:** You will notice I've created the *AllVulns* as well as used *project-rename* which in this scenario isn't really necessary.  However, this will allow you to add the Security Configuration table to this query easily and display results in a single data set.

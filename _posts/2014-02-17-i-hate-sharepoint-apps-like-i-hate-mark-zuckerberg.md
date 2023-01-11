@@ -12,18 +12,19 @@ permalink: "/2014/02/17/i-hate-sharepoint-apps-like-i-hate-mark-zuckerberg/"
 This blog post has been tumbling in my head since I began working on SharePoint 2013 Apps. This is probably the third time, at least, I have tried to express my thoughts on the development shifts in SharePoint from 2007 & 2010 to 2013.
 
 Beware some things in this post may be offensive to people, especially Mark Zuckerberg, but I wanted to bring a little humor into the geek speak.
+<!--more-->
 
 ## Do I Really Hate SharePoint Apps?
 
-I think hating SharePoint Apps is like hating someone like Mark Zuckerberg for creating Facebook. I don't hate him for creating Facebook and making billions, I hate that I didn't think of creating Facebook first. I could have createda web site where weshare things that should be kept to ourselves.
+I think hating SharePoint Apps is like hating someone like Mark Zuckerberg for creating Facebook. I don't hate him for creating Facebook and making billions, I hate that I didn't think of creating Facebook first. I could have created a web site where we share things that should be kept to ourselves.
 
 > "... I meet this chick at the bar and we hooked up and now my \_\_\_\_\_ is all swollen and it burns when I ...",
 
-WOW, I really didn't need to know that, but oh great you also included a picture! Because that image won't be permanently burned into my memory fromhere until the end of time, THANKS Friend!And now to perform a lobotomy on myself.
+WOW, I really didn't need to know that, but oh great you also included a picture! Because that image won't be permanently burned into my memory from here until the end of time, THANKS Friend! And now to perform a lobotomy on myself.
 
 Or where adultscan act like immature teenagers by unfriending each other (please read with ditsy Valley Girl 'accent')
 
-> "Suzie unfriended you because your friends with Katie who just started dating Charlieeven thoughshe knew that Suzie likedCharlie and wanted to go out with him."
+> "Suzie unfriended you because your friends with Katie who just started dating Charlie even though she knew that Suzie liked Charlie and wanted to go out with him."
 
 Yeah, next time you read your Facebook feed I dare you not to think of this post!
 

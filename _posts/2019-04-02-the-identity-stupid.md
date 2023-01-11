@@ -12,6 +12,7 @@ tags:
 permalink: "/2019/04/02/the-identity-stupid/"
 ---
 James Carville's campaign strategy for Bill Clinton's '92 campaign was **"The economy, stupid!"** These 3 words left no doubt to what was important, what to focus on, and the fact that getting the Economy right would make everything else possible. Today, as we look at changes to the corporate IT network and infrastructure we should adopt a similar slogan:
+<!--more-->
 
 ## The Identity, stupid!
 

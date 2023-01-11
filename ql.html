@@ -1,0 +1,39 @@
+---
+layout: page
+title: Quick Link
+---
+<script>
+    let href = document.URL;
+    let redir = new RegExp('[?&]id=([^&#]*)', 'i');
+    let qString = redir.exec(href);
+    console.debug(`redir value: ${qString[1]}`);
+
+    fetch("/assets/ql.json")
+    .then(response => response.json())
+    .then(result => {
+        console.debug(`result value: ${ JSON.stringify(result) }`);
+        let filtered = result.filter(function(item) {
+            return (item.id === qString[1]);
+        });
+
+        console.debug(`filtered array count: ${ filtered.length }`);
+        if(filtered.length > 0) {
+            document.location = filtered[0].url;
+        }
+        else {
+            $("#notFoundId").text(qString[1]);
+            $("#notFoundError").show();
+        }
+        $("#result").text(filtered[0].url);
+    });
+</script>
+
+<div class="row collapse" id="notFoundError">
+    The quick link reference &nbsp;<i><span id="notFoundId"></span></i>&nbsp; you are trying does not exist.
+</div>
+
+<div class="row collapse" id="fetchError">
+    Error attempting to find the quick link resource. Please try again later.
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

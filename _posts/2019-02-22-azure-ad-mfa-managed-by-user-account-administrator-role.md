@@ -17,6 +17,7 @@ tags:
 permalink: "/2019/02/22/azure-ad-mfa-managed-by-user-account-administrator-role/"
 ---
 Many organizations want to delegate enabling and disabling MFA for a user to their helpdesk, but the only RBAC role that allows MFA management is the Global Administrator and no one wants to grant helpdesk technicians Global Admin access to their tenant. However, there is a way around this RBAC limitation if your organization has Azure AD Premium.
+<!--more-->
 
 # General Concept
 
