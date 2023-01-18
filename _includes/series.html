@@ -1,22 +1,17 @@
 {% if page.series %}
-    <div class="row col-12">
+    <div class="row">
         <div class="col-12">
-            <h2>Posts in this series</h2>
+            <h4>Related Posts:</h4>
         </div>
-    {% assign seriesPosts = site.posts | where:"series",page.series | sort: "date" %}
-    {% for seriesPost in seriesPosts %}
-        <div class="col-3">
-            <article class="blog-post my-3">
-                <h3>{{ seriesPost.title }}</h3>
-                <p class="by-line">
-                    <span class="blog-date">{{ seriesPost.date | date: "%a, %b %d, %y"}}</span>
-                    {% for category in seriesPost.categories %}
-                    | <a href="/categories/{{ category }}">{{ category }}</a>
-                    {% endfor %}
-                </p>
-                <p><a class="link-secondary" href="{{seriesPost.url}}">Read more...</a></p>
-            </article>
-        </div>
-    {% endfor %}
+        {% assign seriesPosts = site.posts | where:"series",page.series | sort: "date" %}
+        <ul>
+        {% for seriesPost in seriesPosts %}
+            <li>
+                <a href="{{ seriesPost.url }}">{{ seriesPost.title }}</a>
+                <br>
+                ({{ seriesPost.date | date: "%a, %b %d, %y"}})
+            </li>
+        {% endfor %}
+        </ul>
     </div>
 {% endif %}
