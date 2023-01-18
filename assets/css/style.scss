@@ -1,0 +1,102 @@
+---
+# comment for preprocessing
+---
+@import "{{ site.theme }}";
+
+$slate: #212529;
+$headerColorOne: #212121;
+$headerColorTwo: #414141;
+$borderColor: #a1a1a1;
+$featureColor: gray;
+
+.blog {
+
+    background-color: white;
+    p {
+        margin: .5rem !important;
+    }
+
+    &-header {
+        /*background: linear-gradient($slate, $headerColorTwo);*/
+        background-color: $slate;
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+    
+        &-logo {
+            font-size: 2rem;
+        }
+    }
+
+    &-footer {
+        /*background: linear-gradient($slate, $headerColorOne);*/
+        background-color: $slate;
+    }
+
+    &-feature {
+        box-shadow: 3px 3px 3px $featureColor;
+        border: 1px solid $featureColor;
+    }
+
+    &-recents {
+        border-top: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+        height: 220px;
+
+        .excerpt {
+            max-height: 90px;
+            overflow-y: hidden;
+        }
+    }
+
+    &-headline {
+        background-color: $headerColorTwo;
+        color: white;
+        display:none;
+    }
+
+    &-socialmedia-list {
+        list-style: none;
+        /*color: $revHighContrast;*/
+        padding-left: 0;
+    
+        a, a:visited, a:hover {
+            /*color: $revHighContrast;*/
+        }
+    
+        .blog-socialmedia-item {
+            line-height: 1.5rem;
+            padding: .3rem .7rem;
+            border-radius: .25rem;      
+            margin: .1rem;
+            /*background: $impact;
+            color: $revHighContrast;*/
+        }
+    }
+    
+    &-socialmedia-item-small {
+        display: inline-block;
+    }
+
+    &-by-line {
+        border-top: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+    }
+
+    &-small-headshot {
+        border-radius: .5rem;
+        max-width: 200px;
+        max-height: 200px;
+        float: right;
+    }
+    
+    &-medium-headshot {
+        border-radius: 1rem;
+        max-width: 350px;
+        max-height: 350px;
+        float: right;
+    }
+}
+

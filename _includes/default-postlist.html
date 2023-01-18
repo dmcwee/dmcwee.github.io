@@ -1,4 +1,4 @@
-<h2 class="px-3 headline">Recent Posts</h2>
+<h2 class="blog-headline">Recent Posts</h2>
 {% for post in site.posts limit: 10 offset: 2 %}
   {%- include article.html post=post hideSummary=false -%}
 {% endfor %}

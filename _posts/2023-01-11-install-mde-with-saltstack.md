@@ -1,5 +1,6 @@
 ---
 title: Install MDE with SaltStack
+# layout: post
 categories:
 - MDE
 - Security
@@ -7,9 +8,9 @@ tags:
 - MDE
 - Microsoft Defender for Endpoint
 - SaltStack
-excerpt: Install and Onboarding MDE using SaltStack is very similar to Ansible and is remarkably easy for even SaltStack beginners.
 ---
 MDE for Linux has serveral articles about using common deployment tools, but recently I was asked about using SaltStack which was a tool I'm not familiar with and that lacks/lacked official documentation. 
+<!--more-->
 
 ## What is SaltStack
 I'll sumarize, but if you don't know about [SaltStack](https://saltproject.io/) then you should check out their web site.
@@ -33,12 +34,12 @@ The manual process to install MDE can be found [here](https://learn.microsoft.co
 
 **command line:**
 ```bash 
-curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list
+> curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list
 ```
 
 **saltstack command line:**
 ```bash
-salt '*' cmd.run 'curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list'
+> salt '*' cmd.run 'curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list'
 ```
 
 So, pretty simple and we could basically take the entire manual process and do this with success. 
@@ -52,12 +53,13 @@ Rather than just converting command lines to SaltStack command lines, there are 
 First, using SaltStack's [state capability](https://docs.saltproject.io/en/getstarted/fundamentals/states.html) we can define everything we need in order to successfully deploy MDE on our machines and then apply this to all of the `minions`. While SaltStack supports the idea of modularity in the State capability the reality is that to deploy MDE we don't actually require many steps, so rather than creating individual files I chose to create a single Install state file. SaltStack uses a YAML syntax with a `.sls` extensions for the state files, and these should be hosted on the Salt Master in the `/srv/salt` folder (other storage places can be used, but not for this example).
 
 ```bash 
-cat /srv/salt/install_mde.sls
+> cat /srv/salt/install_mde.sls
 ```
 #### SaltStack Package Management for Pre-reqs
 Next, we will begin with the Pre-reqs that are needed. Per the manual documentation for Debian the packages `curl`,`libplist-utils`,`gpg`,`gnupg`,and `apt-transport-https` are or may be required, so we can use the SaltStack [`pkg` module](https://docs.saltproject.io/en/latest/ref/modules/all/salt.modules.pkg.html) to tell Salt to ensure these are installed as a first step.
 
-```install_mde.sls
+**install_mde.sls**
+```yaml
 install_prereqs:
   pkg.installed:
     - pkgs:
@@ -71,7 +73,8 @@ install_prereqs:
 #### SaltStack Repository Management to Add MDE Package Repository
 After the Pre-Reqs we can then add the MDE repository and keys using SaltStack [`pkgrepo` module](https://docs.saltproject.io/en/latest/ref/states/all/salt.states.pkgrepo.html) so we can successfully get and install the MDE package.
 
-```install_mde.sls
+**install_mde.sls**
+```yaml
 add_mde_repo:
   pkgrepo.managed:
     - humanname: Microsoft Defender
@@ -86,7 +89,8 @@ The `name` field above is used by SaltStack as the Repo ID as well as what is st
 #### SaltStack Package Management to Add MDE Package Install
 Now we can perform the installation of the MDE package. Like the pre-reqs we will use the `pkg` module to ensure the MDE package is installed on the machine(s).
 
-```install_mde.sls
+**install_mde.sls**
+```yaml
 install_mde:
   pkg.installed:
     - name: mdatp
@@ -108,22 +112,19 @@ Download the onboarding package from Microsoft 365 Defender portal:
 - On the SaltStack Master create an `mde` folder in the default Salt File storage for MDE
     
 ```bash
-mkdir /srv/salt/mde
+> mkdir /srv/salt/mde
 ```
 
 - On the SaltStack Master extract the contents of the archive to the SaltStack Server's folder `/srv/salt/mde`:
 
 ```bash
-ls -l
-```
-```Output
+> ls -l
+
 total 8
 -rw-r--r-- 1 test  staff  4984 Feb 18 11:22 WindowsDefenderATPOnboardingPackage.zip
-```
-```bash
-unzip WindowsDefenderATPOnboardingPackage.zip -d /srv/salt/mde
-```
-```Output
+
+> unzip WindowsDefenderATPOnboardingPackage.zip -d /srv/salt/mde
+
 Archive:  WindowsDefenderATPOnboardingPackage.zip
 inflating: /srv/salt/mde/mdatp_onboard.json
 ```
@@ -131,7 +132,8 @@ inflating: /srv/salt/mde/mdatp_onboard.json
 #### SaltStack File Managed to Push Onboarding File to Minions
 Finally, pushing the MDE Onboarding script to each machine will cause the automatic onboarding of the device as a final step. SaltStack has a built in file server capability which allows files in the `/srv/salt` folder on the Master to be available to the Minions. Using this built in capability it is easy to distribute the onboarding file to each minion.
 
-```install_mde.sls
+**install_mde.sls**
+```yaml
 copy_mde_onboarding:
   file.managed:
     - name: /etc/opt/microsoft/mdatp/mdatp_onboard.json
@@ -143,7 +145,8 @@ Including the `required` here ensure that the MDE package was installed first wh
 #### (Optional) SaltStack File Managed to Push MDE Configuration
 Although not dicussed in this blog there is also an MDE Configuration file that can be pushed to each of the minions. Using a similar technique to the onboarding script you can push the configureation file as shown below.
 
-```install_mde.sls
+**install_mde.sls**
+```yaml
 copy_mde_configuration:
   file.managed:
     - name: /etc/opt/microsoft/mdatp/managed/mdatp_managed.json
@@ -155,7 +158,7 @@ copy_mde_configuration:
 Once the State File has been created you can now use the Salt `state.apply` command to enfore the desired state. **Notice** when applying the state the file extension is omitted from the state file because it uses `.` as a folder segmentation indicator in the event that you have nested state files.
 
 ```bash
-salt '*' state.apply install_mde
+> salt '*' state.apply install_mde
 ```
 
 Assuming no typos or errors you should now have a valid state file that has successfully installed MDE, onboarded the device, and potentially pushed a desired configuration to each of your Linux machines.

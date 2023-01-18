@@ -20,7 +20,8 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: "davidmcwee.com"
 url: "https://davidmcwee.com" # the base hostname & protocol for your site, e.g. http://example.com
-google_analytics: "G-K5M43KBSNX"
+#google_analytics: "G-K5M43KBSNX"
+google_analytics: ""
 
 socialmedia:
   - name: twitter
@@ -41,18 +42,18 @@ socialmedia:
     url: "https://github.com/dmcwee"
 
 excerpt_separator: <!--more-->
-image: /assets/images/me.jpg
+image: /assets/images/me.png
 
 # Build settings
 markdown: kramdown
-theme: minima
-highlighter: rouge
+theme: jekyll-theme-slate
+# highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
-sass:
-  style: compressed
+# sass:
+#  style: compressed
 
 # navbar
 navbar:
@@ -77,6 +78,7 @@ defaults:
 -
   scope:
     path: ""
+    layout: default
   values:
     author: David McWee
     seo_type: "Site"
@@ -84,6 +86,7 @@ defaults:
   scope:
     path: "_posts"
     type: "posts"
+    layout: "post"
   values:
     twitter_summary: true
     seo_type: "BlogPosting"
@@ -91,8 +94,10 @@ defaults:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#  - categories
+exclude:
+- categories
+  - _posts/drafts
+  - _posts/archive
 #   - Gemfile
 #   - Gemfile.lock
 #   - node_modules

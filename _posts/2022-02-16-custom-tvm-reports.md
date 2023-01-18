@@ -1,5 +1,6 @@
 ---
 title: Custom MDE Threat and Vulnerability Report
+layout: post
 categories:
 - MDE
 - Security
@@ -8,9 +9,9 @@ tags:
 - Microsoft Defender for Endpoint
 - Advanced Hunting
 - KQL
-excerpt: The Threat & Vulnerablity reports in MDE provide nice summary data across your cloud, but when you have to react to what the report says how can you get the details you need?
 ---
 The [secuity portal](https://security.microsoft.com) comes with several nice vulnerability reports for customers to review that show a summary of the risks in their environment.  However, some customers find that these reports are too *general*, so while they show summary data they cannot distribute these to system owners who could then go an patch their systems.
+<!--more-->
 
 ## Advanced Hunting as a Report
 Most people are familiar with Advanced Hunting queries for customer alerts, and the obvious: Advanced Hunting of threats in an environment. However, Advanced Hunting is also a great way for organizations to generate reports with specific details of their choosing, and that is exactly what we can do to get specific details for our Vulnerablity report.

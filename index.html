@@ -1,11 +1,11 @@
 ---
-layout: page
+layout: default
 ---
 {% assign featuredPost = site.posts | where: "featured", "true" %}
 {% for post in featuredPost limit:1 %}
   <div class="p-5 mb-2 blog-feature">
     <div class="col-12 px-0">
-      <h1 class="display-4 fst-italic">{{ post.title }}</h1>
+      <h1 class="display-4">{{ post.title }}</h1>
       <p class="lead my-3">{{ post.excerpt }}</p>
       <p class="lead mb-0">
         <a class="link-secondary" href="{{ post.url }}">Read More...</a>
@@ -16,8 +16,12 @@ layout: page
 
 <div class="row mb-2">
   {% for post in site.posts limit:2 %}
-  <div class="col-md-6">
-    <div class="row border overflow-hidden px-0 mx-0 shadow-sm position-relative summary-card">
+  <div class="col-6">
+    <div class="blog-recents">
+      {%- include article.html post=post hideSummary=false -%}
+    </div>
+    <!-- 
+    <div class="row border overflow-hidden px-0 mx-0 shadow-sm position-relative summary-card blog-recents">
       <div class="col p-4 d-flex flex-column position-static">
         <strong class="d-inline-block mb-2 text-primary">{{ post.categories[0] }}</strong>
         <h3 class="mb-0">{{ post.title }}</h3>
@@ -26,15 +30,13 @@ layout: page
         <a href="{{ post.url }}" class="stretched-link">Continue reading...</a>
       </div>
     </div>
+    -->
   </div>
   {% endfor %}
 </div>
 
 <div class="row g-5">
-  <div class="col-md-8">
+  <div class="col-md-12">
     {%- include default-postlist.html -%}
-  </div>
-  <div class="col-md-4">
-    {%- include default-sidepanel.html -%}
   </div>
 </div>

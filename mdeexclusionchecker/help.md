@@ -1,6 +1,6 @@
 ---
 title: MDE Exclusion Checker (BETA) Help
-layout: page
+layout: default
 ---
 
 This page provides helpful information abou the MDE Exclusion checker currently under development.
