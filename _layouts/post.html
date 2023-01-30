@@ -9,22 +9,22 @@
         <h1 class="blog-title col-12">{{ page.title }}</h1>
       </div>
       <div class="row g-5 blog-by-line mb-3">
-        <div class="col-10 blog-date">
+        <div class="col-12 blog-date">
           {{ page.date | date: "%a %b %d, %y" }}
           {% for category in page.categories %}
           | <a href="/categories/{{ category }}">{{ category }}</a>
           {% endfor %}
-        </div>
-        <div class="col-2 blog-socialmedia">
-          Share:
+          <ul class="blog-socialmedia-list">
           {% assign shareSites = site.socialmedia | where: "supportShare", true %}
+            <li class="blog-socialmedia-list-header">Share</li>
             {% for shareSite in shareSites %}
-            <li class="blog-socialmedia-item blog-socialmedia-item-small">
+            <li class="blog-socialmedia-list-item blog-socialmedia-list-item-small">
                 <a href="{{shareSite.shareurl}}{{site.url | url_encode}}{{page.url | url_encode}}">
                     <span class="{{shareSite.iconclass}} btn-icon" role="img" aria-label="share on {{shareSite.name}}"></span>
                 </a>
             </li>
           {% endfor %}
+          </ul>
         </div>
       </div>
       <div class="row g-5 blog-body">

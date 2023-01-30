@@ -61,18 +61,29 @@ $featureColor: gray;
         list-style: none;
         /*color: $revHighContrast;*/
         padding-left: 0;
+        float: right !important;
+        margin-bottom: 0 !important;
     
         a, a:visited, a:hover {
             /*color: $revHighContrast;*/
         }
     
         .blog-socialmedia-item {
-            line-height: 1.5rem;
+            /*line-height: 1.5rem;
             padding: .3rem .7rem;
             border-radius: .25rem;      
             margin: .1rem;
-            /*background: $impact;
+            background: $impact;
             color: $revHighContrast;*/
+        }
+
+        &-header {
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        &-item-small {
+            display: inline-block;
         }
     }
     

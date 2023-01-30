@@ -1,6 +1,6 @@
 ---
 title: cat testing
-layout: post
+# layout: post
 categories:
 - AAD
 - Active Directory
