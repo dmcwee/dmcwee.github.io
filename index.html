@@ -16,21 +16,8 @@ layout: default
 
 <div class="row mb-2">
   {% for post in site.posts limit:2 %}
-  <div class="col-6">
-    <div class="blog-recents">
+  <div class="col-6 blog-recents">
       {%- include article.html post=post hideSummary=false -%}
-    </div>
-    <!-- 
-    <div class="row border overflow-hidden px-0 mx-0 shadow-sm position-relative summary-card blog-recents">
-      <div class="col p-4 d-flex flex-column position-static">
-        <strong class="d-inline-block mb-2 text-primary">{{ post.categories[0] }}</strong>
-        <h3 class="mb-0">{{ post.title }}</h3>
-        <div class="mb-1">{{ post.date | date: "%a, %b %d, %y"}}</div>
-        <p class="card-text mb-auto">{{ post.excerpt }}</p>
-        <a href="{{ post.url }}" class="stretched-link">Continue reading...</a>
-      </div>
-    </div>
-    -->
   </div>
   {% endfor %}
 </div>
