@@ -94,6 +94,10 @@ $featureColor: gray;
     &-by-line {
         border-top: 1px solid $borderColor;
         border-bottom: 1px solid $borderColor;
+
+        &-update {
+            font-weight: bold !important;
+        }
     }
 
     &-small-headshot {
