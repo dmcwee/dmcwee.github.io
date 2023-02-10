@@ -8,10 +8,11 @@ $headerColorOne: #212121;
 $headerColorTwo: #414141;
 $borderColor: #a1a1a1;
 $featureColor: gray;
+$liteColor: #f0f0f0;
 
 .blog {
 
-    background-color: #f0f0f0;
+    background-color: $liteColor;
     p {
         margin: .5rem !important;
     }
@@ -23,7 +24,7 @@ $featureColor: gray;
         a {
             text-decoration: underline;
             font-weight: bold;
-            color: white;
+            color: $liteColor;
         }
     
         &-logo {
@@ -55,7 +56,7 @@ $featureColor: gray;
 
     &-headline {
         background-color: $headerColorTwo;
-        color: white;
+        color: $liteColor;
         display:none;
     }
 
