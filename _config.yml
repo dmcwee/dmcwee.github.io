@@ -59,6 +59,8 @@ plugins:
 navbar:
 - name: Tenant Tracker
   link: /tenant-tracker
+- name: Labs
+  link: /labs/
 - name: About
   link: /about
 
@@ -94,10 +96,11 @@ defaults:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-exclude:
-- categories
-  - _posts/drafts
-  - _posts/archive
+#exclude:
+#- categories
+#  - _posts/drafts
+#  - _posts/archive
+#  - *.draft.*
 #   - Gemfile
 #   - Gemfile.lock
 #   - node_modules

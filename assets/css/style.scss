@@ -11,7 +11,7 @@ $featureColor: gray;
 
 .blog {
 
-    background-color: white;
+    background-color: #f0f0f0;
     p {
         margin: .5rem !important;
     }
@@ -21,12 +21,14 @@ $featureColor: gray;
         background-color: $slate;
 
         a {
-            text-decoration: none;
+            text-decoration: underline;
             font-weight: bold;
+            color: white;
         }
     
         &-logo {
             font-size: 2rem;
+            text-decoration: none !important;
         }
     }
 

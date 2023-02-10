@@ -1,7 +1,6 @@
 ---
 layout: post
 title: What happened to tenant tracker
-featured: true
 categories: []
 tags: []
 ---
