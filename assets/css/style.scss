@@ -17,6 +17,12 @@ $liteColor: #f0f0f0;
         margin: .5rem !important;
     }
 
+    li {
+        img {
+            display:block;
+        }
+    }
+
     &-header {
         /*background: linear-gradient($slate, $headerColorTwo);*/
         background-color: $slate;
