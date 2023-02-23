@@ -12,9 +12,8 @@ function checkTenant(e) {
     $("#domains").html("");
 
     var tenantName = $("#tenantName").val();
-    var serviceEndpoint = $('input[name="msCloud"]:checked').val();
 
-    openIdConfig(tenantName, serviceEndpoint)
+    openIdConfig(tenantName)
     .then(response => response.json())
     .then(result => {
         if(result.error) 
@@ -24,6 +23,24 @@ function checkTenant(e) {
         else 
         {
             handleServiceSuccess(result);
+            tenantDomains(tenantName, result.tenant_region_sub_scope)
+              .then(response => response.json())
+              .then(autoDiscoverResult => {
+                handleAutoDiscoverSuccess({
+                  domains: autoDiscoverResult,
+                  tenant_name: autoDiscoverResult.find(element => {
+                    if(element.includes("onmicrosoft") && !element.includes("mail.onmicrosoft")) {
+                      return true;
+                    }
+                  })
+                });
+              })
+              .catch(error => {
+                console.error(`[tenantDomains] Caught exception ${error}`);
+              })
+              .finally(() => {
+                $("#domains").show();
+              });
         }
     })
     .catch(error => {
@@ -38,25 +55,6 @@ function checkTenant(e) {
         $("#results").show();
         //return false;
     });
-
-    tenantDomains(tenantName)
-    .then(response => response.json())
-    .then(result => {
-      handleAutoDiscoverSuccess({
-        domains: result,
-        tenant_name: result.find(element => {
-          if(element.includes("onmicrosoft") && !element.includes("mail.onmicrosoft")) {
-            return true;
-          }
-        })
-      });
-    })
-    .catch(error => {
-      console.error(`[tenantDomains] Caught exception ${error}`);
-    })
-    .finally(() => {
-      $("#domains").show();
-    })
 }
 
 function toggleResult() {
@@ -100,9 +98,9 @@ function openIdConfig(tenant_name, discovery_string = "https://login.microsofton
   return fetch(`${discovery_string}/${tenant_name.trim()}/.well-known/openid-configuration`);
 }
 
-function tenantDomains(tenant_name, proxy_uri = "https://davidmcweeproxy.azurewebsites.net/api/autodiscover") {
+function tenantDomains(tenant_name, tenantRegionScope, proxy_uri = "https://davidmcweeproxy.azurewebsites.net/api/autodiscover") {
   console.log("Calling Tenant Domains");
-  return fetch(`${proxy_uri}?tenant=${tenant_name.trim()}`);
+  return fetch(`${proxy_uri}?tenant=${tenant_name.trim()}&cloud=${tenantRegionScope}`);
 }
 
 function tenantName(tenant_name, proxy_uri = "https://davidmcweeproxy.azurewebsites.net/api/autodiscover"){
