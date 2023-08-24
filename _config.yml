@@ -60,7 +60,7 @@ navbar:
 - name: Tenant Tracker
   link: /tenant-tracker
 - name: Labs
-  link: /labs/
+  link: /labs
 - name: About
   link: /about
 
@@ -92,6 +92,11 @@ defaults:
   values:
     twitter_summary: true
     seo_type: "BlogPosting"
+-
+  scope:
+    path: "labs"
+    categories:
+      - Labs
 
 include:
 - .well-known

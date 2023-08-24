@@ -1,5 +1,17 @@
 ---
 title: Defender for Identity Security Alert Lab
+categories:
+- MDI
+- Identity
+- Microsoft
+- Labs
+tags:
+- Defender for Identity
+- MDI
+- Microsoft
+- Security
+- Identity
+- Labs
 ---
 This is a simplified deployment for the Defender for Identity [Security Alert Lab](https://docs.microsoft.com/en-us/defender-for-identity/playbook-lab-overview)
 

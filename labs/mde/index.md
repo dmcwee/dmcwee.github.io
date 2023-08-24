@@ -1,5 +1,12 @@
 ---
 title: Defender for Endpoint Scurity Lab
+categories:
+  - MDE
+  - Microsoft
+  - Security
+tags:
+  - MDE
+  - Labs
 ---
 
 This is a lab environment for testing of MDE scenarios including onboarding, offboarding, device configuration, monitoring, and generating events for advanced hunting.
