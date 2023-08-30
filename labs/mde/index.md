@@ -49,12 +49,9 @@ This is a lab environment for testing of MDE scenarios including onboarding, off
 
 ### Domain Join Machines
 
-1. In the Azure Portal go to the Resource Group where the lab was created and find the Virutal Network Resource and click on it. It should be named `[resource group name]-vnet`
-1. In the left navigation click on **DNS servers**
-    1. On the DNS Servers page select the **Custom** radio button
-    1. Add `10.0.2.5`, the DC Server's IP Address, as a DNS Server
-    1. Click **Save**
-    1. Reboot all VMs in the resource group
+``In August and update to the network template automatically sets Custom DNS value that include the Domain Controller for this lab. However, a reboot of the DC is still necessary for all the domain services, DNS, etc. to start up in a proper state.``
+
+1. Reboot the Domain Controller and then all VMs in the resource group.
 1. RDP to each of the Windows boxes and join them to the domain
 
 ## Deployment Details
