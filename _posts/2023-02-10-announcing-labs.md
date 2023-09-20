@@ -1,6 +1,5 @@
 ---
 title: Announcement - Labs
-featured: true
 categories:
 - MDE
 - MDI

@@ -1,5 +1,6 @@
 ---
 title: How to map AAD Groups to MDE Device Groups
+featured: true
 categories:
 - MDE
 - Security
