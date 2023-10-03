@@ -1,23 +1,23 @@
 <div class="blog-header">
     <div class="container">
-        <header class="py-3 px-3">
-            <div class="row flex-nowrap justify-content-between">
-                <div class="col-4">
-                    <a class="blog-header-logo" href="/">{{ site.title }}</a>
+        <header>
+            <div class="row flex-nowrap justify-content-between align-items-center pt-2 pb-2">
+                <div class="col align-items-center">
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/">{{ site.title }}</a>
                 </div>
-                <div class="col-8 d-flex justify-content-end">
-                    {% for navbarlink in site.navbar %}
-                    <a class="link-secondary px-1" href="{{navbarlink.link}}">{{navbarlink.name}}</a>
+                <div class="col d-flex justify-content-end align-items-center">
+                    {% for sm in site.socialmedia %}
+                    <a class="link-secondary p-1" href="{{ sm.url }}">
+                        <i class="bi {{sm.iconclass}}"></i>
+                    </a>
                     {% endfor %}
                 </div>
             </div>
         </header>
-        <div class="nav-scroller py-1 px-3 mb-2 nav-secondary">
-            <nav class="nav d-flex justify-content-between">
-                {% for navlink in site.secondary-navbar %}
-                <a class="p-2 link-secondary" href="{{ navlink.link }}">{{ navlink.name }}</a>
-                {% endfor %}
-            </nav>
-        </div>
+        <nav class="nav nav-underline blog-header-nav justify-content-between">
+            {% for navlink in site.navigation %}
+            <a class="nav-item nav-link" href="{{ navlink.link }}">{{ navlink.name }}</a>
+            {% endfor %}
+        </nav>
     </div>
 </div>

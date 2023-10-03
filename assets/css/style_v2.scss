@@ -1,63 +1,61 @@
 ---
 # comment for preprocessing
 ---
-@import "{{ site.theme }}";
-
-$slate: #212529;
-$headerColorOne: #212121;
-$headerColorTwo: #414141;
-$borderColor: #a1a1a1;
-$featureColor: gray;
-$liteColor: #f0f0f0;
+@import "basics";
 
 .blog {
 
-    background-color: $liteColor;
-    p {
-        margin: .5rem !important;
-    }
-
-    li {
-        img {
-            display:block;
-        }
-    }
-
     &-header {
-        /*background: linear-gradient($slate, $headerColorTwo);*/
         background-color: $slate;
-        color: $liteColor;
+        color: $liteColor !important;
 
-        a, a:hover, a:active, a:visited {
-            font-weight: bold;
-            color: $liteColor;
-        }
-    
+
         &-logo {
             font-size: 2rem;
             text-decoration: none !important;
+            font-weight: bold;
+            color: $liteColor !important;
+        }
+
+        &-nav, .secondary-link, .nav-link {
             color: $liteColor !important;
         }
     }
 
     &-footer {
-        /*background: linear-gradient($slate, $headerColorOne);*/
         background-color: $slate;
+        color: $liteColor !important;
     }
 
-    &-feature {
-        box-shadow: 3px 3px 3px $featureColor;
-        border: 1px solid $featureColor;
-    }
+    &-featured-posts {
+        .card {
+            margin-left: 1px;
+            margin-right: 1px;
+            padding-left: 0px;
+            padding-right: 0px;
 
-    &-recents {
-        border-top: 1px solid $borderColor;
-        border-bottom: 1px solid $borderColor;
-        /* height: 220px; */
+            :first-child {
+                margin-left: 0px;
+            }
 
-        .excerpt {
-            max-height: 90px;
-            overflow-y: hidden;
+            :last-child {
+                margin-right: 0px;
+            }
+
+            &-text {
+                max-height: 90px;
+                overflow-y: hidden;
+            }
+
+            &-img-top {
+                max-height: 240px !important;
+            }
+
+            &-subtitle {
+                a {
+                    color: inherit !important;
+                }
+            }
         }
     }
 
@@ -69,9 +67,23 @@ $liteColor: #f0f0f0;
 
     &-socialmedia-list {
         list-style: none;
+        /*color: $revHighContrast;*/
         padding-left: 0;
         float: right !important;
         margin-bottom: 0 !important;
+    
+        //a, a:visited, a:hover {
+            /*color: $revHighContrast;*/
+        //}
+    
+        //&-item {
+            /*line-height: 1.5rem;
+            padding: .3rem .7rem;
+            border-radius: .25rem;      
+            margin: .1rem;
+            background: $impact;
+            color: $revHighContrast;*/
+        //}
 
         &-header {
             display: inline-block;

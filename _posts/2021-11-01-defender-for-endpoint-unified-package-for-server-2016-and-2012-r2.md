@@ -10,6 +10,7 @@ tags:
 - MDE
 - Microsoft
 featured: true
+image: /assets/images/2021/11/defender_unified.jpg
 permalink: "/2021/11/01/defender-for-endpoint-unified-package-for-server-2016-and-2012-r2/"
 ---
 Recently Microsoft [announced the public preview of a unified EPP and EDR](https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/defending-windows-server-2012-r2-and-2016/ba-p/2783292) package that allows a similar onboarding approach for these servers as Server 2019, Windows 10, and Windows 11. Recently, a customer I support wanted to test this new method and perform deployment using the GPO methodology.

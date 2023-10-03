@@ -6,3 +6,5 @@ node_modules
 manifest.dev.prod.xml
 Gemfile.lock
 *.testing.*
+_sass/*.css
+_sass/*.css.map

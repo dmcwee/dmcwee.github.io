@@ -1,9 +1,0 @@
-{% assign cats = site.categories | sort %}
-{% for cat in cats %}
-<div class="card">
-    <a href="/categories/{{cat | first | slugify}}/">
-        <span class="button">{{cat[0] | replace:'-', ' '}}</span>
-        <span class="badge">({{cat | last | size}})</span>
-    </a>
-</div>
-{% endfor %}

@@ -40,6 +40,16 @@ socialmedia:
     username: dmcwee
     iconclass: bi-github
     url: "https://github.com/dmcwee"
+  - name: mastodon
+    username: dmcwee@infosec.exchange
+    iconclass: bi-mastodon
+    supportsShare: false
+    url: "https://infosec.exchange/@dmcwee"
+  - name: threads
+    username: dmcwee
+    iconclass: bi-threads-fill
+    supportsShare: false
+    url: "https://infosec.exchange/@dmcwee"
 
 excerpt_separator: <!--more-->
 image: /assets/images/me.png
@@ -50,21 +60,15 @@ theme: jekyll-theme-slate
 # highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
-plugins:
-  - jekyll-feed
+#plugins:
+#  - jekyll-feed
 # sass:
 #  style: compressed
 
 # navbar
-navbar:
+navigation:
 - name: Tenant Tracker
   link: /tenant-tracker
-- name: Labs
-  link: /labs
-- name: About
-  link: /about
-
-secondary-navbar:
 - name: Identity
   link: /categories/identity
 - name: Security
@@ -73,8 +77,30 @@ secondary-navbar:
   link: /categories/mde
 - name: Defender for Identity
   link: /categories/mdi
-- name: Defender for Office
-  link: /categories/mdo
+- name: Labs
+  link: /labs
+- name: About
+  link: /about
+# - name: Defender for Office
+#   link: /categories/mdo
+
+#secondary-navbar:
+#- name: Tenant Tracker
+#  link: /tenant-tracker
+#- name: Labs
+#  link: /labs
+#- name: About
+#  link: /about
+#- name: Identity
+#  link: /categories/identity
+#- name: Security
+#  link: /categories/security
+#- name: Defender for Endpoint
+#  link: /categories/mde
+#- name: Defender for Identity
+#  link: /categories/mdi
+# - name: Defender for Office
+#   link: /categories/mdo
 
 defaults:
 -

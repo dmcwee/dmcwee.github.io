@@ -1,0 +1,49 @@
+body {
+    background-color: #f0f0f0;
+}
+
+.blog-title {
+    color: #ffffff;
+}
+
+.blog-header {
+    background-color: #212529;
+}
+
+.featured-posts > .card {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.featured-posts > .card:first-child {
+    margin-right: 1px;
+    margin-left: 0px;
+}
+
+.featured-posts > .card:last-child {
+    margin-left: 1px;
+    margin-right: 0px;
+}
+
+.border-left {
+    border-left: 1px solid black;
+    padding-left: 4px;
+}
+
+.border-right {
+    border-right: 1px solid black;
+}
+
+.card-text-summary {
+    max-height: 90px;
+    overflow-y: hidden;
+}
+
+.card-img-top-limit {
+    max-height: 240px !important;
+}
+
+.row > .card {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
