@@ -60,8 +60,8 @@ theme: jekyll-theme-slate
 # highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
-#plugins:
-#  - jekyll-feed
+plugins:
+  - jekyll-feed
 # sass:
 #  style: compressed
 
