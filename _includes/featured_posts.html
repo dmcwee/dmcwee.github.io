@@ -9,7 +9,7 @@
             <h6 class="card-subtitle text-body-secondary">
                 {{ post.date | date: "%b %d, %y"}}
                 {% for category in post.categories %}
-                | <a href="/categories/{{ category }}">{{ category }}</a>
+                | <a href="/categories/{{ category | downcase }}">{{ category }}</a>
                 {% endfor %}
             </h6>
             <h5 class="card-title">{{ post.title }}</h5>

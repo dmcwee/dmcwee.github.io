@@ -69,14 +69,14 @@ plugins:
 navigation:
 - name: Tenant Tracker
   link: /tenant-tracker
-- name: Identity
-  link: /categories/identity
-- name: Security
-  link: /categories/security
 - name: Defender for Endpoint
   link: /categories/mde
 - name: Defender for Identity
   link: /categories/mdi
+- name: Identity
+  link: /categories/identity
+- name: Security
+  link: /categories/security
 - name: Labs
   link: /labs
 - name: About
@@ -84,40 +84,27 @@ navigation:
 # - name: Defender for Office
 #   link: /categories/mdo
 
-#secondary-navbar:
-#- name: Tenant Tracker
-#  link: /tenant-tracker
-#- name: Labs
-#  link: /labs
-#- name: About
-#  link: /about
-#- name: Identity
-#  link: /categories/identity
-#- name: Security
-#  link: /categories/security
-#- name: Defender for Endpoint
-#  link: /categories/mde
-#- name: Defender for Identity
-#  link: /categories/mdi
-# - name: Defender for Office
-#   link: /categories/mdo
-
 defaults:
--
+- 
   scope:
     path: ""
-    layout: default
   values:
-    author: David McWee
+    layout: "default"
+    author: "David McWee"
     seo_type: "Site"
--
+- 
   scope:
     path: "_posts"
+  values:
     type: "posts"
     layout: "post"
-  values:
     twitter_summary: true
     seo_type: "BlogPosting"
+-
+  scope:
+    path: "categories"
+  values:
+    layout: "default"
 #-
 #  scope:
 #    path: "labs"
