@@ -7,6 +7,7 @@ $headerColorTwo: #414141;
 $borderColor: #a1a1a1;
 $featureColor: gray;
 $liteColor: #f0f0f0;
+$imgBorder: #ebebeb;
 
 body {
     background-color: $liteColor;
@@ -16,7 +17,7 @@ body {
 table {
     border: solid 1px $slate;
 
-    tbody > tr:nth-of-type(odd) > * {
+    tbody > tr:nth-of-type(even) > * {
         background-color: $borderColor;
         color: $headerColorOne;
 
@@ -25,7 +26,7 @@ table {
         }
     }
 
-    tbody > tr:nth-of-type(odd) > * > a {
+    tbody > tr:nth-of-type(even) > * > a {
         color: inherit;
     }
 
@@ -33,6 +34,4 @@ table {
         background-color: $slate;
         color: $liteColor;
     }
-
-    
 }

@@ -24,12 +24,6 @@ google_analytics: "G-K5M43KBSNX"
 #google_analytics: ""
 
 socialmedia:
-  - name: twitter
-    username: dmcwee
-    iconclass: bi-twitter
-    url: "https://twitter.com/dmcwee"
-    supportShare: true
-    shareurl: "https://twitter.com/intent/tweet?url="
   - name: linkedin
     username: dmcwee
     iconclass: bi-linkedin
@@ -49,7 +43,13 @@ socialmedia:
     username: dmcwee
     iconclass: bi-threads-fill
     supportsShare: false
-    url: "https://infosec.exchange/@dmcwee"
+    url: "https://www.threads.net/@dmcwee"
+#  - name: twitter
+#    username: dmcwee
+#    iconclass: bi-twitter
+#    url: "https://twitter.com/dmcwee"
+#    supportShare: true
+#    shareurl: "https://twitter.com/intent/tweet?url="
 
 excerpt_separator: <!--more-->
 image: /assets/images/me.png

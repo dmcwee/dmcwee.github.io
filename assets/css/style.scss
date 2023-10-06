@@ -5,18 +5,26 @@
 
 .blog {
 
+    img {
+        position: relative;
+        max-width: 100%;
+        display: block;
+        padding: 5px;
+        margin: 10px 0 10px 0;
+        border: 1px solid $imgBorder;
+    }
     &-post {
         &-header {
             background-repeat: no-repeat;
-            background-size: cover; 
             min-height: 250px; 
-            background-size: 600px 600px;
+            background-size: 500px 500px;
+            background-color: $liteColor;
+            background-position: 0px -50px;
         }
         &-title {
             .dark, .lite {
                 color: $liteColor;
                 background-color: $slate;
-                
             }
             // .lite {
             //     color: $slate;
