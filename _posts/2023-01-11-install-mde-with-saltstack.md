@@ -10,6 +10,7 @@ tags:
 - SaltStack
 featured: true
 image: /assets/images/2023/01/mde_salt_stack.jpg
+theme: lite
 ---
 MDE for Linux has serveral articles about using common deployment tools, but recently I was asked about using SaltStack which was a tool I'm not familiar with and that lacks/lacked official documentation.
 <!--more-->
@@ -39,13 +40,13 @@ The manual process to install MDE can be found [here](https://learn.microsoft.co
 
 **command line:**
 
-```bash
+```shell
 > curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list
 ```
 
 **saltstack command line:**
 
-```bash
+```shell
 > salt '*' cmd.run 'curl -o /etc/apt/sources.list.d/microsoft-[channel].list https://packages.microsoft.com/config/[distro]/[version]/[channel].list'
 ```
 
@@ -61,7 +62,7 @@ Rather than just converting command lines to SaltStack command lines, there are 
 
 First, using SaltStack's [state capability](https://docs.saltproject.io/en/getstarted/fundamentals/states.html) we can define everything we need in order to successfully deploy MDE on our machines and then apply this to all of the `minions`. While SaltStack supports the idea of modularity in the State capability the reality is that to deploy MDE we don't actually require many steps, so rather than creating individual files I chose to create a single Install state file. SaltStack uses a YAML syntax with a `.sls` extensions for the state files, and these should be hosted on the Salt Master in the `/srv/salt` folder (other storage places can be used, but not for this example).
 
-```bash
+```shell
 > cat /srv/salt/install_mde.sls
 ```
 
@@ -130,13 +131,13 @@ Download the onboarding package from Microsoft 365 Defender portal:
 
 - On the SaltStack Master create an `mde` folder in the default Salt File storage for MDE
 
-```bash
+```shell
 > mkdir /srv/salt/mde
 ```
 
 - On the SaltStack Master extract the contents of the archive to the SaltStack Server's folder `/srv/salt/mde`:
 
-```bash
+```shell
 > ls -l
 
 total 8
@@ -182,7 +183,7 @@ copy_mde_configuration:
 
 Once the State File has been created you can now use the Salt `state.apply` command to enfore the desired state. **Notice** when applying the state the file extension is omitted from the state file because it uses `.` as a folder segmentation indicator in the event that you have nested state files.
 
-```bash
+```shell
 > salt '*' state.apply install_mde
 ```
 

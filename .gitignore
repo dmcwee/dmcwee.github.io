@@ -8,3 +8,5 @@ Gemfile.lock
 *.testing.*
 _sass/*.css
 _sass/*.css.map
+_sass/bootstrap
+_sass/slate

@@ -56,8 +56,8 @@ image: /assets/images/me.png
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-slate
-# highlighter: rouge
+# theme: jekyll-theme-slate
+highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
@@ -100,16 +100,18 @@ defaults:
     layout: "post"
     twitter_summary: true
     seo_type: "BlogPosting"
+    theme: light
 -
   scope:
     path: "categories"
   values:
     layout: "default"
-#-
-#  scope:
-#    path: "labs"
-#    categories:
-#      - Labs
+-
+  scope:
+    path: "labs"
+  values:
+    categories:
+      - Labs
 
 include:
 - .well-known

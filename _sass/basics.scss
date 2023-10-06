@@ -1,3 +1,6 @@
+// @import "bootstrap/scss/bootstrap";
+@import "jekyll-github";
+
 $slate: #212529;
 $headerColorOne: #212121;
 $headerColorTwo: #414141;
@@ -10,33 +13,26 @@ body {
     font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
 }
 
-blockquote {
-    color: #666;
-    margin-bottom: 20px;
-    padding: 0 0 0 20px;
-    border-left: 3px solid #bbb;
-}
-
-code {
-    padding: 3px;
-    margin: 0 3px;
-}
-
-pre, code {
-    color: #222;
-    background-color: #fff;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-    font-size: 0.875em;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-}
-
 table {
-    border: 1px solid #373737;
-    margin-bottom: 20px;
-    text-align:left;
-    border-collapse: collapse;
-    border-spacing: 0px;
-    text-indent: initial;
+    border: solid 1px $slate;
+
+    tbody > tr:nth-of-type(odd) > * {
+        background-color: $borderColor;
+        color: $headerColorOne;
+
+        a {
+            color: $headerColorOne;
+        }
+    }
+
+    tbody > tr:nth-of-type(odd) > * > a {
+        color: inherit;
+    }
+
+    thead > tr {
+        background-color: $slate;
+        color: $liteColor;
+    }
+
+    
 }
