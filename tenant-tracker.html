@@ -2,18 +2,17 @@
 layout: default
 title: Tenant Tracker
 ---
-<div class="row">
+<div class="row pt-3">
     <div class="col-12 pb-3">
         <form action="#" onsubmit="checkTenant()">
-            <div class="form-inline row">
-                <label for="tenantName" class="col-md-2">Tenant Name:</label>
-                <input class="form-control col-md-8" type="text" placeholder="tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
+            <div class="input-group row">
+                <input class="form-control col-md-8" type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
                 <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant" onsubmit="checkTenant()">
             </div>
         </form>
     </div>
 </div>
-<div class="row" id="result_container">
+<div class="row pb-3" id="result_container">
     <div class="col-8" id="results" style="display:none;"></div>
     <div class="col-4" id="domains" style="display:none;"></div>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: Defender for Endpoint Scurity Lab
+title: Defender for Endpoint Security Lab
 categories:
   - MDE
   - Microsoft
@@ -7,13 +7,19 @@ categories:
 tags:
   - MDE
   - Labs
+image: "/assets/images/labs/MDE_Lab.jpg"
+github: "https://github.com/dmcwee/labs/tree/master/MDELab"
+layout: post
+theme: dark
+date: 2022-12-01
 ---
 
-This is a lab environment for testing of MDE scenarios including onboarding, offboarding, device configuration, monitoring, and generating events for advanced hunting.
+**MDE Security Lab** is based on running VMs for about a year in Azure while I've experimented, tested, and learned capabilities in MDE. Over a year, or more, I've created, deleted, enrolled, and unenrolled VMs in MDE, added varying types of OS's, and even experimented with various management platforms (Intune, Ansible, SaltStack, etc.). This environment is a collection of those artifacts so I can create and tear down these labs for various purposes.
+<!--more-->
 
 ## Deployment Instructions
 
-1. Generate a root and child certificate for the Gateway VPN using [these instructions](../VPN-Setup.html)
+1. Generate a root and child certificate for the Gateway VPN using [these instructions](../VPN-Setup)
 1. Open the Azure Portal in a seperate tab in your browser
 1. Use the Deploy to Azure button below to deploy the lab to your Azure Environment
     1. **Required:** Specify a Resource Group where the lab will be deployed

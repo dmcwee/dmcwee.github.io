@@ -1,4 +1,4 @@
-<div class="blog-featured-posts row pt-3">
+<div class="blog-featured-posts row row-col-4 pt-3">
     {% assign featuredPost = site.posts | where: "featured", "true" %}
     {% for post in featuredPost limit:4 %}
     <div class="card col-sm">

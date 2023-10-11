@@ -1,0 +1,29 @@
+---
+title: Labs
+---
+<div class="row pt-3">
+    <div class="col">
+        <h2>{{ page.title }}</h2>
+        These are labs and lab tempaltes I've created and use on a regular basis. The repositories are free for you to use/borrow/fork as you see fit, 
+        but I make no promises or guarantees if you rely on these about updates, releases, etc.
+    </div>
+</div>
+<div class="blog-featured-posts row row-col-4 pt-3 pb-3">
+    {% for lab in site.labs %}
+    <div class="card col-sm">
+        {% if lab.image %}
+        <img src="{{ lab.image | relative_url }}" class="card-img-top" alt="{{lab.title}} image">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ lab.title }}</h5>
+            <p class="card-text">{{ lab.excerpt | strip_html  }}</p>
+            <a href="{{ lab.url | relative_url }}" class="link-secondary card-link">Read more...</a> 
+            |
+            <a class="link-secondary align-items-right p-1" href="{{ lab.github }}">
+                <i class="bi bi-github"></i> Repo
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+

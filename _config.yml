@@ -13,6 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+
 title: David McWee
 email: dmcwee@microsoft.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -51,19 +52,22 @@ socialmedia:
 #    supportShare: true
 #    shareurl: "https://twitter.com/intent/tweet?url="
 
+collections:
+  labs:
+    output: true
+  projects:
+    output: true
+
 excerpt_separator: <!--more-->
 image: /assets/images/me.png
 
 # Build settings
 markdown: kramdown
-# theme: jekyll-theme-slate
 highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
-# sass:
-#  style: compressed
 
 # navbar
 navigation:
@@ -73,16 +77,23 @@ navigation:
   link: /categories/mde
 - name: Defender for Identity
   link: /categories/mdi
+#- name: Defender for Office
+#  link: /categories/mdo
+#- name: Defender for Cloud Apps
+#  link: /categories/mdca
+#- name: Defender for Cloud
+#  link: /categories/mdc
 - name: Identity
   link: /categories/identity
 - name: Security
   link: /categories/security
 - name: Labs
   link: /labs
+#- name: Projects
+#  link: /projects
 - name: About
   link: /about
-# - name: Defender for Office
-#   link: /categories/mdo
+
 
 defaults:
 - 
@@ -101,17 +112,6 @@ defaults:
     twitter_summary: true
     seo_type: "BlogPosting"
     theme: light
--
-  scope:
-    path: "categories"
-  values:
-    layout: "default"
--
-  scope:
-    path: "labs"
-  values:
-    categories:
-      - Labs
 
 include:
 - .well-known

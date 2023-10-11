@@ -1,19 +1,26 @@
 ---
 title: Defender for Identity Security Alert Lab
 categories:
-- MDI
-- Identity
-- Microsoft
-- Labs
+  - MDI
+  - Identity
+  - Microsoft
+  - Labs
 tags:
-- Defender for Identity
-- MDI
-- Microsoft
-- Security
-- Identity
-- Labs
+  - Defender for Identity
+  - MDI
+  - Microsoft
+  - Security
+  - Identity
+  - Labs
+image: "/assets/images/labs/MDI_Lab.jpg"
+github: "https://github.com/dmcwee/labs/tree/master/MDILab"
+layout: post
+theme: dark
+date: 2022-12-01
 ---
-This is a simplified deployment for the Defender for Identity [Security Alert Lab](https://docs.microsoft.com/en-us/defender-for-identity/playbook-lab-overview)
+
+Based on the Defender for Identity [Security Alert Lab](https://docs.microsoft.com/en-us/defender-for-identity/playbook-lab-overview), this will create an isolated lab environment where you can safely install, configure, and test the MDI learning scenarios. 
+<!--more-->
 
 ## Deployment Instructions
 
@@ -23,7 +30,7 @@ This is a simplified deployment for the Defender for Identity [Security Alert La
 >
 > Added the [Registry settings recommended by MDI](https://learn.microsoft.com/en-us/defender-for-identity/configure-windows-event-collection#event-id-1644) to the AD Desired State Configuration. The specific settings are also available in a [standalone DSC file](./DSC/MDIEventDsc.ps1) which can be deployed to other environments.
 
-1. Generate a root and child certificate for the Gateway VPN using [these instructions](../VPN-Setup.html)
+1. Generate a root and child certificate for the Gateway VPN using [these instructions](../VPN-Setup)
 1. Open the Azure Portal in a seperate tab in your browser
 1. Use the Deploy to Azure button below to deploy the lab to your Azure Environment
     1. **Required:** Specify a Resource Group where the lab will be deployed

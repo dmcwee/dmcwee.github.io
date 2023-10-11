@@ -10,7 +10,7 @@ To support the Point-to-Site VPN a root and child certificate is needed for auth
 1. Run:
 
     ```powershell
-    New-P2SCertificate.ps1 [optional: -RootCertCN myrootcert] [optional: -ChildCertCN mychildcert] [optional: -CertOutputFile pubrootcert.txt]
+    ps:> New-P2SCertificate.ps1 [optional: -RootCertCN myrootcert] [optional: -ChildCertCN mychildcert] [optional: -CertOutputFile pubrootcert.txt]
     ```
 
 1. Copy the output in the terminal, or the output in the txt file generated and provide this as the *gatewayRootCert* parameter in the lab provisioning process or in the Gateway's Settings (post provisioning).
