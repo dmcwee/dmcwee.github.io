@@ -57,6 +57,9 @@ collections:
     output: true
   projects:
     output: true
+  archive:
+    output: true
+    permalink: /:collection/:year/:month/:day/:title/
 
 excerpt_separator: <!--more-->
 image: /assets/images/me.png
