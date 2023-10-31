@@ -1,108 +1,20 @@
 ---
-# comment for preprocessing
 ---
-@import "basics";
+@import "problog";
 
 .blog {
 
-    img {
-        position: relative;
-        max-width: 100%;
-        display: block;
-        padding: 5px;
-        margin: 10px 0 10px 0;
-        border: 1px solid $imgBorder;
-    }
-    &-post {
-        &-header {
-            background-repeat: no-repeat;
-            min-height: 250px; 
-            background-size: 500px 500px;
-            background-color: $liteColor;
-            background-position: 0px -50px;
-        }
-        &-title {
-            .dark, .lite {
-                color: $liteColor;
-                background-color: $slate;
-            }
-            // .lite {
-            //     color: $slate;
-            //     background-color: $liteColor;
-            //     border-bottom: 1px solid $slate;
-            //     border-right: 1px solid $slate;
-            // }
+    &-content {
+        img {
+            position: relative;
+            max-width: 100%;
+            display: block;
+            padding: 5px;
+            margin: 10px 0 10px 0;
+            //border: 1px solid $imgBorder;
         }
     }
-
-    &-header {
-        background-color: $slate;
-        color: $liteColor !important;
-
-
-        &-logo {
-            font-size: 2rem;
-            text-decoration: none !important;
-            font-weight: bold;
-            color: $liteColor !important;
-        }
-
-        &-nav, .secondary-link, .nav-link {
-            color: $liteColor !important;
-        }
-    }
-
-    &-footer {
-        background-color: $slate;
-        color: $liteColor !important;
-    }
-
-    &-featured-posts {
-        .card {
-            margin-left: 1px;
-            margin-right: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-
-            :first-child {
-                margin-left: 0px;
-            }
-
-            :last-child {
-                margin-right: 0px;
-            }
-
-            &-text {
-                max-height: 90px;
-                overflow-y: hidden;
-            }
-
-            &-img-top {
-                max-height: 240px !important;
-            }
-
-            &-subtitle {
-                a {
-                    color: inherit !important;
-                }
-            }
-        }
-    }
-
-    &-headline {
-        background-color: $headerColorTwo;
-        color: $liteColor;
-        display:none;
-    }
-
-    &-by-line {
-        border-top: 1px solid $borderColor;
-        border-bottom: 1px solid $borderColor;
-
-        &-update {
-            font-weight: bold !important;
-        }
-    }
+    
 
     &-small-headshot {
         border-radius: .5rem;
@@ -118,4 +30,3 @@
         float: right;
     }
 }
-

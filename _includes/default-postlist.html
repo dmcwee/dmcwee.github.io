@@ -1,6 +1,0 @@
-<h2 class="blog-headline">Recent Posts</h2>
-{% for post in site.posts limit: 10 %}
-  {%- include article.html post=post hideSummary=false -%}
-{% endfor %}
-
-<a href="/categories/all" class="link-secondary">All Posts...</a>

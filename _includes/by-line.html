@@ -11,7 +11,7 @@
       {% if include.share, true %}
       <div class="col-sm-2 d-flex justify-content-end align-items-center">
         <b>Share:</b>
-        {% assign shareSites = site.socialmedia | where: "supportShare", true %}
+        {% assign shareSites = site.data.socialmedia | where: "supportShare", true %}
         {% for sm in shareSites %}
         <a class="link-secondary p-1" href="{{ sm.url }}">
             <i class="bi {{sm.iconclass}}"></i>

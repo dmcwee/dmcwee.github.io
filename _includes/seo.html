@@ -53,14 +53,10 @@
 {% if page.image_alt %}
 <meta name="twitter:image:alt" content="{{ page.image_alt}}" />
 {% else %}
-<meta name="twitter:image:alt" content="David McWee's Site Image" />
+<meta name="twitter:image:alt" content="{{ site.title }} Image" />
 {% endif %}
 <!-- end twitter seo -->
 
 <!-- end seo include -->
 
-<!-- startgoogle analytics -->
 
-{%- include google-analytics.html -%}
-
-<!-- end google analytics-->

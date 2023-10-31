@@ -1,37 +1,27 @@
-// @import "bootstrap/scss/bootstrap";
-@import "jekyll-github";
-
-$slate: #212529;
-$headerColorOne: #212121;
-$headerColorTwo: #414141;
-$borderColor: #a1a1a1;
-$featureColor: gray;
-$liteColor: #f0f0f0;
-$imgBorder: #ebebeb;
-
-body {
-    background-color: $liteColor;
-    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
-}
+@import "lightTheme";
+@import "darkTheme";
 
 table {
-    border: solid 1px $slate;
+    width: 100%;
+    //border: solid 1px var(--bs-primary-border-subtle);
+    border: solid 1px var(--bs-dark-bg-subtle);
+    margin-bottom: 5px;
 
     tbody > tr:nth-of-type(even) > * {
-        background-color: $borderColor;
-        color: $headerColorOne;
+        background-color: var(--bs-dark-bg-subtle);
+        color: var(--bs-secondary-color);
 
         a {
-            color: $headerColorOne;
+            color: var(--bs-link-color);
         }
     }
 
     tbody > tr:nth-of-type(even) > * > a {
-        color: inherit;
+        color: var(--bs-link-color);
     }
 
     thead > tr {
-        background-color: $slate;
-        color: $liteColor;
+        background-color: var(--bs-dark-bg-subtle);
+        color: var(--bs-body-color);
     }
 }

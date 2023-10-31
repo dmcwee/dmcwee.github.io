@@ -3,13 +3,13 @@
   <head>
     {%- include head.html -%}
   </head>
-  <body>
-    {%- include header.html -%}
+  <body class="blog" data-bs-theme="{{ site.bs-theme }}">
+    {%- include navigation.html -%}
 
-    <main class="container">
+    <main class="container blog-main">
       {{ content }}
     </main>
 
-    {%- include footer.html -%}
+    {%- include scripts.html -%}
   </body>
 </html>

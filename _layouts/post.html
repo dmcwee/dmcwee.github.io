@@ -1,42 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {%- include head.html -%}
-  </head>
-  <body class="blog">
-    
-    {% include header.html %}
+---
+layout: default
+---
 
-    <article class="container">
-      {% if page.image %}
-      <div class="blog-post-header" style="background-image: url('{{ page.image}}');">
-        <div class="row pt-2 blog-post-title {{page.theme}}" data-bs-theme="{{ page.theme }}" >
-          <h1 class="blog-post-title {{page.theme}} col">{{ page.title }}</h1>
-        </div>
-      </div>
-      {% else %}
-      <div class="row pt-2">
-        <h1 class="blog-title col">{{ page.title }}</h1>
-      </div>
-      {% endif %}
-      
-      {%- include by-line.html post=page share=true -%}
+{% if page.banner %}
+{% assign class = "blog-post-header-image" %}
+{% endif %}
+<div class="row blog-post-header {{ class }}" style="background-image: url('{{ page.banner | relative_url  }}');" >
+    <div class="col mt-3" data-bs-theme="{{ page.title-bs-theme }}">
+        <h1 class="blog-post-title">{{ page.title }}</h1>
+    </div>
+</div>
 
-      <div class="row blog-body">
-        <div class="col blog-content">
-          {{ content }}
-        </div>
+{%- include by-line.html post=page share=true -%}
 
-        {% if page.series %}
-        <div class="col-3">
-          <div class="position-sticky blog-sidebar">
-            {% include series.html %}
-        </div>
-        {% endif %}
-
-      </div>
+<div class="row blog-body">
+    <article class="col blog-content">
+        {{ content }}
     </article>
 
-    {% include footer.html %}
-  </body>
-</html>
+    {% if page.series %}
+    <div class="col-3">
+        <div class="position-sticky blog-sidebar">
+        {% include series.html %}
+    </div>
+    {% endif %}
+</div>
