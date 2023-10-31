@@ -1,6 +1,6 @@
 <div class="blog-featured row row-col-4">
-    {% assign featuredPost = site.posts | where: "featured", "true" %}
-    {% for post in featuredPost %}
+    
+    {% for post in include.featuredPosts %}
     <div class="card col-sm">
         {% if post.image %}
         <img src="{{ post.image | relative_url }}" class="card-img-top" alt="post image">

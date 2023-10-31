@@ -1,23 +1,11 @@
 ---
 title: Projects
 ---
-<div class="row pt-3">
+<div class="row pt-3 pb-3">
     <div class="col">
         <h2>{{ page.title }}</h2>
         These are various project I have worked on and made available in my Github repository.
     </div>
 </div>
-<div class="blog-featured-posts row row-col-4 pt-3">
-    {% for project in site.projects %}
-    <div class="card col-sm">
-        {% if project.image %}
-        <img src="{{ project.image | relative_url }}" class="card-img-top" alt="{{project.title}} image">
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-text">{{ project.excerpt | strip_html  }}</p>
-            <a href="{{ project.url | relative_url }}" class="link-secondary card-link">Read more...</a>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+
+{%- include featured.html featuredPosts=site.projects -%}
