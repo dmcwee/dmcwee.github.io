@@ -10,3 +10,4 @@ _sass/*.css
 _sass/*.css.map
 _sass/bootstrap
 _sass/slate
+*:Zone.Identifier
