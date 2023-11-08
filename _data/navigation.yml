@@ -9,8 +9,8 @@
   link: /categories/mde
 - name: Defender for Identity
   link: /categories/mdi
-#- name: Defender for Office
-#  link: /categories/mdo
+- name: Defender for Office
+  link: /categories/mdo
 #- name: Defender for Cloud Apps
 #  link: /categories/mdca
 #- name: Defender for Cloud

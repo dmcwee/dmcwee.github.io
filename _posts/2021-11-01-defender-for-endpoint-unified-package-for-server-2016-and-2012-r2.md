@@ -9,7 +9,6 @@ tags:
 - Defender for Endpoint
 - MDE
 - Microsoft
-featured: true
 image: /assets/images/2021/11/defender_unified.jpg
 banner: /assets/images/2021/11/defender_unified.jpg
 title-bs-theme: dark
