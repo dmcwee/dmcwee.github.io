@@ -8,6 +8,9 @@ tags:
 - MDE
 - Microsoft Defender for Endpoint
 - Tamper Protection
+featured: true
+image: /assets/images/2023/03/tamper_protection.jpg
+banner: /assets/images/2023/03/tamper_protection.jpg
 ---
 Recently an issue was raised that a customer had configured their Defender AV policies and then applied Tamper Protection. When they checked the local machine's settings they realized that some values in Defender AV were not consistent with their AV Policy which was unexpected. What was found is an undocumented/vaguely documented action by Tamper Protection.
 <!--more-->

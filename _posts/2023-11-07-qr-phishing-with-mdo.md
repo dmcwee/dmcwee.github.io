@@ -14,6 +14,10 @@ tags:
 Previsouly, I wrote about QR Phishing and the many challenges it poses to current cyber awareness training, and defensive tools. As this is a growing trend it is important for companies to incorporate this type of phishing method into existing cyber training and awareness. Specifically, this post will detail how to use Microsoft Defender for Office to generate a QR Phishing campaign.
 <!--more-->
 
+## Similar Posts
+
+While writing this post I was made aware of [another post](https://www.linkedin.com/pulse/performing-unofficial-qr-code-phishing-simulation-ast-cam-murray/) on the same topic by one of the Microsoft Defender for Office PMs. I would encourage you to check out Cam's post and the [QR code project he published](https://github.com/cammurray/qrasta/) if you are looking for ways to implement this in your organization.
+
 ## Custom Payload
 
 Currently, QR Phishing payloads are not available in MDO but MDO does allow for custom payload creation so it is still possible but a little more complex.
@@ -44,7 +48,7 @@ When the phishing simulation executes, along with using the phishing URL of your
 
 I found [QRCoder](https://github.com/codebude/QRCoder) which is a .NET project that allows for dynamic creation of the QR Code. Pulling a few classes `AbstractQrCode`, `PngByteQrCode`, `QrCodeData`, and `QrCodeGenerator` were sufficient to build a basic web service that could accept the dynamic url and generate the QR code.
 
-> **Note:** While writing this [a post from one of the Microsoft Defender for Office team](https://www.linkedin.com/pulse/performing-unofficial-qr-code-phishing-simulation-ast-cam-murray/) was shared with me, and he as published [this project](https://github.com/cammurray/qrasta/) which does the QR Code generation as well.
+
 
 ### Completed Payload
 

@@ -2,7 +2,6 @@
 title: QR Phishing
 image: /assets/images/2023/11/qr_phishing.jpg
 banner: /assets/images/2023/11/qr_phishing.jpg
-featured: true
 categories:
 - MDO
 - Security

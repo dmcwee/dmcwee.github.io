@@ -2,7 +2,7 @@
 layout: default
 ---
 {% assign featuredPost = site.posts | where: "featured", "true" %}
-{%- include featured.html featuredPosts=featuredPost -%}
+{%- include featured.html featuredPosts=featuredPost maxPosts=5 -%}
 
 <div class="row g-5">
   <div class="col-md-12">
