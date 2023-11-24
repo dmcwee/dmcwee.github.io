@@ -1,5 +1,5 @@
 ---
-title: MDE Linux management from the Security Portal
+title: MDE Linux Management from the Security Portal
 categories:
 - MDE
 - Security
