@@ -1,7 +1,7 @@
 ---
 title: MDI Learning Periods
 layout: post
-last_update: 2/1/2023
+last_update: 12/6/2023
 categories:
 - MDI
 - Identity
@@ -34,7 +34,10 @@ You can find a [complete list of all MDI alerts here](https://learn.microsoft.co
 
 *This table was last updated on Feb 1st 2023.*
 <hr>
-Feb 1st Updates:
+Feb 1st 2023 Updates:
 - Re-order based on the External ID value so this will be easier to track against the list of MDI alerts
 - No alerts with learning periods added
 - No learning period changes made
+<hr>
+Dec 6th 2023 Updates:
+- Learning period reviewed no changes
