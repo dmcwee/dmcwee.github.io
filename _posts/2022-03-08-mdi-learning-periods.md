@@ -1,7 +1,7 @@
 ---
 title: MDI Learning Periods
 layout: post
-last_update: 12/6/2023
+last_update: 6/12/2023
 categories:
 - MDI
 - Identity
