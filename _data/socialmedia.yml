@@ -7,7 +7,7 @@
   username: dmcwee
   iconclass: bi-linkedin
   url: "https://www.linkedin.com/in/dmcwee/"
-  supportShare: true
+  supportShare: false
   shareurl: "https://www.linkedin.com/sharing/share-offsite/?url="
 - name: github
   username: dmcwee

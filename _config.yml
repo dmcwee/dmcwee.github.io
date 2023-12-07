@@ -24,6 +24,7 @@ url: "https://davidmcwee.com" # the base hostname & protocol for your site, e.g.
 
 google_analytics: "G-K5M43KBSNX"
 excerpt_separator: <!--more-->
+remote_theme: dmcwee/problog@v0.1.2 
 bs-theme: "light"
 nav-bs-theme: "dark"
 image: /assets/images/me.png

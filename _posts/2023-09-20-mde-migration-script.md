@@ -30,7 +30,7 @@ MDE Script works on machine with and without internet access, but requires you t
 - **Output:** *HTML*, *JSON*, and *Screen* are acceptable inputs and will result in the output being pushed to and HTML or JSON file or being printed on the screen
 - **OutputFileName (Optional):** Allows you to specify what output file
 
-```powershell
+```shell
 PS> Get-MdeMigrationReadyState.ps1 -Machines Machine1, Machine2, Machine3 -Output HTML
 ```
 
