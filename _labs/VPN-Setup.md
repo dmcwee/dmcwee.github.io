@@ -1,6 +1,7 @@
 ---
 title: VPN Setup
 date: 2022-12-01
+image: "/assets/images/labs/vpn_setup.jpg"
 ---
 
 To support the Point-to-Site VPN a root and child certificate is needed for authentication. Use the following steps to generate the certificate.
