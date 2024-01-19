@@ -67,7 +67,15 @@ LinuxSuseOs1 | SUSE 12 | 10.0.2.33 | 7PM ET
 
 ## Scenarios
 
-The scenarios listed here are the most basic but fully supportable as-is onboarding options. You could spin up an SCCM instance to also perform onboarding. However, this lab's template does not pre-establish an SCCM instance so adding (or allocating) that VM, installation, configuration, etc. would be something you must do as additional actions.
+The scenarios listed here are the most common scenarios I've supported with customers, and these are a great way to get started learning about MDE on Linux. 
+
+### Linux Remote Access
+
+Generally speaking, especially for servers, accessing a Linux machine does not use Remote Desktop/Graphical Interaction. Instead most Linux management and interaction is done from a commandline and remote access uses Secure Shell (SSH). If you are not familiar with SSH and how to access a remote Linux server I recommend you review this article, especially the section *Connect to a remote host via SSH* and *Copying files between client and remote systems*. 
+
+* [Getting started with SSH](https://linuxhandbook.com/ssh-basics/)
+
+The other sections about remote key are useful for getting SSH up and running, but if you have used the supplied template then SSH will already be set up on the machine and will utilize username & password.
 
 ### Manual Onboarding & Offboarding of Linux Servers
 
