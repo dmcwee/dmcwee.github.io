@@ -8,7 +8,6 @@ tags:
 - MDE
 - Microsoft Defender for Endpoint
 - Tamper Protection
-featured: true
 image: /assets/images/2023/03/tamper_protection.jpg
 banner: /assets/images/2023/03/tamper_protection.jpg
 ---
