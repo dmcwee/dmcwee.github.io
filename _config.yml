@@ -24,14 +24,16 @@ url: "https://davidmcwee.com" # the base hostname & protocol for your site, e.g.
 
 google_analytics: "G-K5M43KBSNX"
 excerpt_separator: <!--more-->
-remote_theme: dmcwee/problog@v0.1.2 
+remote_theme: dmcwee/problog@v0.1.3 
 bs-theme: "light"
 nav-bs-theme: "dark"
+bs-codetheme: "dark"
 image: /assets/images/me.png
 
 # Build settings
 markdown: kramdown
-highlighter: rouge
+kramdown:
+  highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
