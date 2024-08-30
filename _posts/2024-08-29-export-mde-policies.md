@@ -6,9 +6,6 @@ categories:
 tags:
 - MDE
 - Microsoft Defender for Endpoint
-# featured: true
-# image: /assets/images/2024/08/path_to_success.jpg
-# banner: /assets/images/2024/08/path_to_success.jpg
 ---
 Customers frequently ask about moving Defender policies between various environment. This generally requires manual efforts of replicating settings from one portal to another. However, this manual process is painful and error prone which makes the migration less that optimal.
 
