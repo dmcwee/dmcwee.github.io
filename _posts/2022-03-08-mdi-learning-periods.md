@@ -1,7 +1,7 @@
 ---
 title: MDI Learning Periods
 layout: post
-last_update: 6/12/2023
+last_update: 8/29/2024
 categories:
 - MDI
 - Identity
@@ -23,6 +23,7 @@ MDI alerts have a number of different learning periods, and each is well documen
 |Alert Category|Alert|External ID|Learning Period|Learning Period Notes|
 |---|---|---|---|---|
 |Reconnaissance alerts|[Network-mapping reconnaissance (DNS)](https://docs.microsoft.com/en-us/defender-for-identity/reconnaissance-alerts#network-mapping-reconnaissance-dns-external-id-2007)|2007|8 Days|Beginning when the domain controller is becomes monitored|
+|Lateral Movement|[Suspected over-pass-the-hash attack (forced encryption type)](https://learn.microsoft.com/en-us/defender-for-identity/lateral-movement-alerts#suspected-over-pass-the-hash-attack-forced-encryption-type-external-id-2008)|2008|1 Month||
 |Domain Dominance Alerts| [Suspected Golden Ticket usage (encryption downgrade)](https://docs.microsoft.com/en-us/defender-for-identity/domain-dominance-alerts#suspected-golden-ticket-usage-encryption-downgrade-external-id-2009)|2009|5 Days|From the start of domain controller monitoring|
 |Reconnaissance alerts|[User and Group membership reconnaissance (SAMR)](https://docs.microsoft.com/en-us/defender-for-identity/reconnaissance-alerts#user-and-group-membership-reconnaissance-samr-external-id-2021)|2021|4 Weeks|Per domain controller starting from the first network activity of SAMR against the DC|
 |Compromised Credential Alerts| [Suspected Brute Force attack (Kerberos, NTLM)](https://docs.microsoft.com/en-us/defender-for-identity/compromised-credentials-alerts#suspected-brute-force-attack-kerberos-ntlm-external-id-2023)|2023|1 Week | |
@@ -32,9 +33,12 @@ MDI alerts have a number of different learning periods, and each is well documen
 
 You can find a [complete list of all MDI alerts here](https://learn.microsoft.com/en-us/defender-for-identity/alerts-overview).
 
-*This table was last updated on Feb 1st 2023.*
+*This table was last updated on Aug 29th 2024.*
 <hr>
-Feb 1st 2023 Updates:
+Aug 29th 2024 Updates:
+- Added Alert **Suspected over-pass-the-hash attack (forced encryption type)** to table.
+<hr>
+Feb 1st 2024 Updates:
 - Re-order based on the External ID value so this will be easier to track against the list of MDI alerts
 - No alerts with learning periods added
 - No learning period changes made
