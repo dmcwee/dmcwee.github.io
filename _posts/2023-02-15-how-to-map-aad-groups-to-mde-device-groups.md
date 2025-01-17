@@ -12,6 +12,7 @@ tags:
 image: /assets/images/2023/02/entra_to_defender.jpg
 banner: /assets/images/2023/02/entra_to_defender.jpg
 title-bs-theme: dark
+theme: dark
 ---
 I've seen a lot of asks from customer about how they can use Azure AD Groups with MDE Device Groups. Unfortunately, there isn't a direct way to use Azure AD groups with the MDE Device groups, but there is an approach that provides a similar capability.
 <!--more-->

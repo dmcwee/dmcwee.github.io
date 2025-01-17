@@ -38,7 +38,15 @@ show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
+# Plugin Settings
+feed:
+  disable_in_development: true
+  excerpt_only: true
+paginate: 10
+
+# Default Values
 defaults:
 - 
   scope:

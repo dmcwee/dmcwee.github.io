@@ -15,7 +15,6 @@
         }
     }
     
-
     &-small-headshot {
         border-radius: .5rem;
         max-width: 200px;
@@ -28,5 +27,24 @@
         max-width: 350px;
         max-height: 350px;
         float: right;
+    }
+
+    &-heading {
+        background-color: var(--bs-body-bg);
+        border-radius: var(--bs-border-radius);
+    }
+
+    .card {
+        &-title {
+            a {
+                text-decoration: none;
+                color: var(--bs-card-subtitle-color);
+            }
+        }
+
+        .with-footer {
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
     }
 }

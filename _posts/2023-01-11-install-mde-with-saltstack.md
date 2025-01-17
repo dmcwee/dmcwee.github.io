@@ -12,6 +12,7 @@ featured: true
 image: /assets/images/2023/01/mde_salt_stack.jpg
 banner: /assets/images/2023/01/mde_salt_stack.jpg
 title-bs-theme: dark
+theme: dark
 ---
 MDE for Linux has serveral articles about using common deployment tools, but recently I was asked about using SaltStack which was a tool I'm not familiar with and that lacks/lacked official documentation.
 <!--more-->

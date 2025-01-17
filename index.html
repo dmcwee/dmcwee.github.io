@@ -1,11 +1,90 @@
 ---
 layout: default
 ---
-{% assign featuredPost = site.posts | where: "featured", "true" %}
-{%- include featured.html featuredPosts=featuredPost maxPosts=5 -%}
-
-<div class="row g-5">
-  <div class="col-md-12">
-    {%- include postlist.html -%}
+<div class="container">
+  <div class="row card-group">
+    {% assign featuredPost = site.posts | where: "featured", "true" %}
+    {% for post in featuredPost limit:3 %}
+    <div class="col mb-3 h-100">
+      <div class="card text-bg-{{ post.theme }}">
+        <img src="{{ post.image | relative_url }}" class="card-img" />
+        <div class="card-img-overlay">
+          <h6 class="card-subtitle"> 
+            {{ post.date | date: "%b %d, %y"}}
+            {% for category in post.categories %}
+            {% capture catUrl %}/categories/{{category | downcase}}{% endcapture %}
+            | <a class="link-secondary" href="{{ catUrl | relative_url }}">{{ category }}</a>
+            {% endfor %}
+          </h6>
+          <h4 class="card-title"><a href="{{ post.url | relative_url }}">{{post.title}}</a></h4>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="blog-heading p-2" data-bs-theme="dark">Recent Posts</h1>
+    </div>
+  </div>
+  {% for post in paginator.posts %}
+  <div class="card mb-3">
+    <div class="row g-0">
+      {% if post.image %}
+      <div class="col-2">
+        <img src="{{ post.image | relative_url }}" class="img-fluid rounded-start with-footer" alt="Image for Post {{ post.title }}">
+      </div>
+      {% endif %}
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ post.url | relative_url }}" class="link-secondary">{{ post.title }}</a></h5>
+          <p class="card-text" style="overflow-y:hidden;">{{ post.excerpt | strip_html }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row g-0">
+      <div class="col card-footer">
+        <h6 class="card-subtitle">
+          {{ post.date | date: "%b %d, %y"}}
+          {% for category in post.categories %}
+          {% capture catUrl %}/categories/{{category | downcase}}{% endcapture %}
+          | <a class="link-secondary" href="{{ catUrl | relative_url }}">{{ category }}</a>
+          {% endfor %}
+          | <a href="{{ post.url | relative_url }}" class="link-secondary">Read more...</a>
+        </h6>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <nav aria-label="Post navigation">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link link-secondary bg-body-secondary" href="{{ paginator.previous_page_path }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% for indexer in (1..paginator.total_pages) %}
+      {% if indexer == paginator.page %}
+      <li class="page-item active" aria-current="page">
+      {% else %}
+      <li class="page-item">
+      {% endif %}
+        {% if indexer == 1 %}
+        <a class="page-link link-secondary bg-body-secondary" href="{{ site.paginate_path | relative_url | replace: 'page:num', ''}}">{{ indexer }}</a>
+        {% else %}
+        <a class="page-link link-secondary bg-body-secondary" href="{{ site.paginate_path | relative_url | replace: ':num', indexer}}">{{ indexer }}</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+      <li class="page-item">
+        <a class="page-link link-secondary bg-body-secondary" href="{{ paginator.next_page_path }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>

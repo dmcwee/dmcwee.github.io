@@ -9,6 +9,7 @@ tags:
 featured: true
 image: /assets/images/2024/03/path_to_success.jpg
 banner: /assets/images/2024/03/path_to_success.jpg
+theme: dark
 ---
 *"By failing to prepare, you are preparing to fail" -Benjamin Franklin*
 

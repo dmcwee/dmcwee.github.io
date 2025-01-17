@@ -28,6 +28,11 @@
   iconclass: bi-instagram
   supportsShare: false
   url: "https://www.instagram.com/dmcwee"
+- name: bluesky
+  username: davidmcwee.com
+  iconclass: bi-cloud-sun-fill
+  supportsShare: false
+  url: "https://bsky.app/profile/davidmcwee.com"
 #  - name: twitter
 #    username: dmcwee
 #    iconclass: bi-twitter
