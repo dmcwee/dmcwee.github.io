@@ -1,11 +1,5 @@
-$(document).ready(function() {
-    $('form').on('submit', function(event) {
-        console.debug("Submit");
-        return false;
-    });
-});
-
 function checkTenant(e) {
+    registerHelpers();
     console.debug("checkTenant");
     $("#results").hide();
     $("#domains").hide();
