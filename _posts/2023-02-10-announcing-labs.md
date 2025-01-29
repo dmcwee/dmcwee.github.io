@@ -9,6 +9,9 @@ tags:
 - Microsoft Defender for Endpoint
 - MDI
 - Microsoft Defender for Identity
+image: /assets/images/labs/MDE_Lab.jpg
+banner: /assets/images/labs/MDE_Lab.jpg
+theme: light
 ---
 I've decided to really document and push my Azure Labs so anyone can easily deploy environments for use with testing and learning the various Microsoft Defender products. This labs have been available for a while, but I've now committed some time to documenting and incorporating that information as part of [this site](/labs/).
 <!--more-->

@@ -15,10 +15,10 @@
 #  link: /categories/mdca
 #- name: Defender for Cloud
 #  link: /categories/mdc
-- name: Identity
-  link: /categories/identity
-- name: Security
-  link: /categories/security
+#- name: Identity
+#  link: /categories/identity
+#- name: Security
+#  link: /categories/security
 - name: Labs
   link: /labs
 #- name: Projects

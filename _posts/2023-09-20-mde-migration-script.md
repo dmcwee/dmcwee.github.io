@@ -8,9 +8,12 @@ tags:
 - MDE
 - Microsoft Defender for Endpoint
 - Migration
+image: /assets/images/2024/08/policy_export.jpg
+banner: /assets/images/2024/08/policy_export.jpg
+theme: dark
 ---
 For the last 2-3 years I've been working with customers on migrating to Defender for Endpoint from other AV/FW/EDR solutions. One of the big issues I've seen is there are a lot of checks to see what could prevent Defender from successfully onboarding. In order to make these checks more consistent and faster I decided to create a script to help identify and flag potential migration issues.
-<!--more-->
+<!--more--> 
 
 ## MDE Scripts
 

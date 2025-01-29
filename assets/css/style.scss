@@ -15,6 +15,18 @@
         }
     }
 
+    &-heading {
+        background-color: var(--bs-body-bg);
+        border-radius: var(--bs-border-radius);
+    }
+
+    &-medium-headshot {
+        border-radius: 1rem;
+        max-width: 350px;
+        max-height: 350px;
+        float: right;
+    }
+
     &-searchresults {
         .card {
             margin-bottom: 1rem !important;
@@ -27,20 +39,10 @@
         max-height: 200px;
         float: right;
     }
-    
-    &-medium-headshot {
-        border-radius: 1rem;
-        max-width: 350px;
-        max-height: 350px;
-        float: right;
-    }
-
-    &-heading {
-        background-color: var(--bs-body-bg);
-        border-radius: var(--bs-border-radius);
-    }
 
     .card {
+        background-size: cover;
+        
         &-title {
             a {
                 text-decoration: none;
