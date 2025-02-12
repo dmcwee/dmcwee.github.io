@@ -8,9 +8,20 @@ tags:
 - Microsoft Defender for Endpoint
 image: /assets/images/2023/11/mde_linux.jpg
 banner: /assets/images/2023/11/mde_linux.jpg
+last_update: 2/12/2025
 ---
 Recently the MDE Attach capability was updated to include managing the MDE service on Linux, and MacOS, to provide a similar experience for configuring and managing the MDE service on these non-windows platforms. There are several questions that this new capability raises which I will attempt to address in this post.
 <!--more-->
+
+## Update - Feb 12 2025
+
+As MDE on Linux has evolved various new capabilities have been added as Preview features. Since these capabilities do not have a user interface the MDE software has been updated to merge **specific** sections of the `mdatp_managed.json` with the `mdeattach_managed.json` file. However, there is no observable way to see the merger other than running the `mdatp health` commandline to verify the configuration settings.
+
+Currently these are the **only settings** the are merged between the mdatp_managed and mdeattach_managed files
+
+* Offline Update Settings
+* Global Exclusion settings
+* Proxy setting
 
 ## Local File vs. Portal - What Wins?
 
