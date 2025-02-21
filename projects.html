@@ -1,11 +1,12 @@
 ---
 title: Projects
 ---
+{%- include featured.html featuredPosts=site.projects -%}
+
 <div class="row pt-3 pb-3">
     <div class="col">
-        <h2>{{ page.title }}</h2>
+        <h2  class="blog-heading p-2" data-bs-theme="dark">{{ page.title }}</h2>
         These are various project I have worked on and made available in my Github repository.
     </div>
 </div>
 
-{%- include featured.html featuredPosts=site.projects -%}
