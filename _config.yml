@@ -26,7 +26,7 @@ google_analytics: "G-K5M43KBSNX"
 google_search_key: AIzaSyCmt3jydGcmQoFYj3us-BafU05K8x1WP3Q
 google_search_id: 4640ce7d412a64b3a
 excerpt_separator: <!--more-->
-remote_theme: dmcwee/problog@v0.1.4 
+remote_theme: dmcwee/problog@v0.1.5 
 bs-theme: "light"
 nav-bs-theme: "dark"
 bs-codetheme: "dark"
