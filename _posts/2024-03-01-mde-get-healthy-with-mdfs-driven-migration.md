@@ -6,7 +6,7 @@ categories:
 tags:
 - MDE
 - Microsoft Defender for Endpoint
-featured: true
+featured: false
 image: /assets/images/2024/03/path_to_success.jpg
 banner: /assets/images/2024/03/path_to_success.jpg
 theme: dark
