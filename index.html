@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<div class="container">
+<div class="container-fluid">
   <div class="row card-group">
     {% assign featuredPost = site.posts | where: "featured", "true" %}
     {% for post in featuredPost limit:3 %}

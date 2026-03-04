@@ -4,6 +4,10 @@
 
 .blog {
 
+    &-main {
+        padding-top: 0px !important;
+    }
+
     &-content {
         img {
             position: relative;
@@ -11,7 +15,6 @@
             display: block;
             padding: 5px;
             margin: 10px 0 10px 0;
-            //border: 1px solid $imgBorder;
         }
     }
 

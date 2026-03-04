@@ -1,23 +1,24 @@
 ---
-layout: default
+layout: page
 title: Tenant Tracker
 google_analytics: G-B7SV8NGQ1G
 ---
-<div class="row pt-3">
-    <div class="col-12 pb-3">
-        <form onsubmit="checkTenant(); return false;">
-            <div class="input-group row">
-                <input class="form-control col-md-8" type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
-                <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant">
-            </div>
-        </form>
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12 pb-3">
+            <form onsubmit="checkTenant(); return false;">
+                <div class="input-group row">
+                    <input class="form-control col-md-8" type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
+                    <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row pb-3" id="result_container">
+        <div class="col-8" id="results" style="display:none;"></div>
+        <div class="col-4" id="domains" style="display:none;"></div>
     </div>
 </div>
-<div class="row pb-3" id="result_container">
-    <div class="col-8" id="results" style="display:none;"></div>
-    <div class="col-4" id="domains" style="display:none;"></div>
-</div>
-
 {% raw %}
 <script type="text/x-handlebars-template" id="results-display">
     <div class="row">
