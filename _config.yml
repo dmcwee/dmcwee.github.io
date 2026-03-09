@@ -29,7 +29,7 @@ google_vertex_appid: ""
 google_vertex_projectid: ""
 google_vertex_apikey: ""
 excerpt_separator: <!--more-->
-remote_theme: dmcwee/problog@v0.2.0 
+remote_theme: dmcwee/theme 
 bs-theme: "light"
 nav-bs-theme: "dark"
 bs-codetheme: "dark"
