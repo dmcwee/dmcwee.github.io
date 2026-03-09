@@ -10,9 +10,9 @@ featured: true
 image: /assets/images/2026/02/tuning2.jpg
 banner: /assets/images/2026/02/tuning2.jpg
 theme: light
+summary: From helping customers POC, Pen Test, and creating the Microsoft FastTrack Quick Start for MDE I've had a lot of experience handling when MDE testing fails and determining cause. These lessons aren't just about POCs and Pen-Test, but translate to real world lessons that help prevent breaches.
+excerpt: From helping customers POC, Pen Test, and creating the Microsoft FastTrack Quick Start for MDE I've had a lot of experience handling when MDE testing fails and determining cause. These lessons aren't just about POCs and Pen-Test, but translate to real world lessons that help prevent breaches.
 ---
-From helping customers POC, Pen Test, and creating the Microsoft FastTrack Quick Start for MDE I've had a lot of experience handling when MDE testing fails and determining cause. These lessons aren't just about POCs and Pen-Test, but translate to real world lessons that help prevent breaches.
-<!--more-->
 
 ### What PoCs, Pen Tests, and Real‑World Investigations Actually Reveal
 
