@@ -7,8 +7,8 @@ categories:
 - MDO
 - Security
 tags:
-- Defender for Endpoint
-- MDE
+- Defender for Office
+- MDO
 - Microsoft
 theme: light
 ---

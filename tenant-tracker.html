@@ -1,117 +1,93 @@
 ---
-layout: page
+layout: default
 title: Tenant Tracker
 google_analytics: G-B7SV8NGQ1G
 ---
-<div class="container">
-    <div class="row pt-3">
-        <div class="col-12 pb-3">
-            <form onsubmit="checkTenant(); return false;">
-                <div class="input-group row">
-                    <input class="form-control col-md-8" type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
-                    <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant">
-                </div>
-            </form>
+
+<h1 class="blog-heading" style="padding: 0.5rem; margin-bottom: 1rem;">Tenant Tracker</h1>
+
+<div class="tenant-search">
+    <form id="tenantForm" onsubmit="checkTenant(); return false;">
+        <div class="tenant-search-bar">
+            <input type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" class="tenant-input" />
+            <button type="submit" class="tenant-btn">Check Tenant</button>
         </div>
-    </div>
-    <div class="row pb-3" id="result_container">
-        <div class="col-8" id="results" style="display:none;"></div>
-        <div class="col-4" id="domains" style="display:none;"></div>
+    </form>
+</div>
+
+<div class="tenant-results-wrapper" id="result_container">
+    <div class="tenant-results-layout">
+        <div id="results" style="display:none;"></div>
+        <div id="domains" style="display:none;"></div>
+        <div id="raw" style="display: none;"></div>
     </div>
 </div>
+
 {% raw %}
 <script type="text/x-handlebars-template" id="results-display">
-    <div class="row">
-        <div class="col-4">Tenant ID:</div>
-        <div class="col-8">{{tenantId token_endpoint }}</div>
-    </div>
-    <div class="row">
-        <div class="col-4">Tenant Location:</div>
-        <div class="col-8">{{tenantLocation tenant_region_scope }}</div>
-    </div>
-    <div class="row">
-        <div class="col-4">B2B Availability:</div>
-        <div class="col-8">{{tenantB2BAvailable tenant_region_scope }}</div>
-    </div>
-    <div class="row">
-        <div class="col-4">Tenant Region:</div>
-        <div class="col-8">{{tenantRegion tenant_region_scope tenant_region_sub_scope }}</div>
-    </div>
-    <div class="row">
-        <div class="col-4">Tenant Whitelisted:</div>
-        <div class="col-8">{{tenantWhiteListed cloud_instance_name tenant_region_scope}}</div>  
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col-10">Raw Results</div>
-                    <div class="col-2">
-                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult(); return false;">Toggle</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-text" style="display:none;" id="result">
-                <div >{{stringify this }}</div>
-            </div>
+    <div class="tenant-info-card">
+        <div class="tenant-info-row">
+            <span class="tenant-info-label">Tenant ID:</span>
+            <span class="tenant-info-value">{{tenantId token_endpoint }}</span>
+        </div>
+        <div class="tenant-info-row">
+            <span class="tenant-info-label">Tenant Location:</span>
+            <span class="tenant-info-value">{{tenantLocation tenant_region_scope }}</span>
+        </div>
+        <div class="tenant-info-row">
+            <span class="tenant-info-label">B2B Availability:</span>
+            <span class="tenant-info-value">{{tenantB2BAvailable tenant_region_scope }}</span>
+        </div>
+        <div class="tenant-info-row">
+            <span class="tenant-info-label">Tenant Region:</span>
+            <span class="tenant-info-value">{{tenantRegion tenant_region_scope tenant_region_sub_scope }}</span>
+        </div>
+        <div class="tenant-info-row">
+            <span class="tenant-info-label">Tenant Whitelisted:</span>
+            <span class="tenant-info-value">{{tenantWhiteListed cloud_instance_name tenant_region_scope}}</span>
         </div>
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="results-error">
     {{#if invalidTenant}}
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10"><b>The tenant or domain name does not appear to be in use or registered in Azure AD.</b><br/>You can expand the results to see more details.</div>
+    <div class="tenant-error-msg">
+        <b>The tenant or domain name does not appear to be in use or registered in Azure AD.</b><br/>You can expand the results to see more details.
     </div>
     {{/if}}
     {{#if error}}
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10" ><b>An Error <i>{{ error }}</i> occured, expand the results to see details.</b></div>
-        <div class="col-md-1">&nbsp;</div>
+    <div class="tenant-error-msg">
+        <b>An Error <i>{{ error }}</i> occurred, expand the results to see details.</b>
     </div>
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10" >{{ errorDescription }}</div>
-        <div class="col-md-1">&nbsp;</div>
-    </div>
+    <div class="tenant-error-msg">{{ errorDescription }}</div>
     {{/if}}
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col-md-11"><b>Raw Results</b></div>
-                    <div class="col-md-1">
-                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult()">Toggle</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-text" style="display:none;" id="result">
-                <div >{{stringify result }}</div>
-            </div>
+</script>
+
+<script type="text/x-handlebars-template" id="results-raw">
+    <div class="tenant-raw-card">
+        <div class="tenant-raw-header">
+            <span><b>Raw Results</b></span>
+            <button type="button" class="tenant-btn tenant-btn-sm" onclick="toggleResult(); return false;">Toggle</button>
+        </div>
+        <div class="tenant-raw-body" style="display:none;" id="result">
+            <div>{{stringify this }}</div>
         </div>
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="domains-display">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <h5>Tenant: {{ tenant_name }}</h5>
-            </div>
-            <h5>Registered Domains</h5>
-            <ul>
-                {{#each domains}}
-                <li>{{ this }}</li>
-                {{/each}}
-            </ul>
-        </div>
+    <div class="tenant-domains-card">
+        <h5>Registered Domains</h5>
+        <ul>
+            {{#each domains}}
+            <li class="tenant-info-row"><span class="tenant-info-value">{{ this }}</span></li>
+            {{/each}}
+        </ul>
     </div>
 </script>
 {% endraw %}
 
-<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/assets/js/ui.js"></script>
 <script type="text/javascript" src="/assets/js/handlebarHelpers.js"></script>

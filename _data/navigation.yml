@@ -1,7 +1,18 @@
 # This file stores the navigation text and links for the site. These items are used to
 # create the navigation links in the site's banner.
 #
-# Only one level of navigation is supported currently.
+# If this file is absent, the nav falls back to Jekyll's auto-discovered pages.
+#
+# Basic link:
+#   - name: About
+#     link: /about
+#
+# Link with submenu (one level deep):
+#   - name: Projects
+#     link: #          # optional parent URL; use # for non-linking parent
+#     dropdown:
+#       - name: My-Azure
+#         link: /my-azure
 
 - name: Tenant Tracker
   link: /tenant-tracker
@@ -11,22 +22,5 @@
   link: /categories/mdi
 - name: Defender for Office
   link: /categories/mdo
-#- name: Defender for Cloud Apps
-#  link: /categories/mdca
-#- name: Defender for Cloud
-#  link: /categories/mdc
-#- name: Identity
-#  link: /categories/identity
-#- name: Security
-#  link: /categories/security
-- name: Labs
-  link: /labs
-#- name: Projects
-#  link: #
-#  dropdown:
-#  - name: My-Azure
-#    link: /my-azure
-#  - name: ProBlog Jekyll Theme
-#    link: /problog
 - name: About
   link: /about

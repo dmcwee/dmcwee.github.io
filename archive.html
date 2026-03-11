@@ -1,0 +1,51 @@
+---
+title: Archive
+permalink: /archive/
+layout: default
+---
+{% assign all_posts = site.posts | concat: site.archive | sort: 'date' | reverse %}
+{% include post-timeline.html posts=all_posts %}
+
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="blog-heading p-2">Archive</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="archive-timeline">
+                {% assign all_posts = site.posts | concat: site.archive | sort: 'date' | reverse %}
+                {% assign posts_by_year = all_posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+                {% for year_group in posts_by_year %}
+                <div class="archive-year-section">
+                    <h2 class="archive-year">{{ year_group.name }}</h2>
+                    {% assign posts_by_month = year_group.items | group_by_exp: "post", "post.date | date: '%B'" %}
+                    {% for month_group in posts_by_month %}
+                    <div class="archive-month-group">
+                        <h3 class="archive-month">{{ month_group.name }}</h3>
+                        <ul class="archive-post-list">
+                            {% for post in month_group.items %}
+                            <li class="archive-post-item">
+                                <span class="archive-post-date">{{ post.date | date: "%b %d" }}</span>
+                                <a href="{{ post.url }}" class="archive-post-link">{{ post.title }}</a>
+                                {% if post.categories.size > 0 %}
+                                <span class="archive-post-categories">
+                                    {% for category in post.categories %}
+                                    <span class="archive-category-tag">{{ category }}</span>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+-->
