@@ -1,7 +1,12 @@
 function checkTenant(e) {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+
     registerHelpers();
     console.debug("checkTenant");
     $("#results").hide();
+    $("#raw-results-display").hide();
     $("#domains").hide();
     $("#domains").html("");
 
@@ -9,6 +14,7 @@ function checkTenant(e) {
 
     openIdConfig(tenantName)
     .then(response => response.json())
+    .then(result => handleRawResults(result))
     .then(result => {
         if(result.error) 
         {
@@ -47,6 +53,7 @@ function checkTenant(e) {
     })
     .finally(() => {
         $("#results").show();
+        $("#raw-results-display").show();
         //return false;
     });
 }
@@ -56,8 +63,6 @@ function toggleResult() {
 }
 
 function handleServiceError(result) {
-  console.debug(`handleServiceError: ${ JSON.stringify(result) }`);
-
   var template = $("#results-error").html();
   var templateScript = Handlebars.compile(template);
   var html = templateScript({
@@ -70,8 +75,6 @@ function handleServiceError(result) {
 }
 
 function handleServiceSuccess(result) {
-  console.debug(`Result: ${ JSON.stringify(result) }`);
-
   var template = $("#results-display").html();
   var templateScript = Handlebars.compile(template);
   var html = templateScript(result);
@@ -79,12 +82,23 @@ function handleServiceSuccess(result) {
 }
 
 function handleAutoDiscoverSuccess(result) {
-  console.debug(`Result: ${JSON.stringify(result)}`);
+  console.debug(`handleAutoDiscoverSuccess Result: ${JSON.stringify(result)}`);
 
   var template = $("#domains-display").html();
   var templateScript = Handlebars.compile(template);
   var html = templateScript(result);
   $("#domains").html(html);
+}
+
+function handleRawResults(result) {
+  console.debug(`Result: ${JSON.stringify(result)}`);
+
+  var template = $("#results-raw").html();
+  var templateScript = Handlebars.compile(template);
+  var html = templateScript(result);
+  $("#raw-results-display").html(html);
+
+  return result;
 }
 
 function openIdConfig(tenant_name, discovery_string = "https://login.microsoftonline.com/") {

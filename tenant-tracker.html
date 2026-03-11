@@ -6,7 +6,7 @@ google_analytics: G-B7SV8NGQ1G
 <div class="container">
     <div class="row pt-3">
         <div class="col-12 pb-3">
-            <form onsubmit="checkTenant(); return false;">
+            <form onsubmit="event.preventDefault(); checkTenant(event); return false;">
                 <div class="input-group row">
                     <input class="form-control col-md-8" type="text" placeholder="Tenant Name: tenant.onmicrosoft.com" name="tenantName" id="tenantName" />
                     <input type="submit" class="btn btn-primary col-md-2" value="Check Tenant">
@@ -15,10 +15,12 @@ google_analytics: G-B7SV8NGQ1G
         </div>
     </div>
     <div class="row pb-3" id="result_container">
-        <div class="col-8" id="results" style="display:none;"></div>
-        <div class="col-4" id="domains" style="display:none;"></div>
+        <div class="col-12" id="results" style="display:none;"></div>
+        <div class="col-12 pt-3" id="domains" style="display:none;"></div>
+        <div class="col-12 pt-3" id="raw-results-display" style="display:none;"></div>
     </div>
 </div>
+
 {% raw %}
 <script type="text/x-handlebars-template" id="results-display">
     <div class="row">
@@ -41,13 +43,37 @@ google_analytics: G-B7SV8NGQ1G
         <div class="col-4">Tenant Whitelisted:</div>
         <div class="col-8">{{tenantWhiteListed cloud_instance_name tenant_region_scope}}</div>  
     </div>
+</script>
+
+<script type="text/x-handlebars-template" id="results-error">
+    {{#if invalidTenant}}
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10"><b>The tenant or domain name does not appear to be in use or registered in Azure AD.</b><br/>You can expand the results to see more details.</div>
+    </div>
+    {{/if}}
+    {{#if error}}
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10" ><b>An Error <i>{{ error }}</i> occured, expand the results to see details.</b></div>
+        <div class="col-1">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10" >{{ errorDescription }}</div>
+        <div class="col-1">&nbsp;</div>
+    </div>
+    {{/if}}
+</script>
+
+<script type="text/x-handlebars-template" id="results-raw">
     <div class="card">
         <div class="card-body">
             <div class="card-title">
                 <div class="row">
-                    <div class="col-10">Raw Results</div>
+                    <div class="col-10"><b>Raw Results</b></div>
                     <div class="col-2">
-                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult(); return false;">Toggle</span>
+                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult()">Toggle</span>
                     </div>
                 </div>
             </div>
@@ -58,48 +84,9 @@ google_analytics: G-B7SV8NGQ1G
     </div>
 </script>
 
-<script type="text/x-handlebars-template" id="results-error">
-    {{#if invalidTenant}}
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10"><b>The tenant or domain name does not appear to be in use or registered in Azure AD.</b><br/>You can expand the results to see more details.</div>
-    </div>
-    {{/if}}
-    {{#if error}}
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10" ><b>An Error <i>{{ error }}</i> occured, expand the results to see details.</b></div>
-        <div class="col-md-1">&nbsp;</div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-10" >{{ errorDescription }}</div>
-        <div class="col-md-1">&nbsp;</div>
-    </div>
-    {{/if}}
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col-md-11"><b>Raw Results</b></div>
-                    <div class="col-md-1">
-                        <span class="btn btn-primary btn-sm " data-toggle="button" aria-pressed="false" id="showHide" value="Toggle" onclick="toggleResult()">Toggle</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-text" style="display:none;" id="result">
-                <div >{{stringify result }}</div>
-            </div>
-        </div>
-    </div>
-</script>
-
 <script type="text/x-handlebars-template" id="domains-display">
     <div class="card">
         <div class="card-body">
-            <div class="card-title">
-                <h5>Tenant: {{ tenant_name }}</h5>
-            </div>
             <h5>Registered Domains</h5>
             <ul>
                 {{#each domains}}
@@ -111,7 +98,7 @@ google_analytics: G-B7SV8NGQ1G
 </script>
 {% endraw %}
 
-<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/assets/js/ui.js"></script>
 <script type="text/javascript" src="/assets/js/handlebarHelpers.js"></script>
