@@ -1,7 +1,6 @@
 ---
 layout: post
 title: O365 MFA vs Azure AD MFA
-date: 2018-12-04 15:44:20.000000000 -05:00
 categories:
 - AAD
 - Security
@@ -15,10 +14,8 @@ tags:
 - Azure Active Directory B2B (AAD B2B)
 - Microsoft
 - Security &amp; Identity
-permalink: "/2018/12/04/o365-mfa-vs-azure-ad-mfa/"
+excerpt: As a Technical Solutions Professional at Microsoft who covers Identity and Security I get a lot of questions about Office 365 MFA vs. Azure Active Directory MFA around the differences, benefits, and what I suggest. Customers always assume because I concentrate on the EMS stack Microsoft offers (Intune, Azure AD, Azure Information Protection) I recommend Azure AD MFA over Office 365 MFA, but the reality is when customers really compare the experiences they will almost always go with Azure AD MFA.
 ---
-As a Technical Solutions Professional at Microsoft who covers Identity and Security I get a lot of questions about Office 365 MFA vs. Azure Active Directory MFA around the differences, benefits, and what I suggest. Customers always assume because I concentrate on the EMS stack Microsoft offers (Intune, Azure AD, Azure Information Protection) I recommend Azure AD MFA over Office 365 MFA, but the reality is when customers really compare the experiences they will almost always go with Azure AD MFA.
-<!--more-->
 
 Before we talk about Office 365 vs Azure AD MFA let me make this position perfectly clear.
 

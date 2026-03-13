@@ -1,64 +1,43 @@
 ---
 layout: default
 ---
-<div class="container-fluid">
-  <div class="row card-group">
-    {% assign featuredPost = site.posts | where: "featured", "true" %}
-    {% for post in featuredPost limit:3 %}
-    <div class="col mb-3 h-100">
-      <div class="card text-bg-{{ post.theme }}">
-        <img src="{{ post.image | relative_url }}" class="card-img" />
-        <div class="card-img-overlay">
-          <h6 class="card-subtitle"> 
-            {{ post.date | date: "%b %d, %y"}}
-            {% for category in post.categories %}
-            {% capture catUrl %}/categories/{{category | downcase}}{% endcapture %}
-            | <a class="link-secondary" href="{{ catUrl | relative_url }}">{{ category }}</a>
-            {% endfor %}
-          </h6>
-          <h4 class="card-title"><a href="{{ post.url | relative_url }}">{{post.title}}</a></h4>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+<section class="home">
+  <!--<div class="home-hero">
+    <h1 class="home-title"><span class="highlight">&gt;</span> {{ site.title }}</h1>
+    <p class="home-description">{{ site.description }}</p>
+  </div>-->
+  <div class="section-label">// featured posts</div>
+  {% assign featuredPost = site.posts | where: "featured", "true" %}
+  {% include post-featured.html posts=featuredPost %}
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1 class="blog-heading p-2" data-bs-theme="dark">Recent Posts</h1>
-    </div>
-  </div>
-  {% for post in paginator.posts %}
-  {%- include article-card.html post=post %}
-  {% endfor %}
+  <div class="section-label">// recent posts</div>
+  {% include post-list.html posts=paginator.posts %}
 
-  <nav aria-label="Post navigation">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link link-secondary bg-body-secondary" href="{{ paginator.previous_page_path }}" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {% for indexer in (1..paginator.total_pages) %}
-      {% if indexer == paginator.page %}
-      <li class="page-item active" aria-current="page">
-      {% else %}
-      <li class="page-item">
-      {% endif %}
-        {% if indexer == 1 %}
-        <a class="page-link link-secondary bg-body-secondary" href="{{ site.paginate_path | relative_url | replace: 'page:num', ''}}">{{ indexer }}</a>
+  {% if paginator.total_pages > 1 %}
+  <nav class="pagination" aria-label="Post list pagination">
+    {% if paginator.previous_page %}
+    <a class="pagination-prev" href="{{ paginator.previous_page_path | relative_url }}">&larr; Newer</a>
+    {% else %}
+    <span class="pagination-prev is-disabled" aria-disabled="true">&larr; Newer</span>
+    {% endif %}
+
+    <div class="pagination-pages">
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+        <span class="pagination-page is-current" aria-current="page">{{ page }}</span>
+        {% elsif page == 1 %}
+        <a class="pagination-page" href="{{ paginator.previous_page_path | default: '/' | relative_url }}">{{ page }}</a>
         {% else %}
-        <a class="page-link link-secondary bg-body-secondary" href="{{ site.paginate_path | relative_url | replace: ':num', indexer}}">{{ indexer }}</a>
+        <a class="pagination-page" href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
         {% endif %}
-      </li>
       {% endfor %}
-      <li class="page-item">
-        <a class="page-link link-secondary bg-body-secondary" href="{{ paginator.next_page_path }}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
+    </div>
+
+    {% if paginator.next_page %}
+    <a class="pagination-next" href="{{ paginator.next_page_path | relative_url }}">Older &rarr;</a>
+    {% else %}
+    <span class="pagination-next is-disabled" aria-disabled="true">Older &rarr;</span>
+    {% endif %}
   </nav>
-</div>
+  {% endif %}
+</section>

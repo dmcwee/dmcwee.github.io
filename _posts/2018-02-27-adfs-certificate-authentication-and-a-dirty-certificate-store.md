@@ -1,7 +1,6 @@
 ---
 layout: post
 title: ADFS:Certificate Authentication and A Dirty Certificate Store
-date: 2018-02-27 14:12:49.000000000 -05:00
 categories:
 - AAD
 - Identity
@@ -20,26 +19,24 @@ tags:
 - Azure
 - Microsoft
 - Security &amp; Identity
-permalink: "/2018/02/27/adfs-certificate-authentication-and-a-dirty-certificate-store/"
+excerpt: I often support ADFS configurations that are used to enable Client Certificate Authentication. Typically, these deployments are straight forward - we have certificates that cover the URLs ([sts url] and certauth.[sts url] see [this article](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/overview/ad-fs-requirements) for more details), we enable the client certificate authentication and it works.
 ---
-I often support ADFS configurations that are used to enable Client Certificate Authentication. Typically, these deployments are straight forward: we have certificates that cover the URLs ([sts url] and certauth.[sts url] see [this article](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/overview/ad-fs-requirements) for more details), we enable the client certificate authentication and it works.
 
-Then there are the other deployments.
-<!--more-->
+**Then there are the other deployments.**
 
-# The Dirty Certificate Store
+## The Dirty Certificate Store
 
-## Symptom
+### Symptom
 
 After enabling client certificate authentication when the test user selects the X.509 Certificate link they are redirected to the certauth url, but the option to select a client certificate never appears and after an extended period of time, something like 2-5 minutes, the request times out.
 
-## Troubleshooting
+### Troubleshooting
 
 The easiest or most obvious cause would be a SSL certificate that doesn't support the auth.[sts url] which would cause ADFS to use port 49443 and the traffic being blocked by the firewall. However, working with the firewall administrator we could see the traffic coming in and going out on 443 and never moving to 49443. Further testing with a client 'inside' the organization showed similar timeout behavior so we eliminated both the firewall and the bad SSL certificate.
 
 I began hunting through the ADFS logs as well as the client logs, but found nothing so I was stuck. Fortunately, I was able to use some of the internal Microsoft resources and was told to try adding the following registry key:
 
-```
+```powershell
 KEY: HKLM\system\currentcontrolset\control\securityproviders\schannel\sendtrustedissuerlist
 Type: DWORD (32 bit)
 Value: 0
@@ -63,7 +60,7 @@ To solve the first problem of too many TCL entries you can remove old or unused 
 
 To solve the problem of Certificates in the wrong certificate store you can review each root certificate and verify it's issuer IS itself. You can then review each Intermediate Certificate and verify it's issuer IS NOT itself. Or, you could use the below PowerShell script to help you identify the possible certificate errors.
 
-```
+```powershell
 Write-Output "Issued To,Issued By,Certificate Store"
 
 $rootconflicts = Get-ChildItem Cert:\LocalMachine\Root | Where-Object { $_.Issuer -ne $_.Subject }

@@ -1,21 +1,23 @@
 ---
 title: Getting started with Defender Attack Surface Reduction - Part 1
 layout: post
-series: get-started-with-defender
+series: Get Started with ASR
+series_order: 1
 categories:
   - MDE
   - Microsoft
   - Security
+excerpt: This post is intended as a starting point for organizations looking to adopt Attack Surface Reduction (ASR) rules. ASR rules can help improve an organization's security, but they can potentially disrupt normal user and application behaviors in certain environments. My recommendation to anyone looking to implement ASR rules is to always start with **Auditing**.
 ---
-This post is intended as a starting point for organizations looking to adopt Attack Surface Reduction (ASR) rules. ASR rules can help improve an organization's security, but they can potentially disrupt normal user and application behaviors in certain environments. My recommendation to anyone looking to implement ASR rules is to always start with **Auditing**.
-<!--more-->
 
 ## Jump to ASR with Auditing today
+
 If you are considering using ASR in your environment the safest, and I believe most important, things to do is to start capturing information about the impact of each rule in **your** environment. 
 
-**NOTE:** *Enabling ASR rules in Audit will NOT protect your machines, it will simply provide information in the ASR report about what block may/should have occured.*
+> **NOTE:** *Enabling ASR rules in Audit will NOT protect your machines, it will simply provide information in the ASR report about what block may/should have occured.*
 
 ### Creating an ASR Audit Policy
+
 To create an ASR policy that will audit events go to **[Endpoint Manager](https://endpoint.microsoft.com/) >> [Endpoint Security](https://endpoint.microsoft.com/#blade/Microsoft_Intune_Workflows/SecurityManagementMenu/overview) >> [Attack surface reduction](https://endpoint.microsoft.com/#blade/Microsoft_Intune_Workflows/SecurityManagementMenu/asr)** and click **Create Policy**
 
 ![MEM Admin Portal]({{ "/assets/images/2022/04/MEM-AdminPortal-ASR.png" | relative_url}})

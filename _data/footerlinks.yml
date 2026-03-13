@@ -1,0 +1,8 @@
+- name: Archive
+  link: /archive
+- name: SharePoint
+  link: /categories/sharepoint
+- name: Azure
+  link: /categories/azure
+- name: Microsoft
+  link: /categories/microsoft

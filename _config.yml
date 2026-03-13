@@ -16,29 +16,23 @@
 
 title: David McWee
 email: dmcwee@microsoft.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Security that works together, Works.  
+description: Security that works together, Works.  
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: "davidmcwee.com"
-url: "https://davidmcwee.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://davidmcwee.com"
+theme_mode: light
 
 google_analytics: "G-K5M43KBSNX"
-google_search_key: ""
-google_search_id: ""
-google_vertex_appid: ""
-google_vertex_projectid: ""
-google_vertex_apikey: ""
+#google_search_key: ""
+#google_search_id: ""
+#google_vertex_appid: ""
+#google_vertex_projectid: ""
+#google_vertex_apikey: ""
 excerpt_separator: <!--more-->
-remote_theme: dmcwee/problog@v0.2.0 
-bs-theme: "light"
-nav-bs-theme: "dark"
-bs-codetheme: "dark"
+remote_theme: dmcwee/theme 
 image: /assets/images/me.png
 
 # Build settings
-markdown: kramdown
-kramdown:
-  highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
@@ -46,38 +40,23 @@ plugins:
   - jekyll-paginate
 
 # Plugin Settings
-feed:
-  disable_in_development: true
-  excerpt_only: true
 paginate: 10
 
-# Default Values
 defaults:
-- 
-  scope:
-    path: ""
-  values:
-    layout: "default"
-    author: "David McWee"
-    seo_type: "Site"
-- 
+- Posts:
   scope:
     path: "_posts"
   values:
-    type: "posts"
-    layout: "post"
-    twitter_summary: true
-    seo_type: "BlogPosting"
-    theme: light
+    author: David McWee
 
 collections:
-  labs:
-    output: true
-  projects:
-    output: true
+#  labs:
+#    output: true
+#  projects:
+#    output: true
   archive:
     output: true
-    permalink: /:collection/:year/:month/:day/:title/
+    permalink: /archive/:year/:month/:day/:title/
 
 include:
 - .well-known
@@ -87,11 +66,14 @@ include:
 # to override the default setting.
 #exclude:
 #- categories
+#- labs.html
+#- projects.html
+#- QR_Phishing.html
 #  - _posts/drafts
 #  - _posts/archive
 #  - *.draft.*
-#   - Gemfile
-#   - Gemfile.lock
+#- Gemfile
+#- Gemfile.lock
 #   - node_modules
 #   - vendor/bundle/
 #   - vendor/cache/

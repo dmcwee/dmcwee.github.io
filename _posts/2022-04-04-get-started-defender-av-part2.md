@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Get started with Defender AV - Part 2
-series: get-started-with-defender
+series: Get Started with Defender
+series_order: 2
 categories:
   - MDE
   - Microsoft
   - Security
+excerpt: This is the second post on switching to Defender Anti-Virus and using the Security Baselines published in Endpoint Manager to create a good starting point for your Defender AV settings.  This post will focus on the settings in the **Security Baseline for Windows 10 and later** and how to create an AV only policy based on these settings.
 ---
-This is the second post on switching to Defender Anti-Virus and using the Security Baselines published in Endpoint Manager to create a good starting point for your Defender AV settings.  This post will focus on the settings in the **Security Baseline for Windows 10 and later** and how to create an AV only policy based on these settings.
-<!--more-->
 
 ## Security Baseline
 Security Baseline is available in the Endpoint Manager portal, in the Endpoint Security section.  There are actually several Security Baselines available to choose from, but in this post we are going to focus on the **Security Baseline for Windows 10 and later** settings. You can [review Part 1]({% post_url 2022-03-30-get-started-defender-av %}) of this series for information on using the **Microsoft Defender for Endpoint Baseline**.

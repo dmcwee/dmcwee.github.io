@@ -9,9 +9,8 @@ tags:
 image: /assets/images/2025/03/three-knights.jpg
 banner: /assets/images/2025/03/three-knights.jpg
 theme: dark
+excerpt: I have intentionally and reluctantly avoided this topic for a while, but enough customer experience has occurred, and I feel the benefits are balanced with or outweigh the negatives. So, over the last week I wrote and have made available My-MdeMigration a PowerShell Module to help with MDE Migrations.
 ---
-I have intentionally and reluctantly avoided this topic for a while, but enough customer experience has occurred, and I feel the benefits are balanced with or outweigh the negatives. So, over the last week I wrote and have made available My-MdeMigration a PowerShell Module to help with MDE Migrations.
-<!--more-->
 
 ## The Challenges of Migrating Security Products
 

@@ -10,9 +10,8 @@ featured: true
 image: /assets/images/2024/03/path_to_success.jpg
 banner: /assets/images/2024/03/path_to_success.jpg
 theme: dark
+excerpt: The Defender Deployment Tool has been released, at least in public preview, and you should use it now.
 ---
-The Defender Deployment Tool has been released, at least in public preview, and you should use it now.
-<!--more-->
 
 I frequently help customers deploying Defender on Windows Servers, and my experience has been that 2012 R2 is painful, 2016 is a nighmare, but 2019+ have been relatively ok. Typically there are 4 issues we run into deploying Defender
 

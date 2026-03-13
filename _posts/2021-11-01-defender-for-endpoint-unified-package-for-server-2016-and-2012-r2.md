@@ -12,10 +12,8 @@ tags:
 image: /assets/images/2021/11/defender_unified.jpg
 banner: /assets/images/2021/11/defender_unified.jpg
 title-bs-theme: dark
-permalink: "/2021/11/01/defender-for-endpoint-unified-package-for-server-2016-and-2012-r2/"
+excerpt: Recently Microsoft [announced the public preview of a unified EPP and EDR](https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/defending-windows-server-2012-r2-and-2016/ba-p/2783292) package that allows a similar onboarding approach for these servers as Server 2019, Windows 10, and Windows 11. Recently, a customer I support wanted to test this new method and perform deployment using the GPO methodology.
 ---
-Recently Microsoft [announced the public preview of a unified EPP and EDR](https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/defending-windows-server-2012-r2-and-2016/ba-p/2783292) package that allows a similar onboarding approach for these servers as Server 2019, Windows 10, and Windows 11. Recently, a customer I support wanted to test this new method and perform deployment using the GPO methodology.
-<!--more-->
 
 The documentation for how to set up and configure the GPO is available [here](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-server-endpoints?view=o365-worldwide#windows-server-2012-r2-and-windows-server-2016) and provides a great step-by-step guide. However, the guide only addresses linking the GPO to an OU, but for many customers having an OU per Server Version isn't likely. This customer did have their servers were grouped into a couple of OUs, but not by OS version, so we needed to find a WMI Query that would target the correct set of machines.
 
@@ -31,13 +29,13 @@ Wikipedia has a fantastic [Windows Operating System list](https://en.wikipedia.o
 
 [Get-WmiObject](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1) was a key PowerShell command because it allowed for testing of parts of the WMI filter on the machines. In this scenario because we were working from Windows Versions the WMI Object we needed was Win32\_OperatingSystem so the following command allowed for quick review of the WMI object
 
-```
+```powershell
 Get-WmiObject Win32_OperatingSystem
 ```
 
 Adding the **-Filter** parameter allows for testing of the Where portion of the WMI Filter. If the filter matches the current machine then the WMI Object is returned, and if the filter fails to match then a Null result is returned.
 
-```
+```powershell
 Get-WmiObject Win32_OperatingSystem "(Version like '10.0.14%' or Version like '6.3.96%') and ProductType='3'"
 ```
 

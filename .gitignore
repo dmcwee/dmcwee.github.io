@@ -1,4 +1,7 @@
 _site
+_includes
+_layouts
+_sass
 .sass-cache
 .jekyll-metadata
 .jekyll-cache
@@ -6,9 +9,4 @@ node_modules
 manifest.dev.prod.xml
 Gemfile.lock
 *.testing.*
-_sass/*.css
-_sass/*.css.map
-_sass/bootstrap
-_sass/slate
 *:Zone.Identifier
-_includes

@@ -11,11 +11,8 @@ tags:
 - Intune
 image: /assets/images/2023/02/entra_to_defender.jpg
 banner: /assets/images/2023/02/entra_to_defender.jpg
-title-bs-theme: dark
-theme: dark
+excerpt: I've seen a lot of asks from customer about how they can use Azure AD Groups with MDE Device Groups. Unfortunately, there isn't a direct way to use Azure AD groups with the MDE Device groups, but there is an approach that provides a similar capability.
 ---
-I've seen a lot of asks from customer about how they can use Azure AD Groups with MDE Device Groups. Unfortunately, there isn't a direct way to use Azure AD groups with the MDE Device groups, but there is an approach that provides a similar capability.
-<!--more-->
 
 This approach is primarily works really well with client OS (Windows 10/11, etc.) and the scenario I'll outline assumes:
 

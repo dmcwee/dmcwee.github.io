@@ -8,6 +8,8 @@ function checkTenant(e) {
     $("#results").hide();
     $("#raw-results-display").hide();
     $("#domains").hide();
+    $("#raw").hide();
+
     $("#domains").html("");
 
     var tenantName = $("#tenantName").val();
@@ -16,6 +18,7 @@ function checkTenant(e) {
     .then(response => response.json())
     .then(result => handleRawResults(result))
     .then(result => {
+        handleRawResult(result);
         if(result.error) 
         {
             handleServiceError(result);
@@ -45,6 +48,7 @@ function checkTenant(e) {
     })
     .catch(error => {
       console.error(`Caught exception ${error}`);
+      handleRawResult(error);
       handleServiceError({
         error: "service_error",
         error_description: "Fetch or the processing of the response threw an exception.  Expand results for full details.",
@@ -53,8 +57,7 @@ function checkTenant(e) {
     })
     .finally(() => {
         $("#results").show();
-        $("#raw-results-display").show();
-        //return false;
+        $("#raw").show();
     });
 }
 
@@ -79,6 +82,15 @@ function handleServiceSuccess(result) {
   var templateScript = Handlebars.compile(template);
   var html = templateScript(result);
   $("#results").html(html);
+}
+
+function handleRawResult(result) {
+  console.debug(`handleRawResult Result: ${ JSON.stringify(result) }`);
+
+  var template = $("#results-raw").html();
+  var templateScript = Handlebars.compile(template);
+  var html = templateScript(result);
+  $("#raw").html(html);
 }
 
 function handleAutoDiscoverSuccess(result) {

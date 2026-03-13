@@ -1,7 +1,6 @@
 ---
 layout: post
 title: FeedBurner Update
-date: 2010-10-18 10:31:00.000000000 -04:00
 categories: []
 tags: []
 permalink: "/2010/10/18/feedburner-update/"

@@ -1,14 +1,14 @@
 ---
 title: Getting started with Defender Attack Surface Reduction - Part 2
 layout: post
-series: get-started-with-defender
+series: Get Started with ASR
+series_order: 2
 categories:
   - MDE
   - Microsoft
   - Security
+excerpt: In the previous post about ASR adoption, I recommended you enable ALL ASR rules in AUDIT mode.  Now we will use the Security Baseline to build an ASR policy that *should* be minimally impactful to your systems and end users.
 ---
-In the previous post about ASR adoption, I recommended you enable ALL ASR rules in AUDIT mode.  Now we will use the Security Baseline to build an ASR policy that *should* be minimally impactful to your systems and end users.
-<!--more-->
 
 ## Security Baseline
 Security Baseline is available in the Endpoint Manager portal, in the Endpoint Security section.  There are actually several Security Baselines available to choose from, but in this post, we are going to focus on the **Security Baseline for Windows 10 and later** settings. 
@@ -39,9 +39,7 @@ Below are two tables that map the Security Baseline's Rule Values, fortunately t
 | *Block credential stealing from the Windows local security authority subsystem (lsass.exe)* | Enable | Block |
 | Block untrusted and unsigned processes that run from USB | Block | Block |
 
-
 > **Note:** The two italicized rules above have a slight difference in the names between the ASR Policy and the Security Policy.  In both cases the text in the parenthesis is not included in the ASR policy's label text.
-
 
 ### Security Baseline to Windows 10 and later (ConfigMgr) Attack Surface Reduction Rules (ConfigMgr)
 
@@ -58,9 +56,7 @@ Below are two tables that map the Security Baseline's Rule Values, fortunately t
 | *Block credential stealing from the Windows local security authority subsystem (lsass.exe)* | Enable | Block |
 | Block untrusted and unsigned processes that run from USB | Block | Block |
 
-
 > **Note:** The two italicized rules above have a slight difference in the names between the ASR Policy and the Security Policy.  In both cases the text in the parenthesis is not included in the ASR policy's label text.
-
 
 ### Security Baseline to PowerShell
 
