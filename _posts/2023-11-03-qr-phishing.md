@@ -9,9 +9,8 @@ tags:
 - Defender for Endpoint
 - MDE
 - Microsoft
+excerpt: Earlier this year some news outlets began to report about increased Phishing that utilized QR codes. This had been discussed as a new threat vector when the COVID pandemic moved restaurants, cafes, and other locations to replace physical menus with digital menus that could be easily accessed from a QR code sticker on your table. Recently, around August/September, more new stories, reports, and industry data have indicated that QR Phishing is becoming more prevalent.
 ---
-Earlier this year some news outlets began to report about increased Phishing that utilized QR codes. This had been discussed as a new threat vector when the COVID pandemic moved restaurants, cafes, and other locations to replace physical menus with digital menus that could be easily accessed from a QR code sticker on your table. Recently, around August/September, more new stories, reports, and industry data have indicated that QR Phishing is becoming more prevalent.
-<!--more-->
 
 ## Beauty in Chaos
 

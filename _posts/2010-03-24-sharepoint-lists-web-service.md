@@ -1,16 +1,13 @@
 ---
 layout: post
 title: SharePoint Lists Web Service
-date: 2010-03-24 10:59:41.000000000 -04:00
 categories:
 - Microsoft
 - SharePoint
 tags:
 - SharePoint 2010
-permalink: "/2010/03/24/sharepoint-lists-web-service/"
+excerpt: During a recent project I was leveraging the SharePoint Lists Web Service to retrieve information from a list and push it to a Silverlight display. The list I was using was a heavily customized list with about 35 different views and at least as may fields. My Silverlight display would provide information like the “status” of the list item based on a number of other criteria. This status field was stored as a simple “Single line of text” field in the SharePoint list.
 ---
-During a recent project I was leveraging the SharePoint Lists Web Service to retrieve information from a list and push it to a Silverlight display. The list I was using was a heavily customized list with about 35 different views and at least as may fields. My Silverlight display would provide information like the “status” of the list item based on a number of other criteria. This status field was stored as a simple “Single line of text” field in the SharePoint list.
-<!--more-->
 
 The first issue I had to resolve was how to get the right view for the SharePoint list. The frustration with this is that the Lists Service’s (lists.asmx) GetListItems action has the second parameter “viewName” the documentation on this parameter actually specifies the proper value is a GUID. I will write another blog about how I retrieved the view’s GUID later, but for now just understand that I did have to take that into account.
 

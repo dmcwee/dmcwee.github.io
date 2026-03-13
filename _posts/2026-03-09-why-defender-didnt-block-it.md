@@ -1,5 +1,6 @@
 ---
-title: Why Microsoft Defender Didn’t Block It
+title: Why Microsoft Defender Didn't Block It
+author: David McWee
 categories:
 - MDE
 - Security
@@ -10,7 +11,6 @@ featured: true
 image: /assets/images/2026/03/mde-missed-detection.jpg
 banner: /assets/images/2026/03/mde-missed-detection.jpg
 theme: light
-summary: From helping customers POC, Pen Test, and creating the Microsoft FastTrack Quick Start for MDE I've had a lot of experience handling when MDE testing fails and determining cause. These lessons aren't just about POCs and Pen-Test, but translate to real world lessons that help prevent breaches.
 excerpt: From helping customers POC, Pen Test, and creating the Microsoft FastTrack Quick Start for MDE I've had a lot of experience handling when MDE testing fails and determining cause. These lessons aren't just about POCs and Pen-Test, but translate to real world lessons that help prevent breaches.
 ---
 
@@ -18,11 +18,11 @@ excerpt: From helping customers POC, Pen Test, and creating the Microsoft FastTr
 
 One of the most common, and emotionally charged, questions I hear during Microsoft Defender for Endpoint (MDE) evaluations is:
 
-> *“Why didn’t Defender block this?”*
+> *"Why didn’t Defender block this?"*
 
 The question usually comes after a proof‑of‑concept (PoC), a red‑team exercise, or a customer‑run penetration test where malware executed successfully despite Defender being "on". The assumption is often that the product failed. In reality, most of these scenarios have far less to do with detection gaps and far more to do with **configuration state, testing methodology, and environmental assumptions**.
 
-This post walks through the most common reasons Defender ""didn’t block it", based on real experience across customer PoCs and professional engagements. While this helps avoid drawing the wrong conclusions, the are also important lessons and learns to take away before a real incident happens.
+This post walks through the most common reasons Defender "didn’t block it", based on real experience across customer PoCs and professional engagements. While this helps avoid drawing the wrong conclusions, the are also important lessons and learns to take away before a real incident happens.
 
 ***
 

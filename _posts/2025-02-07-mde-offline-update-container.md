@@ -8,9 +8,8 @@ tags:
 - Microsoft Defender for Endpoint
 image: /assets/images/2025/02/defender_container.jpg
 banner: /assets/images/2025/02/defender_container.jpg
+excerpt: MDE Offline update provides the ability for organizations to locally source MDE Security Intelligence Updates rather than using the provided Microsoft SIU service. Considering the repeat scripting and static file web server requirements it seemed that this could conventiently be addressed by containerization.
 ---
-MDE Offline update provides the ability for organizations to locally source MDE Security Intelligence Updates rather than using the provided Microsoft SIU service. Considering the repeat scripting and static file web server requirements it seemed that this could conventiently be addressed by containerization.
-<!--more-->
 
 While my intenet is not to recommend that everyone should use the offline security update feature provided by Microsoft I have worked with several customers who required this. After talking with one customer who worked on a containerized implementation of this solution I realized the elegance of this approach.
 

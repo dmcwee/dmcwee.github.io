@@ -11,11 +11,10 @@ tags:
 - Mobile Web Services
 - NuGet
 permalink: "/2014/07/08/angularjs-module-for-azure-mobile-services/"
+excerpt: A few months back a coworker introduced me to AngularJS as an alternative to using KnockoutJS. Around the same time Microsoft was pushing a bunch of videos and "How To's" on the Azure Mobile Services. After walking through the AngularJS tutorial and playing with the Azure Mobile Services "To Do" Demo I decided it would be interesting to mesh these two items together, use AngularJS in the UI to communicate with Azure Mobile Services for data storage, and who know what else in the future.
 ---
-A few months back a coworker introduced me to AngularJS as an alternative to using KnockoutJS. Around the same time Microsoft was pushing a bunch of videos and "How To's" on the Azure Mobile Services. After walking through the AngularJS tutorial and playing with the Azure Mobile Services "To Do" Demo I decided it would be interesting to mesh these two items together, use AngularJS in the UI to communicate with Azure Mobile Services for data storage, and who know what else in the future.
 
 The first thing I did was create the To Do demo application and then I started to create the AngularJS partial views for everything. Once the views and all worked I began working on the actual communication with the Azure Mobile Services, and this is where things went south.
-<!--more-->
 
 ## Don't Assume AngularJS Behaves
 

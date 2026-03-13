@@ -1,7 +1,6 @@
 ---
 layout: post
 title: The Identity stupid!
-date: 2019-04-02 09:51:15.000000000 -04:00
 categories:
 - AAD
 - Identity
@@ -9,10 +8,10 @@ tags:
 - Azure
 - Azure Active Directory (AAD)
 - Security &amp; Identity
-permalink: "/2019/04/02/the-identity-stupid/"
+excerpt: James Carville's campaign strategy for Bill Clinton's 1992 campaign was <i>The economy, stupid!</i> These 3 words left no doubt to what was important, what to focus on, and the fact that getting the Economy right would make everything else possible. 
 ---
-James Carville's campaign strategy for Bill Clinton's '92 campaign was **"The economy, stupid!"** These 3 words left no doubt to what was important, what to focus on, and the fact that getting the Economy right would make everything else possible. Today, as we look at changes to the corporate IT network and infrastructure we should adopt a similar slogan:
-<!--more-->
+
+Today, as we look at changes to the corporate IT network and infrastructure we should adopt a similar slogan.
 
 ## The Identity, stupid!
 

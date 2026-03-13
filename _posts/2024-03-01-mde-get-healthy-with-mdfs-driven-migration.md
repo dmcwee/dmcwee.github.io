@@ -10,11 +10,10 @@ featured: false
 image: /assets/images/2024/03/path_to_success.jpg
 banner: /assets/images/2024/03/path_to_success.jpg
 theme: dark
+excerpt: Recently I've been working with several customers on migrations from a third party EPP-EDR to Microsoft Defender for Servers (MDfS), and have found there is an important pattern that should be followed to predict, control, and minimize performance and business impacts during the migration. While Arc may perform the onboarding for your organization, other factors like change management and maintenance windows may require additional steps or procedures to limit & control what and when Arc performs actions.
 ---
-*"By failing to prepare, you are preparing to fail" -Benjamin Franklin*
 
-Recently I've been working with several customers on migrations from a third party EPP-EDR to Microsoft Defender for Servers (MDfS), and have found there is an important pattern that should be followed to predict, control, and minimize performance and business impacts during the migration. While Arc may perform the onboarding for your organization, other factors like change management and maintenance windows may require additional steps or procedures to limit & control what and when Arc performs actions.
-<!--more-->
+> *"By failing to prepare, you are preparing to fail" -Benjamin Franklin*
 
 ## Migration Challenges
 

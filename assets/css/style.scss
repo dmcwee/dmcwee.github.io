@@ -432,3 +432,32 @@
     }
   }
 }
+
+// ==========================================
+// Footer Nav Links
+// ==========================================
+.footer-nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.75rem 0 0 0;
+  padding: 0;
+
+  a {
+    color: var(--color-text-light);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+  }
+}

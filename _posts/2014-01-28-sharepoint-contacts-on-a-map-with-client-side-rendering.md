@@ -1,16 +1,13 @@
 ---
 layout: post
 title: SharePoint Contacts on a Map with Client Side Rendering
-date: 2014-01-28 01:46:11.000000000 -05:00
 categories:
 - Microsoft
 - SharePoint
 tags:
 - SharePoint 2013
-permalink: "/2014/01/28/sharepoint-contacts-on-a-map-with-client-side-rendering/"
+excerpt: Several years ago, back in the dark days of SharePoint (MOSS) 2007, [Tom Resing](http://tomresing.com/) and I worked together on a demo displaying contacts from a SharePoint contact list on a Bing/Google Map. He and I presented this at several SharePoint Saturday events (Boston, Virginia Beach, Richmond, Tampa) and found highly positive response. It has been a while since Tom and I worked together, and a lot has changed in SharePoint so I wanted to revisit our old demo and take a newly available approach.
 ---
-Several years ago, back in the dark days of SharePoint (MOSS) 2007, [Tom Resing](http://tomresing.com/) and I worked together on a demo displaying contacts from a SharePoint contact list on a Bing/Google Map. He and I presented this at several SharePoint Saturday events (Boston, Virginia Beach, Richmond, Tampa) and found highly positive response. It has been a while since Tom and I worked together, and a lot has changed in SharePoint so I wanted to revisit our old demo and take a newly available approach.
-<!--more-->
 
 ## SharePoint 2007 & 2010
 

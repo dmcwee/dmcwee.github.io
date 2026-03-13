@@ -1,17 +1,15 @@
 ---
 layout: post
 title: Site Collection Content Type vs. Content Type Hub
-date: 2014-01-13 13:25:20.000000000 -05:00
 categories:
 - Microsoft
 - SharePoint
 tags:
 - SharePoint 2010
-  
-permalink: "/2014/01/13/site-collection-content-type-vs-content-type-hub/"
+excerpt: I've been working on a project recently that has a large number of sub-agencies and the parent organization was attempting to push a standardization of Content Types. 
 ---
-I've been working on a project recently that has a large number of sub-agencies and the parent organization was attempting to push a standardization of Content Types. Since no one really wanted to duplicate work the organization decided they did not want to migrate content into SharePoint (from file shares) until all the content types and metadata had been identified and created. However, as with all large agencies some groups wanted to move forward with limited or partial capabilities because after all some limited capability is better than what they currently have. The concern that arose from this was: What if they created a Content Type in one of their Site Collections that had the same name as one that would be published later on?
-<!--more-->
+
+Since no one really wanted to duplicate work the organization decided they did not want to migrate content into SharePoint (from file shares) until all the content types and metadata had been identified and created. However, as with all large agencies some groups wanted to move forward with limited or partial capabilities because after all some limited capability is better than what they currently have. The concern that arose from this was: What if they created a Content Type in one of their Site Collections that had the same name as one that would be published later on?
 
 The process I followed was very simple:
 

@@ -10,9 +10,8 @@ featured: true
 image: /assets/images/2026/02/tuning2.jpg
 banner: /assets/images/2026/02/tuning2.jpg
 theme: light
+excerpt: <b>&quot;Defender is causing performance issues&quot;</b> is the dreaded statement everyone who has deployed an AV and/or EDR tool fears hearing. Sure the system owners should probably do a better job of stating what is needed to minimize impact, but security professionals need to know how to address this. So let's tune Defender!
 ---
-"AV is causing a performance issue..." is the dreaded statement everyone who has deployed an AV and/or EDR tool fears hearing. Sure the system owners should probably do a better job of stating what is needed to minimize impact, but security professionals need to know how to address this? So let's tune Defender!
-<!--more-->
 
 ## Is it up to date?
 

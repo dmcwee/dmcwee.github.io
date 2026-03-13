@@ -1,17 +1,11 @@
 ---
 layout: post
 title: Azure - PowerShell Capabilities I Love
-date: 2016-07-01 13:02:29.000000000 -04:00
 categories:
 - Azure
 tags: []
-permalink: "/2016/07/01/azure-powershell-capabilities-i-love/"
+excerpt: I use Azure for Development and Testing very heavily with my job as a consultant for Microsoft. Since most of my work is done deploying systems On-Premises I usually have to build environments for testing of deployment scripts etc. This means I have the option to go through the Azure Portal and create machine after machine, or I can use PowerShell to script these processes. As such I have gone through many of the IAAS PowerShell commands and thought I would share some of my commonly used commands.
 ---
-I use Azure for Development and Testing very heavily with my job as a consultant for Microsoft. Since most of my work is done deploying systems On-Premises I usually have to build environments for testing of deployment scripts etc. This means I have the option to go through the Azure Portal and create machine after machine, or I can use PowerShell to script these processes. As such I have gone through many of the IAAS PowerShell commands and thought I would share some of my commonly used commands.
-<!--more-->
-
-# IAAS Commands I Always Use
-
 ## Set-AzureRmVMCustomScriptExtension
 
 So, you create a VM and now you want to configure it before you actually log in, like make it a domain controller or join it to a domain. No problem, the Set-AzureRmVMCustomScriptExtension allows you to push and run a script file on the Azure VM without needing to log in, and you can even pass arguments to the script.This command does require a bit of information (Resource Group Name, Storage Account Name, Container, and others) but being able to create a VM AND set it up as the domain controller without ever logging in first...you can't beat that.
@@ -35,4 +29,3 @@ Azure Runbooks are one of my favorite capabilities available. First, the interfa
 I highly recommend using runbooks to at least stop your development, and possibly test, environment on a daily basis. My Stop-Daily runbook is configured to run every day at 6PM so I know all of my VMs will be shutdown. I typically keep my runbook(s) in a separate Resource Group from the different Development/Test environments I create, this way I can destroy the environment without losing the runbooks.
 
 Runbook(s) work within a single subscription, so if you have multiple Subscriptions you will need to create runbooks for each.
-

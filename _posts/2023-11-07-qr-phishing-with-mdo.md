@@ -11,9 +11,8 @@ tags:
 - MDO
 - Microsoft
 theme: light
+excerpt: Previsouly, I wrote about QR Phishing and the many challenges it poses to current cyber awareness training, and defensive tools. As this is a growing trend it is important for companies to incorporate this type of phishing method into existing cyber training and awareness. Specifically, this post will detail how to use Microsoft Defender for Office to generate a QR Phishing campaign.
 ---
-Previsouly, I wrote about QR Phishing and the many challenges it poses to current cyber awareness training, and defensive tools. As this is a growing trend it is important for companies to incorporate this type of phishing method into existing cyber training and awareness. Specifically, this post will detail how to use Microsoft Defender for Office to generate a QR Phishing campaign.
-<!--more-->
 
 ## Similar Posts
 

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: STSDev 2008 New Release
-date: 2010-04-23 09:42:01.000000000 -04:00
+date: 2010-04-23 
 categories:
-
+- Visual Studio 2008
 tags:
 - STSDev 2008
 permalink: "/2010/04/23/stsdev-2008-new-release/"

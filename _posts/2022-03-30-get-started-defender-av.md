@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Get Started with Defender AV - Part 1
-series: get-started-with-defender
+series: Get Started with Defender
+series_order: 1
 categories:
   - MDE
   - Microsoft
   - Security
+excerpt: When switching from one AV to another organizations want to know if they can keep their current AV settings, or if their AV Vendor has recommendations for better adoption, detection, and performance.  For these types of conversations with Microsoft Defender AV I often recommend customers look at the Security Baseline rules as a good starting point.
 ---
-When switching from one AV to another organizations want to know if they can keep their current AV settings, or if their AV Vendor has recommendations for better adoption, detection, and performance.  For these types of conversations with Microsoft Defender AV I often recommend customers look at the Security Baseline rules as a good starting point.
-<!--more-->
 
 ## Security Baseline
 Security Baseline is available in the Endpoint Manager portal, in the Endpoint Security section.  There are actually several Security Baselines available to choose from, but in this post we are going to focus on the **Microsoft Defender for Endpoint Baseline** settings. 

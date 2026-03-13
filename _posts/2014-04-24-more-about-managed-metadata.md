@@ -1,33 +1,32 @@
 ---
 layout: post
 title: More About Managed Metadata
-date: 2014-04-24 12:52:47.000000000 -04:00
 categories:
 - Microsoft
 - SharePoint
 tags:
 - SharePoint 2010
-permalink: "/2014/04/24/more-about-managed-metadata/"
+excerpt: I recently had more fun with setting Managed Metadata values in SharePoint 2010. This time as part of an event receiver during the Item Adding, Item Updating, and Item Updated events. (There are interesting event ordering challenges which lead to using all of these events, but that is not the focus of this blog.) The challenge I faced was copying values from a Document Set down to documents that were being created/uploaded to the list. Normally, using Shared Properties would negate this but because we wanted use to edit the Managed Metadata Values in the Document Information Panel we could not use shared values because the Document Set would immediately overwrite any changes made to the document. Instead we created an Event Receiver to manually handle the updates from the Document to the Document Set, and from the Document Set to the child documents.
 ---
-I recently had more fun with setting Managed Metadata values in SharePoint 2010. This time as part of an event receiver during the Item Adding, Item Updating, and Item Updated events. (There are interesting event ordering challenges which lead to using all of these events, but that is not the focus of this blog.) The challenge I faced was copying values from a Document Set down to documents that were being created/uploaded to the list. Normally, using Shared Properties would negate this but because we wanted use to edit the Managed Metadata Values in the Document Information Panel we could not use shared values because the Document Set would immediately overwrite any changes made to the document. Instead we created an Event Receiver to manually handle the updates from the Document to the Document Set, and from the Document Set to the child documents.
-<!--more-->
 
 The issue arose that copying the Document Set values to the Document didn't work. In the logging we could see our Set function get called and return success, but the values never seemed to stick. I was using code I've [previously blogged about](http://davidmcwee.com/2014/03/31/setting-managed-metadata/ "Setting Managed Metadata"):
 
+```csharp
 > SPField mmdField = spListItem.Fields.GetFieldByInternalName("MyMMDField");  
 > string validMMDString = mmdField.GetValidatedString(spListItem["MyMMDField"]);  
 > newSpListItem["MyMMDField"] = validMMDString;
+```
 
 Since logging was unable to provide enough information I began testing using PowerShell. Which looked something like:
 
-> $field = $listItem.Fields.GetFieldByInternalName("MyMMDField")  
-> $validString = $field.GetValidatedString($listItem["MyMMDField"])  
-> $newListItem["MyMMDField"] = $validString  
-> $newListItem["MyMMDField"].ToString()  
-> \>\> ouput the same as the $validString  
-> $newListItem.Update()  
-> $newListItem["MyMMDField"].ToString()  
-> \>\> [Empty]
+```csharp
+$field = $listItem.Fields.GetFieldByInternalName("MyMMDField")  
+$validString = $field.GetValidatedString($listItem["MyMMDField"])  
+$newListItem["MyMMDField"] = $validString  
+$newListItem["MyMMDField"].ToString()  \\ ouput the same as the $validString  
+$newListItem.Update()  
+$newListItem["MyMMDField"].ToString()  \\ [Empty]
+```
 
 Interesting, before the `Update()` my value is there but after I loose the value. After looking around a bit I ran across this[blog](http://blogs.msdn.com/b/sridhara/archive/2010/07/09/update-taxonomy-field-values-in-a-list-item-through-sharepoint-web-services.aspx "Update taxonomy field values in a list item through SharePoint web services"), and although it was about using the web services it provides a key piece of information: Managed Metadata Fields have a Lookup Field AND a Note field. I began exploring the various fields, again through PowerShell, and was able to identify the Note field associated with my Managed Metadata Column. This value looks almost identical to what is in the Managed Metadata Field but does not include the WSSID.
 
@@ -46,13 +45,14 @@ Finally, once I began setting both the Managed Metadata Field AND the Note field
 Final Code  
 _ **Note:** I did not include checks to ensure cast of the field to Taxonomy Field was successful and I'm also assuming that spListItem and newSPListItem share the same columns._
 
-> SPField mmdField = spListItem.Fields.GetFieldByInternalName("MyMMDField");  
-> TaxonomyField taxField = mmdField as TaxonomyField;
-> 
-> string validMMDString = mmdField.GetValidatedString(spListItem["MyMMDField"]);  
-> string mmdNoteString = spListItem[taxField.TextField].ToString();
-> 
-> newSpListItem["MyMMDField"] = validMMDString;  
-> newSpListItem[taxField.TextField] = mmdNoteString;  
-> newSpListItem.Update();
-
+```csharp
+SPField mmdField = spListItem.Fields.GetFieldByInternalName("MyMMDField");  
+TaxonomyField taxField = mmdField as TaxonomyField;
+ 
+string validMMDString = mmdField.GetValidatedString(spListItem["MyMMDField"]);  
+string mmdNoteString = spListItem[taxField.TextField].ToString();
+ 
+newSpListItem["MyMMDField"] = validMMDString;  
+newSpListItem[taxField.TextField] = mmdNoteString;  
+newSpListItem.Update();
+```

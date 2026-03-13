@@ -19,10 +19,10 @@ email: dmcwee@microsoft.com
 description: Security that works together, Works.  
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: "davidmcwee.com"
-url: "https://davidmcwee.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://davidmcwee.com"
 theme_mode: light
 
-#google_analytics: "G-K5M43KBSNX"
+google_analytics: "G-K5M43KBSNX"
 #google_search_key: ""
 #google_search_id: ""
 #google_vertex_appid: ""
@@ -33,9 +33,6 @@ remote_theme: dmcwee/theme
 image: /assets/images/me.png
 
 # Build settings
-#markdown: kramdown
-#kramdown:
-#  highlighter: rouge
 show_excerpts: true
 permalink: /:year/:month/:day/:title/
 plugins:
@@ -45,25 +42,12 @@ plugins:
 # Plugin Settings
 paginate: 10
 
-# Default Values
-#defaults:
-#- 
-#  scope:
-#    path: ""
-#  values:
-#    layout: "default"
-#    author: "David McWee"
-#    seo_type: "Site"
-#- 
-#  scope:
-#    path: "_posts"
-#  values:
-#    type: "posts"
-#    layout: "post"
-#    twitter_summary: true
-#    seo_type: "BlogPosting"
-#    theme: light
-#    author: David McWee
+defaults:
+- Posts:
+  scope:
+    path: "_posts"
+  values:
+    author: David McWee
 
 collections:
 #  labs:
@@ -80,16 +64,16 @@ include:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-exclude:
-- categories
-- labs.html
-- projects.html
-- QR_Phishing.html
+#exclude:
+#- categories
+#- labs.html
+#- projects.html
+#- QR_Phishing.html
 #  - _posts/drafts
 #  - _posts/archive
 #  - *.draft.*
-- Gemfile
-- Gemfile.lock
+#- Gemfile
+#- Gemfile.lock
 #   - node_modules
 #   - vendor/bundle/
 #   - vendor/cache/

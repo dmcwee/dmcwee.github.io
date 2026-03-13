@@ -9,9 +9,8 @@ tags:
 - Defender Anti Virus
 - MDAV
 image: /assets/images/mdeexclusionchecker/mde-full.png
+excerpt: MDE Exclusion Checker is a tool to compare existing AV Exclusions against the list of exclusions that are native to Defender for Endpoint AntiVirus, and is now live!
 ---
-MDE Exclusion Checker is a tool to compare existing AV Exclusions against the list of exclusions that are native to Defender for Endpoint AntiVirus, and is now live!
-<!--more-->
 
 ## Migrating to Defender AV
 Migrating from one AV provider to another can be a pain and often includes significant administrative overhead as the need to review exclusions, configurations, etc. all demand human time and commitment.

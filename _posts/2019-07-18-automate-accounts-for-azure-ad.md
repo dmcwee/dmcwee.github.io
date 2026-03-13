@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Automate Accounts for Azure AD
-date: 2019-07-18 16:43:32.000000000 -04:00
 categories:
 - AAD
 - Identity
@@ -13,10 +12,8 @@ tags:
 - Flow
 - Forms
 - Microsoft
-permalink: "/2019/07/18/automate-accounts-for-azure-ad/"
+excerpt: Azure AD's B2B capability is a really powerful way to leverage identities from outside of an organization, but is it the right solution for seasonal, temporary, or white listed employees? Maybe, maybe not, and if not then the creation of cloud only accounts may require a time consuming (possibly manual) request \> approval \> provision process.
 ---
-Azure AD's B2B capability is a really powerful way to leverage identities from outside of an organization, but is it the right solution for seasonal, temporary, or white listed employees? Maybe, maybe not, and if not then the creation of cloud only accounts may require a time consuming (possibly manual) request \> approval \> provision process.
-<!--more-->
 
 Recently I had a customer that asked how we could automate an account provisioning processes that allow for a request, an approval workflow, automated account provisioning, association of the account with a 'manager', an automated actions if the 'manager' departed, and time boxing of the account. In order to minimize development and utilize as much Out of the Box as I could I turned to Flow.
 

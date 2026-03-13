@@ -9,9 +9,8 @@ tags:
 image: /assets/images/2025/08/AdvancedHunting.png
 banner: /assets/images/2025/08/AdvancedHunting.png
 theme: dark
+excerpt: I've been collecting some common queries often requested by customers I work with. Many of these are related to Vulnerability Management reporting, but some get into various threat detection activities.
 ---
-I've been collecting some common queries often requested by customers I work with. Many of these are related to Vulnerability Management reporting, but some get into various threat detection activities.
-<!--more-->
 
 ## Useful Queries
 
