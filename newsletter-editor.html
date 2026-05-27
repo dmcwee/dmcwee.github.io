@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TCOE Newsletter Editor</title>
+<script src="lib/msal-browser.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #eef0f3; color: #222; font-size: 14px; }
+  header { background: #0C64C0; color: #fff; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+  header h1 { margin: 0; font-size: 17px; font-weight: 600; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+  .toolbar button, .toolbar label.btn {
+    background: #fff; color: #0C64C0; border: none; padding: 7px 14px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; line-height: 1.2;
+  }
+  .toolbar button.primary { background: #ffc107; color: #5d2e00; }
+  .toolbar button:hover, .toolbar label.btn:hover { filter: brightness(0.95); }
+  .toolbar input[type="file"] { display: none; }
+  main { display: grid; grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr); gap: 12px; padding: 12px; height: calc(100vh - 56px); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; height: auto; min-height: calc(100vh - 56px); } }
+  .panel { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: auto; min-height: 0; }
+  .form-panel { padding: 14px 18px 80px; }
+  .preview-panel { padding: 0; }
+  .preview-panel iframe { width: 100%; height: 100%; min-height: 700px; border: 0; background: #f5f5f5; display: block; }
+  fieldset { border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px 14px 12px; margin: 0 0 14px; }
+  legend { font-weight: 700; color: #0C64C0; padding: 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .field-label { display: block; font-size: 12px; color: #555; margin: 8px 0 3px; font-weight: 600; }
+  input[type="text"], textarea, select {
+    width: 100%; padding: 6px 9px; border: 1px solid #cfcfcf; border-radius: 4px;
+    font: inherit; font-size: 13px; background: #fafafa; color: #222;
+  }
+  input[type="text"]:focus, textarea:focus, select:focus { outline: 2px solid #0078D4; outline-offset: -1px; background: #fff; }
+  textarea { resize: vertical; min-height: 50px; line-height: 1.45; font-family: inherit; }
+  .row { border: 1px solid #ececec; padding: 8px 10px 6px; border-radius: 5px; margin-bottom: 6px; background: #fafafa; }
+  .row-grid { display: grid; gap: 6px; }
+  .row-grid.cols-2 { grid-template-columns: 1fr 1fr; align-items: start; }
+  .row-grid.cols-3 { grid-template-columns: 1fr 1fr 100px; align-items: start; }
+  .row-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; align-items: start; }
+  .row-grid.cols-label-val { grid-template-columns: 1fr 120px; align-items: start; }
+  .row-grid.cols-emoji-title-url { grid-template-columns: 60px 1fr 1fr; align-items: start; }
+  .row-actions { display: flex; gap: 4px; justify-content: flex-end; margin-top: 4px; }
+  .btn-small { font-size: 11px; padding: 2px 8px; border: 1px solid #d0d0d0; border-radius: 3px; background: #fff; cursor: pointer; color: #666; font-family: inherit; }
+  .btn-small:hover { background: #f4f4f4; color: #0C64C0; border-color: #0C64C0; }
+  .btn-add { width: 100%; padding: 6px; border: 1px dashed #0078D4; background: #f0f7ff; color: #0C64C0; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; font-family: inherit; margin-top: 4px; }
+  .btn-add:hover { background: #dceeff; }
+  .help { font-size: 11px; color: #888; margin: 3px 0 0; line-height: 1.4; }
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: #107C10; color: #fff; padding: 10px 18px; border-radius: 6px; font-weight: 600; z-index: 1000; opacity: 0; transition: opacity 0.2s; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .toast.show { opacity: 1; }
+  .toast.error { background: #D13438; }
+  .auth-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #fff; }
+  .auth-status .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .auth-status .dot.green { background: #8DE971; }
+  .auth-status .dot.gray { background: #aaa; }
+  .toolbar button.send { background: #107C10; color: #fff; }
+  .toolbar button.send:disabled { background: #999; cursor: not-allowed; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: #fff; border-radius: 10px; padding: 24px 28px; max-width: 500px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+  .modal h2 { margin: 0 0 14px; font-size: 16px; color: #0C64C0; }
+  .modal .field-label { margin-top: 10px; }
+  .modal .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
+  .modal .modal-actions button { padding: 8px 18px; border-radius: 6px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .modal .modal-actions .btn-cancel { background: #f0f0f0; color: #333; }
+  .modal .modal-actions .btn-send { background: #107C10; color: #fff; }
+  .modal .modal-actions .btn-send:disabled { background: #999; cursor: not-allowed; }
+  .modal .send-status { font-size: 12px; color: #555; margin-top: 10px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>TCOE Newsletter Editor</h1>
+  <div class="toolbar">
+    <div class="auth-status hidden" id="auth-status">
+      <span class="dot gray" id="auth-dot"></span>
+      <span id="auth-label">Not signed in</span>
+    </div>
+    <button class="hidden" id="btn-signin" title="Sign in with your Microsoft account to enable sending">Sign in</button>
+    <button id="btn-send" class="send hidden" disabled title="Send this newsletter via Microsoft Graph">Send email</button>
+    <button id="btn-copy" class="primary" title="Copy the styled newsletter to your clipboard, then paste into Outlook">Copy for email</button>
+    <button id="btn-save" title="Download a .json file of this month's content">Save month's data</button>
+    <label class="btn" for="file-load" title="Load a previously saved .json file">Load month's data</label>
+    <input type="file" id="file-load" accept=".json,application/json">
+    <button id="btn-reset" title="Clear all fields and start over">Reset</button>
+  </div>
+</header>
+<main>
+  <section class="panel form-panel" id="form-panel"></section>
+  <section class="panel preview-panel"><iframe id="preview" title="Newsletter preview"></iframe></section>
+</main>
+<div id="toast" class="toast"></div>
+<div class="modal-overlay" id="send-modal">
+  <div class="modal">
+    <h2>Send Newsletter Email</h2>
+    <div class="field-label">To (semicolon-separated)</div>
+    <input type="text" id="send-to" placeholder="recipient1@microsoft.com; recipient2@microsoft.com">
+    <div class="field-label">CC (semicolon-separated)</div>
+    <input type="text" id="send-cc" placeholder="cc1@microsoft.com; cc2@microsoft.com">
+    <div class="field-label">Subject</div>
+    <input type="text" id="send-subject" placeholder="TCOE Copilot - Community Newsletter March 2026">
+    <div class="field-label">Importance</div>
+    <select id="send-importance">
+      <option value="low">Low</option>
+      <option value="normal" selected>Normal</option>
+      <option value="high">High</option>
+    </select>
+    <div class="send-status" id="send-status"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="send-cancel">Cancel</button>
+      <button class="btn-send" id="send-confirm">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+var STORAGE_KEY = 'tcoe-newsletter-v1';
+var FONT = "Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif";
+
+// Multi-tenant Azure AD app registration — set this once; users only need to consent.
+// Register at https://portal.azure.com → App registrations → New → Multi-tenant,
+// add "Mail.Send" delegated permission, enable SPA redirect URI.
+var GRAPH_CLIENT_ID = 'bddddfc6-338f-4b0c-a8f3-f02eab3ddde0';
+
+var COLOR_OPTIONS = ['Blue', 'Green', 'Purple', 'Teal', 'Red', 'Orange'];
+var COLOR_MAP = {
+  Blue:   '#0078D4',
+  Green:  '#107C10',
+  Purple: '#5C2D91',
+  Teal:   '#008575',
+  Red:    '#D13438',
+  Orange: '#CA5010'
+};
+
+var DEFAULT_STATE = {
+  header: {
+    community: 'Copilot',
+    month: 'March 2026',
+    introText: 'Welcome to the March edition of the Copilot Community Newsletter from the Technical Center of Excellence (TCoE). This month we share updates on our success measures, key events, insights, pod priorities, and incubation projects.',
+    reminder: ''
+  },
+  iyr: {
+    stats: [
+      { label: 'Insights Raised', value: '777', color: 'Blue' },
+      { label: 'Eng. Accepted', value: '404', color: 'Green' },
+      { label: 'SME Upvotes', value: '256**', color: 'Purple' },
+      { label: 'Yield Rate', value: '31% → 52%', color: 'Orange' }
+    ],
+    commentary: 'In the last month the IYR has gone from **31% to 52% (+21 percentage points)**. This is a significant increase in Insights accepted by Engineering. **SME upvotes is showing up an unexpected number in reporting and we need to investigate this.**'
+  },
+  ttr: {
+    stats: [
+      { label: 'FY26 Average TTR', value: '1.07 days → 1.07 days', color: 'Green' },
+      { label: 'TTR SLA Met', value: '87%', color: 'Blue' }
+    ],
+    workloads: [
+      { name: 'M365 Copilot', count: '1019' },
+      { name: 'Copilot Extensibility', count: '1032' },
+      { name: 'M365 Copilot Chat', count: '322' }
+    ]
+  },
+  themes: {
+    description: 'Analysis of the most common themes from SME requests this period.',
+    rows: [
+      { name: 'Extensibility & Agents', pct: '30%' },
+      { name: 'Deployment & Enablement', pct: '25%' },
+      { name: 'SharePoint & Data Governance', pct: '20%' },
+      { name: 'Adoption & Training', pct: '20%' },
+      { name: 'General Copilot Engagement', pct: '5%' }
+    ]
+  },
+  sdg: {
+    stats: [
+      { label: 'MAU Growth', value: '867.5K → 1.3M', color: 'Teal' },
+      { label: 'Tenants with >10% Growth', value: '1K', color: 'Blue' }
+    ],
+    workloads: [
+      { name: 'Copilot Extensibility', value: '190,000 → 330,000' },
+      { name: 'M365 Copilot', value: '430,000 → 630,000' },
+      { name: 'M365 Copilot Chat', value: '250,000 → 300,000' }
+    ]
+  },
+  events: [
+    { title: 'Agent 365 - Overview', description: 'Deep dive into the Agent 365 platform capabilities and roadmap for FY26 and beyond.', linkText: 'Recording available', linkUrl: '#', color: 'Red' },
+    { title: 'Agent 365 - Registry', description: 'Walkthrough of the Agent 365 Registry, including how to publish and discover agents.', linkText: 'Recording available', linkUrl: '#', color: 'Purple' },
+    { title: 'WXP Agents & Edit w/Copilot', description: 'Overview of WXP Agents and the new Edit with Copilot experience in Word, Excel, and PowerPoint.', linkText: 'Recording available', linkUrl: '#', color: 'Teal' }
+  ],
+  insights: [
+    {
+      title: 'Feedback Success - Copilot Connector Sync Progress Indicator',
+      subtitle: 'Customer Impact',
+      body: 'Following SME feedback, the Copilot Connector sync process now includes a progress indicator that provides real-time status updates to administrators. This improvement reduces uncertainty during connector setup and helps IT admins troubleshoot sync issues more effectively.',
+      linkText: 'View insight details',
+      linkUrl: '#'
+    }
+  ],
+  podUpdates: [
+    { title: 'Prompting 101 Expansion', description: 'Expanding the Prompting 101 curriculum to cover agent-specific prompting patterns and best practices for enterprise scenarios.', color: 'Blue' },
+    { title: 'Playbook Update for Agent Mode', description: 'Refreshing the deployment playbook to include agent mode configuration, security considerations, and governance guidance.', color: 'Green' },
+    { title: 'MODIS Connectors', description: 'Building out connector support for MODIS data sources to enable richer Copilot grounding with organizational data.', color: 'Purple' },
+    { title: 'Extensibility ADG Redesign', description: 'Redesigning the Extensibility Architecture Design Guide to reflect the latest agent development patterns and platform capabilities.', color: 'Teal' },
+    { title: 'People Skills', description: 'Developing training modules focused on soft skills for SMEs including customer communication, stakeholder management, and presentation techniques.', color: 'Orange' }
+  ],
+  incubation: [
+    { title: 'ESS', description: 'Enterprise Skills Service incubation — building a scalable skills assessment and development platform for Copilot SMEs across all regions.', linkText: '', linkUrl: '', color: 'Blue' },
+    { title: 'Agent 365', description: 'Incubating the Agent 365 platform to provide a unified agent development and management experience for enterprise customers.', linkText: '', linkUrl: '', color: 'Purple' },
+    { title: 'EDS Scale', description: 'Scaling the Enterprise Data Services practice to support larger customer deployments and more complex data integration scenarios.', linkText: '', linkUrl: '', color: 'Green' },
+    { title: 'Full Stack Engineer', description: 'Piloting the Full Stack Engineer role to combine deep technical skills across multiple Copilot workloads into a single SME profile.', linkText: '', linkUrl: '', color: 'Teal' }
+  ],
+  eventsCols: 3,
+  insightsCols: 1,
+  podCols: 2,
+  incubationCols: 2,
+  spotlight: {
+    title: 'ESS Global Rollout',
+    body: 'The Enterprise Skills Service (ESS) has completed its global rollout this quarter, now serving SMEs across all major regions. The platform provides personalized learning paths, skills assessments, and certification tracking for Copilot technical specialists.\n\nSince launch, ESS has onboarded over 200 SMEs and delivered more than 500 skills assessments. The data-driven approach to skills development has helped identify critical capability gaps and target training investments more effectively.\n\nKey achievements this quarter include the launch of the Agent Development certification track, integration with the TCoE Insights Dashboard for skills-to-impact correlation, and the introduction of peer mentoring matching based on complementary skill profiles.'
+  },
+  resources: [
+    { emoji: '📄', title: 'TCoE Whitepaper', url: '#' },
+    { emoji: '📋', title: 'TCoE Accountabilities', url: '#' },
+    { emoji: '👥', title: 'Teams Site', url: '#' },
+    { emoji: '📊', title: 'Incubation Dashboard', url: '#' },
+    { emoji: '💡', title: 'Insights Dashboard', url: '#' },
+    { emoji: '📧', title: 'Team DL', url: '#' }
+  ],
+  footer: {
+    smeCount: '79',
+    monthText: 'March 2026',
+    confidentiality: 'Microsoft Confidential — Internal Use Only'
+  },
+  email: {
+    to: '',
+    cc: '',
+    subject: 'TCOE Copilot - Community Newsletter March 2026',
+    importance: 'normal'
+  }
+};
+
+var state = loadState() || JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    return validateState(parsed) ? parsed : null;
+  } catch (e) { return null; }
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function validateState(obj) {
+  return obj && typeof obj === 'object'
+    && obj.header && obj.iyr && obj.ttr && obj.themes && obj.sdg
+    && Array.isArray(obj.events)
+    && Array.isArray(obj.insights)
+    && Array.isArray(obj.podUpdates)
+    && Array.isArray(obj.incubation)
+    //&& obj.spotlight
+    && Array.isArray(obj.resources)
+    && obj.footer;
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+
+function rich(s) {
+  return escapeHtml(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+}
+
+function paragraphsHtml(text, mb) {
+  mb = mb == null ? 10 : mb;
+  var parts = String(text == null ? '' : text).split(/\n\s*\n/).map(function(p) { return p.trim(); }).filter(Boolean);
+  return parts.map(function(p, i) {
+    var isLast = i === parts.length - 1;
+    return '<p style="margin:0 0 ' + (isLast ? 0 : mb) + 'px;font-family:' + FONT + ';font-size:14px;color:#333;line-height:1.6;">' + rich(p).replace(/\n/g, '<br>') + '</p>';
+  }).join('');
+}
+
+// =========== EMAIL RENDER ===========
+
+function renderEmail(s) {
+  var F = FONT;
+
+  // HEADER - matches EML structure exactly
+  var headerHtml =
+    // Blue header block - top part with title
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:28px 40px 10px;">' +
+      '<div style="font-family:' + F + ';font-size:11pt;color:white;margin:0 0 2px;"><span style="letter-spacing:3px;">FastTrack Delivery</span></div>' +
+      '<div style="font-family:' + F + ';font-size:26pt;color:white;line-height:1.2;margin:0;"><b>Technical Center of</b>&nbsp;<b>Excellence</b></div>' +
+    '</td></tr>' +
+    // Blue header block - bottom part with subtitle
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:0 40px 24px;">' +
+      '<div style="font-family:' + F + ';font-size:16pt;margin:6px 0 0;"><span style="color:rgb(204,204,204);font-weight:300;">' + escapeHtml(s.header.community) + ' Community News</span><span style="color:white;font-weight:300;">&nbsp;- ' + escapeHtml(s.header.month) + '</span></div>' +
+    '</td></tr>' +
+    // Accent line
+    '<tr><td style="line-height:0;background-color:rgb(0,120,212);height:4px;">&nbsp;</td></tr>' +
+    // Navigation bar
+    '<tr><td style="background-color:rgb(240,244,248);padding:10px 20px;">' +
+      '<div style="text-align:center;font-family:' + F + ';font-size:11pt;color:rgb(12,100,192);letter-spacing:0.3px;">' +
+        '<b>Success Measures</b>&nbsp;&nbsp;• &nbsp;<b>Key Events</b>&nbsp;&nbsp;• &nbsp;<b>Insights</b>&nbsp;&nbsp;• &nbsp;<b>Pod Updates</b>&nbsp;&nbsp;• &nbsp;<b>Incubation</b>&nbsp;&nbsp;• &nbsp;<b>Spotlight</b>&nbsp;&nbsp;• &nbsp;<b>Key Resources</b>' +
+      '</div>' +
+    '</td></tr>' +
+    // Intro text
+    '<tr><td style="padding:18px 30px 0;">' +
+      '<div style="font-family:' + F + ';font-size:11pt;color:black;line-height:1.5;margin:0;"><i>' + rich(s.header.introText) + '</i></div>' +
+    '</td></tr>' +
+    // Reminder text (optional)
+    (s.header.reminder ? '<tr><td style="direction: ltr; padding-top: 14px; padding-right: 30px; padding-left: 30px; box-sizing: border-box;">' +
+                    '<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="direction: ltr; border-width: 1px 1px 1px 4px; border-style: solid; border-color: rgb(224, 224, 224) rgb(224, 224, 224) rgb(224, 224, 224) rgb(255, 92, 57); border-radius: 0px 6px 6px 0px; width: 100%; box-sizing: border-box; border-collapse: collapse; border-spacing: 0px;">' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<td style="direction: ltr; padding: 14px 16px;">' +
+                                    '<div style="direction: ltr; margin: 0px 0px 4px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);"><span style="font-weight: 700;">⚠ Important Reminder</span></div>' +
+                                    '<div style="direction: ltr; line-height: 1.5; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">' +
+                                      rich(s.header.reminder) +
+                                    '</div>' +
+                                '</td>' +
+                            '</tr>' +
+                        '</tbody>' +
+                    '</table>' +
+                '</td></tr>' : '');
+
+  // SECTION HEADER HELPER - matches EML style
+  function sectionHdr(id, icon, title) {
+    return '<tr><td style="padding:22px 30px 0;">' +
+      '<div style="font-family:' + F + ';font-size:18pt;color:black;margin:0 0 4px;"><b>' + escapeHtml(title) + '</b></div>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-bottom:2px solid rgb(0,120,212);padding-bottom:2px;">&nbsp;</td></tr></table>' +
+    '</td></tr>';
+  }
+
+  // STAT CARD HELPER
+  function statCard(label, value, color) {
+    color = color || '#0078D4';
+    return '<td style="padding:4px;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:2px solid ' + color + ';border-radius:6px;">' +
+      '<tr><td align="center" style="padding:10px 4px 2px;">' +
+        '<div style="font-family:' + F + ';font-size:11pt;color:black;">' + escapeHtml(label) + '</div>' +
+      '</td></tr>' +
+      '<tr><td align="center" style="padding:0 4px 10px;">' +
+        '<div style="font-family:' + F + ';font-size:11pt;font-weight:700;color:black;">' + escapeHtml(value) + '</div>' +
+      '</td></tr></table></td>';
+  }
+
+  // METRIC BLOCK HELPER - matches EML style
+  function metricBlock(title, desc, borderColor, content) {
+    return '<tr><td style="padding:0 30px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:4px solid ' + borderColor + ';border-radius:0;margin-bottom:14px;">' +
+        '<tr><td style="padding:12px 16px 4px;">' +
+          '<div style="font-family:' + F + ';font-size:11pt;font-weight:700;color:black;margin:0;">' + escapeHtml(title) + '</div>' +
+          (desc ? '<div style="font-family:' + F + ';font-size:11pt;color:black;margin:4px 0 8px;">' + rich(desc) + '</div>' : '') +
+        '</td></tr>' +
+        '<tr><td style="padding:0 16px 14px;">' + content + '</td></tr>' +
+      '</table>' +
+    '</td></tr>';
+  }
+
+  // === SUCCESS MEASURES - IYR ===
+  var iyrStats = '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
+  s.iyr.stats.forEach(function(st) { iyrStats += statCard(st.label, st.value, COLOR_MAP[st.color] || st.color || '#0078D4'); });
+  iyrStats += '</tr></table>';
+  if (s.iyr.commentary) {
+    iyrStats += '<div style="font-family:' + F + ';font-size:11pt;color:black;line-height:1.5;margin:0;">' + rich(s.iyr.commentary) + '</div>';
+  }
+
+  var iyrSection = sectionHdr('success-measures', '📊', 'Success Measures') +
+    '<tr><td style="padding:6px 30px 14px;"><div style="font-family:' + F + ';font-size:11pt;color:black;"><i>Measures are based on data from the beginning of FY26.</i></div></td></tr>' +
+    metricBlock('Insight Yield Rate (IYR)', 'Percentage of Insights accepted into Engineering backlog against total Insights raised by ' + escapeHtml(s.header.community) + ' SMEs.', '#0078D4', iyrStats);
+
+  // === TTR ===
+  var ttrStats = '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
+  s.ttr.stats.forEach(function(st) { ttrStats += statCard(st.label, st.value, COLOR_MAP[st.color] || st.color || '#107C10'); });
+  ttrStats += '</tr></table>';
+  var ttrTable = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;">' +
+    '<tr><td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;border-radius:4px 0 0 0;"><font color="#ffffff">Workload</font></td>' +
+    '<td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;text-align:right;border-radius:0 4px 0 0;"><font color="#ffffff">Requests</font></td></tr>';
+  s.ttr.workloads.forEach(function(w, i) {
+    var bg = i % 2 === 0 ? '#fff' : '#f5f5f5';
+    ttrTable += '<tr bgcolor="' + bg + '"><td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;">' + escapeHtml(w.name) + '</td>' +
+      '<td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;text-align:right;font-weight:bold;">' + escapeHtml(w.count) + '</td></tr>';
+  });
+  ttrTable += '</table>';
+  var ttrSection = metricBlock('Time-to-Respond (TTR)', 'Average time from SME request to first response.', '#107C10', ttrStats + ttrTable);
+
+  // === THEMES ===
+  var themeTable = '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+    '<tr><td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;border-radius:4px 0 0 0;"><font color="#ffffff">Theme</font></td>' +
+    '<td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;text-align:right;border-radius:0 4px 0 0;"><font color="#ffffff">%</font></td></tr>';
+  s.themes.rows.forEach(function(t, i) {
+    var bg = i % 2 === 0 ? '#fff' : '#f5f5f5';
+    themeTable += '<tr bgcolor="' + bg + '"><td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;">' + escapeHtml(t.name) + '</td>' +
+      '<td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;text-align:right;font-weight:bold;">' + escapeHtml(t.pct) + '</td></tr>';
+  });
+  themeTable += '</table>';
+  var themesSection = metricBlock('SME Request Theme Analysis', s.themes.description, '#5C2D91', themeTable);
+
+  // === SDG ===
+  var sdgStats = '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
+  s.sdg.stats.forEach(function(st) { sdgStats += statCard(st.label, st.value, COLOR_MAP[st.color] || st.color || '#008575'); });
+  sdgStats += '</tr></table>';
+  var sdgTable = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;">' +
+    '<tr><td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;border-radius:4px 0 0 0;"><font color="#ffffff">Workload</font></td>' +
+    '<td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;font-family:' + F + ';font-size:11px;font-weight:bold;color:#fff;text-align:right;border-radius:0 4px 0 0;"><font color="#ffffff">SDG</font></td></tr>';
+  s.sdg.workloads.forEach(function(w, i) {
+    var bg = i % 2 === 0 ? '#fff' : '#f5f5f5';
+    sdgTable += '<tr bgcolor="' + bg + '"><td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;">' + escapeHtml(w.name) + '</td>' +
+      '<td style="padding:6px 12px;font-family:' + F + ';font-size:13px;color:#333;text-align:right;font-weight:bold;">' + escapeHtml(w.value) + '</td></tr>';
+  });
+  sdgTable += '</table>';
+  var sdgSection = metricBlock('SME-Derived-Growth (SDG)', 'Tracks MAU growth influenced by SME engagement.', '#008575', sdgStats + sdgTable);
+
+  // === KEY EVENTS ===
+  var eventsCols = s.eventsCols || 3;
+  var eventsRows = '';
+  var evColWidth = Math.floor((100 - (eventsCols - 1) * 2) / eventsCols);
+  for (var ei = 0; ei < s.events.length; ei += eventsCols) {
+    var eventCells = '';
+    for (var ej = 0; ej < eventsCols; ej++) {
+      var ev = s.events[ei + ej];
+      if (ej > 0) eventCells += '<td style="width:12px;"></td>';
+      if (ev) {
+        var c = COLOR_MAP[ev.color] || '#0078D4';
+        eventCells += '<td valign="top" style="width:' + evColWidth + '%;">' +
+          '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e0e0;border-top:4px solid ' + c + ';border-radius:6px;">' +
+            '<tr><td style="padding:14px;">' +
+              '<div style="font-family:' + F + ';font-size:14px;font-weight:bold;color:#333;margin-bottom:6px;">' + escapeHtml(ev.title) + '</div>' +
+              '<div style="font-family:' + F + ';font-size:12px;color:#666;line-height:1.5;margin-bottom:8px;">' + rich(ev.description) + '</div>' +
+              (ev.linkUrl && ev.linkText ? '<a href="' + escapeHtml(ev.linkUrl) + '" style="font-family:' + F + ';font-size:12px;color:' + c + ';text-decoration:none;font-weight:600;">' + escapeHtml(ev.linkText) + ' →</a>' : '') +
+            '</td></tr>' +
+          '</table></td>';
+      } else {
+        eventCells += '<td></td>';
+      }
+    }
+    eventsRows += '<tr>' + eventCells + '</tr>';
+  }
+  var eventsSection = sectionHdr('key-events', '📅', 'Key Events & Community Calls') +
+    '<tr><td style="padding:12px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0">' + eventsRows + '</table></td></tr>';
+
+  // === INSIGHTS ===
+  var insightsCols = s.insightsCols || 1;
+  var insightsContent = '';
+  function insightCard(ins) {
+    return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:4px solid #107C10;background:#f8fff8;border-radius:0 6px 6px 0;">' +
+      '<tr><td style="padding:16px 20px;">' +
+        '<div style="font-family:' + F + ';font-size:15px;font-weight:bold;color:#333;margin-bottom:4px;">' + escapeHtml(ins.title) + '</div>' +
+        (ins.subtitle ? '<div style="font-family:' + F + ';font-size:12px;color:#107C10;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">' + escapeHtml(ins.subtitle) + '</div>' : '') +
+        paragraphsHtml(ins.body, 8) +
+        (ins.linkUrl && ins.linkText ? '<a href="' + escapeHtml(ins.linkUrl) + '" style="font-family:' + F + ';font-size:12px;color:#107C10;text-decoration:none;font-weight:600;display:inline-block;margin-top:8px;">' + escapeHtml(ins.linkText) + ' →</a>' : '') +
+      '</td></tr>' +
+    '</table>';
+  }
+  if (insightsCols === 1) {
+    s.insights.forEach(function(ins) {
+      insightsContent += '<tr><td style="padding:12px 40px 0;">' + insightCard(ins) + '</td></tr>';
+    });
+  } else {
+    var insColWidth = Math.floor((100 - (insightsCols - 1) * 2) / insightsCols);
+    for (var ini = 0; ini < s.insights.length; ini += insightsCols) {
+      var insCells = '';
+      for (var inj = 0; inj < insightsCols; inj++) {
+        var ins = s.insights[ini + inj];
+        if (inj > 0) insCells += '<td style="width:12px;"></td>';
+        insCells += '<td valign="top" style="width:' + insColWidth + '%;">' + (ins ? insightCard(ins) : '') + '</td>';
+      }
+      insightsContent += '<tr><td style="padding:12px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' + insCells + '</tr></table></td></tr>';
+    }
+  }
+  var insightsSection = sectionHdr('insights', '💡', 'Insights') + insightsContent;
+
+  // === POD UPDATES ===
+  var podCols = s.podCols || 2;
+  var podRows = '';
+  var podColWidth = Math.floor((100 - (podCols - 1) * 2) / podCols);
+  for (var pi = 0; pi < s.podUpdates.length; pi += podCols) {
+    podRows += '<tr>';
+    for (var pj = 0; pj < podCols; pj++) {
+      if (pj > 0) podRows += '<td style="width:2%;"></td>';
+      var podItem = s.podUpdates[pi + pj];
+      podRows += '<td width="' + podColWidth + '%" valign="top" style="padding:4px;">' + (podItem ? podCard(podItem) : '') + '</td>';
+    }
+    podRows += '</tr>';
+  }
+  var podSection = sectionHdr('pod-updates', '🎯', 'Pod Updates — FY26 Q3 Priorities') +
+    '<tr><td style="padding:12px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0">' + podRows + '</table></td></tr>';
+
+  function podCard(item) {
+    var c = COLOR_MAP[item.color] || '#0078D4';
+    return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:4px solid ' + c + ';background:#fafafa;border-radius:0 6px 6px 0;">' +
+      '<tr><td style="padding:12px 16px;">' +
+        '<div style="font-family:' + F + ';font-size:14px;font-weight:bold;color:#333;margin-bottom:4px;">' + escapeHtml(item.title) + '</div>' +
+        '<div style="font-family:' + F + ';font-size:12px;color:#666;line-height:1.5;">' + rich(item.description) + '</div>' +
+      '</td></tr></table>';
+  }
+
+  // === INCUBATION ===
+  var incCols = s.incubationCols || 2;
+  var incRows = '';
+  var incColWidth = Math.floor((100 - (incCols - 1) * 2) / incCols);
+  for (var ici = 0; ici < s.incubation.length; ici += incCols) {
+    incRows += '<tr>';
+    for (var icj = 0; icj < incCols; icj++) {
+      if (icj > 0) incRows += '<td style="width:2%;"></td>';
+      var incItem = s.incubation[ici + icj];
+      incRows += '<td width="' + incColWidth + '%" valign="top" style="padding:4px;">' + (incItem ? incCard(incItem) : '') + '</td>';
+    }
+    incRows += '</tr>';
+  }
+  var incubationSection = sectionHdr('incubation', '🧪', 'Incubation') +
+    '<tr><td style="padding:12px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0">' + incRows + '</table></td></tr>';
+
+  function incCard(item) {
+    var c = COLOR_MAP[item.color] || '#0078D4';
+    return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e0e0;border-top:4px solid ' + c + ';border-radius:6px;">' +
+      '<tr><td style="padding:14px;">' +
+        '<div style="font-family:' + F + ';font-size:14px;font-weight:bold;color:#333;margin-bottom:4px;">' + escapeHtml(item.title) + '</div>' +
+        '<div style="font-family:' + F + ';font-size:12px;color:#666;line-height:1.5;">' + rich(item.description) + '</div>' +
+        (item.linkUrl && item.linkText ? '<a href="' + escapeHtml(item.linkUrl) + '" style="font-family:' + F + ';font-size:12px;color:' + c + ';text-decoration:none;font-weight:600;display:inline-block;margin-top:6px;">' + escapeHtml(item.linkText) + ' →</a>' : '') +
+      '</td></tr></table>';
+  }
+
+  // === SPOTLIGHT ===
+  if(!s.spotlight || !s.spotlight.title || !s.spotlight.body) {
+    spotlightSection = '';
+  } else {
+    var spotlightSection = sectionHdr('spotlight', '🌟', 'Spotlight') +
+      '<tr><td style="padding:12px 40px 0;">' +
+        '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:4px solid #107C10;background:#f8fff8;border-radius:0 6px 6px 0;">' +
+          '<tr><td style="padding:16px 20px;">' +
+            '<div style="font-family:' + F + ';font-size:16px;font-weight:bold;color:#333;margin-bottom:10px;">' + escapeHtml(s.spotlight.title) + '</div>' +
+            paragraphsHtml(s.spotlight.body, 10) +
+          '</td></tr>' +
+        '</table>' +
+      '</td></tr>';
+  }
+
+  // === KEY RESOURCES ===
+  var resCells = '';
+  for (var ri = 0; ri < s.resources.length; ri += 3) {
+    if (ri > 0) resCells += '</tr></table></td></tr><tr><td style="padding:4px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
+    else resCells += '';
+    for (var rj = 0; rj < 3; rj++) {
+      var res = s.resources[ri + rj];
+      if (rj > 0) resCells += '<td style="width:8px;"></td>';
+      if (res) {
+        resCells += '<td valign="top" style="width:33%;">' +
+          '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e0e0;border-radius:6px;">' +
+            '<tr><td style="padding:12px;text-align:center;">' +
+              '<div style="font-size:24px;margin-bottom:4px;">' + escapeHtml(res.emoji) + '</div>' +
+              '<a href="' + escapeHtml(res.url) + '" style="font-family:' + F + ';font-size:13px;color:#0078D4;text-decoration:none;font-weight:600;">' + escapeHtml(res.title) + '</a>' +
+            '</td></tr>' +
+          '</table></td>';
+      } else {
+        resCells += '<td></td>';
+      }
+    }
+  }
+  var resourcesSection = sectionHdr('key-resources', '🔗', 'Key Resources') +
+    '<tr><td style="padding:12px 40px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' + resCells + '</tr></table></td></tr>';
+
+  // === FOOTER - matches EML ===
+  var footerSection =
+    '<tr><td style="height:24px;">&nbsp;</td></tr>' +
+    // SME counter bar
+    '<tr><td style="padding:0 30px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' +
+        '<td align="center" bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:14px 16px;">' +
+          '<div style="font-family:' + F + ';font-size:12pt;color:white;margin:0;"><b>'+ escapeHtml(s.header.community) + ' SMEs: ' + escapeHtml(s.footer.smeCount) + '</b></div>' +
+        '</td>' +
+      '</tr></table>' +
+    '</td></tr>' +
+    '<tr><td style="height:20px;">&nbsp;</td></tr>' +
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:20px 30px;">' +
+      '<div style="font-family:' + F + ';font-size:11pt;color:white;margin:0 0 4px;"><span style="font-weight:700;">FastTrack Delivery -&nbsp;Technical Center of Excellence</span></div>' +
+      '<div style="font-family:' + F + ';font-size:11pt;color:white;margin:0 0 4px;">' + escapeHtml(s.header.community) + ' News &nbsp;|&nbsp; ' + escapeHtml(s.footer.monthText) + '</div>' +
+      '<div style="font-family:' + F + ';font-size:11pt;color:white;margin:0;">' + escapeHtml(s.footer.confidentiality) + '</div>' +
+    '</td></tr>';
+
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+    '<title>TCoE Copilot Community Newsletter — ' + escapeHtml(s.header.month) + '</title></head>' +
+    '<body style="margin:0;padding:20px;background-color:#f5f5f5;font-family:' + F + ';">' +
+    '<table width="700" cellpadding="0" cellspacing="0" border="0" align="center" style="background-color:#ffffff;border-collapse:collapse;box-shadow:0 2px 8px rgba(0,0,0,0.1);">' +
+      headerHtml + iyrSection + ttrSection + themesSection + sdgSection + eventsSection + insightsSection + podSection + incubationSection + spotlightSection + resourcesSection + footerSection +
+    '</table></body></html>';
+}
+
+// =========== FORM ===========
+
+function renderPreview() {
+  document.getElementById('preview').srcdoc = renderEmail(state);
+}
+
+function rerender() {
+  saveState();
+  renderPreview();
+}
+
+function fullRerender() {
+  saveState();
+  renderForm();
+  renderPreview();
+}
+
+function el(tag, attrs, children) {
+  var e = document.createElement(tag);
+  if (attrs) {
+    for (var k in attrs) {
+      if (k === 'class') e.className = attrs[k];
+      else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+      else if (k === 'value') e.value = attrs[k];
+      else e.setAttribute(k, attrs[k]);
+    }
+  }
+  (children || []).forEach(function(c) {
+    if (c == null) return;
+    if (typeof c === 'string') e.appendChild(document.createTextNode(c));
+    else e.appendChild(c);
+  });
+  return e;
+}
+
+function textInput(value, onChange, placeholder) {
+  return el('input', { type: 'text', value: value || '', placeholder: placeholder || '', oninput: function(ev) { onChange(ev.target.value); } });
+}
+function textareaInput(value, onChange, placeholder, rows) {
+  var t = el('textarea', { placeholder: placeholder || '', oninput: function(ev) { onChange(ev.target.value); } });
+  t.value = value || '';
+  if (rows) t.rows = rows;
+  return t;
+}
+function selectInput(value, options, onChange) {
+  var sel = el('select', { onchange: function(ev) { onChange(ev.target.value); } });
+  options.forEach(function(o) {
+    var opt = el('option', { value: o }, [o]);
+    if (o === value) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  return sel;
+}
+function btnSmall(label, onClick) {
+  return el('button', { type: 'button', class: 'btn-small', onclick: onClick }, [label]);
+}
+function btnAdd(label, onClick) {
+  return el('button', { type: 'button', class: 'btn-add', onclick: onClick }, ['+ ' + label]);
+}
+function rowActions(arr, idx, onChange) {
+  return el('div', { class: 'row-actions' }, [
+    idx > 0 ? btnSmall('↑', function() { var t = arr[idx]; arr[idx] = arr[idx - 1]; arr[idx - 1] = t; onChange(); }) : null,
+    idx < arr.length - 1 ? btnSmall('↓', function() { var t = arr[idx]; arr[idx] = arr[idx + 1]; arr[idx + 1] = t; onChange(); }) : null,
+    btnSmall('Remove', function() { arr.splice(idx, 1); onChange(); })
+  ]);
+}
+function fieldLabel(text) { return el('div', { class: 'field-label' }, [text]); }
+function helpText(text) { return el('div', { class: 'help' }, [text]); }
+
+function fieldset(legendText, children) {
+  return el('fieldset', null, [el('legend', null, [legendText])].concat(children));
+}
+
+function renderForm() {
+  var root = document.getElementById('form-panel');
+  root.innerHTML = '';
+  root.appendChild(buildHeaderSection());
+  root.appendChild(buildIYRSection());
+  root.appendChild(buildTTRSection());
+  root.appendChild(buildThemesSection());
+  root.appendChild(buildSDGSection());
+  root.appendChild(buildEventsSection());
+  root.appendChild(buildInsightsSection());
+  root.appendChild(buildPodSection());
+  root.appendChild(buildIncubationSection());
+  root.appendChild(buildSpotlightSection());
+  root.appendChild(buildResourcesSection());
+  root.appendChild(buildFooterSection());
+  root.appendChild(buildEmailSection());
+  root.appendChild(buildFormatHelp());
+}
+
+function buildHeaderSection() {
+  return fieldset('Issue Header', [
+    fieldLabel('Community name'),
+    textInput(state.header.community, function(v) { state.header.community = v; rerender(); }, 'e.g. Copilot'),
+    fieldLabel('Month / Year'),
+    textInput(state.header.month, function(v) { state.header.month = v; rerender(); }, 'e.g. March 2026'),
+    fieldLabel('Intro text (italic)'),
+    textareaInput(state.header.introText, function(v) { state.header.introText = v; rerender(); }, 'Welcome text...', 3),
+    fieldLabel('Reminder text (optional, italic)'),
+    textareaInput(state.header.reminder, function(v) { state.header.reminder = v; rerender(); }, 'e.g. Reminder about upcoming event...', 3)
+  ]);
+}
+
+function buildIYRSection() {
+  var statRows = state.iyr.stats.map(function(st, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(st.label, function(v) { st.label = v; rerender(); }, 'Stat label'),
+        textInput(st.value, function(v) { st.value = v; rerender(); }, 'Value')
+      ]),
+      el('div', { style: 'margin-top:4px;' }, [
+        selectInput(st.color || 'Blue', COLOR_OPTIONS, function(v) { st.color = v; rerender(); })
+      ]),
+      rowActions(state.iyr.stats, idx, fullRerender)
+    ]);
+  });
+  return fieldset('Success Measures — IYR', [
+    fieldLabel('Stat cards')
+  ].concat(statRows).concat([
+    btnAdd('Add stat', function() { state.iyr.stats.push({ label: '', value: '', color: 'Blue' }); fullRerender(); }),
+    fieldLabel('Commentary'),
+    textareaInput(state.iyr.commentary, function(v) { state.iyr.commentary = v; rerender(); }, 'Commentary text. Use **bold** for emphasis.', 3)
+  ]));
+}
+
+function buildTTRSection() {
+  var statRows = state.ttr.stats.map(function(st, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(st.label, function(v) { st.label = v; rerender(); }, 'Stat label'),
+        textInput(st.value, function(v) { st.value = v; rerender(); }, 'Value')
+      ]),
+      el('div', { style: 'margin-top:4px;' }, [
+        selectInput(st.color || 'Blue', COLOR_OPTIONS, function(v) { st.color = v; rerender(); })
+      ]),
+      rowActions(state.ttr.stats, idx, fullRerender)
+    ]);
+  });
+  var wlRows = state.ttr.workloads.map(function(w, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(w.name, function(v) { w.name = v; rerender(); }, 'Workload name'),
+        textInput(w.count, function(v) { w.count = v; rerender(); }, 'Count')
+      ]),
+      rowActions(state.ttr.workloads, idx, fullRerender)
+    ]);
+  });
+  return fieldset('Success Measures — TTR', [
+    fieldLabel('Stat cards')
+  ].concat(statRows).concat([
+    btnAdd('Add stat', function() { state.ttr.stats.push({ label: '', value: '', color: 'Blue' }); fullRerender(); }),
+    fieldLabel('Workload table')
+  ]).concat(wlRows).concat([
+    btnAdd('Add workload', function() { state.ttr.workloads.push({ name: '', count: '' }); fullRerender(); })
+  ]));
+}
+
+function buildThemesSection() {
+  var rows = state.themes.rows.map(function(t, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(t.name, function(v) { t.name = v; rerender(); }, 'Theme name'),
+        textInput(t.pct, function(v) { t.pct = v; rerender(); }, '30%')
+      ]),
+      rowActions(state.themes.rows, idx, fullRerender)
+    ]);
+  });
+  return fieldset('Success Measures — Theme Analysis', [
+    fieldLabel('Description'),
+    textareaInput(state.themes.description, function(v) { state.themes.description = v; rerender(); }, 'Description', 2),
+    fieldLabel('Theme rows')
+  ].concat(rows).concat([
+    btnAdd('Add theme', function() { state.themes.rows.push({ name: '', pct: '' }); fullRerender(); })
+  ]));
+}
+
+function buildSDGSection() {
+  var statRows = state.sdg.stats.map(function(st, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(st.label, function(v) { st.label = v; rerender(); }, 'Stat label'),
+        textInput(st.value, function(v) { st.value = v; rerender(); }, 'Value')
+      ]),
+      el('div', { style: 'margin-top:4px;' }, [
+        selectInput(st.color || 'Blue', COLOR_OPTIONS, function(v) { st.color = v; rerender(); })
+      ]),
+      rowActions(state.sdg.stats, idx, fullRerender)
+    ]);
+  });
+  var wlRows = state.sdg.workloads.map(function(w, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-label-val' }, [
+        textInput(w.name, function(v) { w.name = v; rerender(); }, 'Workload'),
+        textInput(w.value, function(v) { w.value = v; rerender(); }, 'SDG value')
+      ]),
+      rowActions(state.sdg.workloads, idx, fullRerender)
+    ]);
+  });
+  return fieldset('Success Measures — SDG', [
+    fieldLabel('Stat cards')
+  ].concat(statRows).concat([
+    btnAdd('Add stat', function() { state.sdg.stats.push({ label: '', value: '', color: 'Blue' }); fullRerender(); }),
+    fieldLabel('Workload SDG table')
+  ]).concat(wlRows).concat([
+    btnAdd('Add workload', function() { state.sdg.workloads.push({ name: '', value: '' }); fullRerender(); })
+  ]));
+}
+
+function buildEventsSection() {
+  var rows = state.events.map(function(ev, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-3' }, [
+        textInput(ev.title, function(v) { ev.title = v; rerender(); }, 'Event title'),
+        textInput(ev.linkText, function(v) { ev.linkText = v; rerender(); }, 'Link text'),
+        selectInput(ev.color, COLOR_OPTIONS, function(v) { ev.color = v; rerender(); })
+      ]),
+      fieldLabel('Description'),
+      textareaInput(ev.description, function(v) { ev.description = v; rerender(); }, 'Event description', 2),
+      fieldLabel('Link URL'),
+      textInput(ev.linkUrl, function(v) { ev.linkUrl = v; rerender(); }, 'https://...'),
+      rowActions(state.events, idx, fullRerender)
+    ]);
+  });
+  if (!state.eventsCols) state.eventsCols = 3;
+  return fieldset('Key Events & Community Calls', [
+    fieldLabel('Columns'),
+    selectInput(String(state.eventsCols), ['1', '2', '3', '4'], function(v) { state.eventsCols = parseInt(v); rerender(); })
+  ].concat(rows).concat([
+    btnAdd('Add event', function() { state.events.push({ title: '', description: '', linkText: 'Recording available', linkUrl: '#', color: 'Blue' }); fullRerender(); })
+  ]));
+}
+
+function buildInsightsSection() {
+  var rows = state.insights.map(function(ins, idx) {
+    return el('div', { class: 'row' }, [
+      fieldLabel('Title'),
+      textInput(ins.title, function(v) { ins.title = v; rerender(); }, 'Insight title'),
+      fieldLabel('Subtitle'),
+      textInput(ins.subtitle, function(v) { ins.subtitle = v; rerender(); }, 'e.g. Customer Impact'),
+      fieldLabel('Body'),
+      textareaInput(ins.body, function(v) { ins.body = v; rerender(); }, 'Insight description. Separate paragraphs with blank line.', 4),
+      fieldLabel('Link text'),
+      textInput(ins.linkText, function(v) { ins.linkText = v; rerender(); }, 'View details'),
+      fieldLabel('Link URL'),
+      textInput(ins.linkUrl, function(v) { ins.linkUrl = v; rerender(); }, 'https://...'),
+      rowActions(state.insights, idx, fullRerender)
+    ]);
+  });
+  if (!state.insightsCols) state.insightsCols = 1;
+  return fieldset('Insights', [
+    fieldLabel('Columns'),
+    selectInput(String(state.insightsCols), ['1', '2', '3', '4'], function(v) { state.insightsCols = parseInt(v); rerender(); })
+  ].concat(rows).concat([
+    btnAdd('Add insight', function() { state.insights.push({ title: '', subtitle: '', body: '', linkText: '', linkUrl: '' }); fullRerender(); })
+  ]));
+}
+
+function buildPodSection() {
+  var rows = state.podUpdates.map(function(p, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-2' }, [
+        textInput(p.title, function(v) { p.title = v; rerender(); }, 'Priority title'),
+        selectInput(p.color, COLOR_OPTIONS, function(v) { p.color = v; rerender(); })
+      ]),
+      fieldLabel('Description'),
+      textareaInput(p.description, function(v) { p.description = v; rerender(); }, 'Priority description', 2),
+      rowActions(state.podUpdates, idx, fullRerender)
+    ]);
+  });
+  if (!state.podCols) state.podCols = 2;
+  return fieldset('Pod Updates — Priorities', [
+    fieldLabel('Columns'),
+    selectInput(String(state.podCols), ['1', '2', '3', '4'], function(v) { state.podCols = parseInt(v); rerender(); })
+  ].concat(rows).concat([
+    btnAdd('Add priority', function() { state.podUpdates.push({ title: '', description: '', color: 'Blue' }); fullRerender(); })
+  ]));
+}
+
+function buildIncubationSection() {
+  var rows = state.incubation.map(function(inc, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-3' }, [
+        textInput(inc.title, function(v) { inc.title = v; rerender(); }, 'Project title'),
+        textInput(inc.linkText, function(v) { inc.linkText = v; rerender(); }, 'Link text (optional)'),
+        selectInput(inc.color, COLOR_OPTIONS, function(v) { inc.color = v; rerender(); })
+      ]),
+      fieldLabel('Description'),
+      textareaInput(inc.description, function(v) { inc.description = v; rerender(); }, 'Project description', 2),
+      fieldLabel('Link URL'),
+      textInput(inc.linkUrl, function(v) { inc.linkUrl = v; rerender(); }, 'https://... (optional)'),
+      rowActions(state.incubation, idx, fullRerender)
+    ]);
+  });
+  if (!state.incubationCols) state.incubationCols = 2;
+  return fieldset('Incubation', [
+    fieldLabel('Columns'),
+    selectInput(String(state.incubationCols), ['1', '2', '3', '4'], function(v) { state.incubationCols = parseInt(v); rerender(); })
+  ].concat(rows).concat([
+    btnAdd('Add project', function() { state.incubation.push({ title: '', description: '', linkText: '', linkUrl: '', color: 'Blue' }); fullRerender(); })
+  ]));
+}
+
+function buildSpotlightSection() {
+  if(!state.spotlight) state.spotlight = { title: '', body: '' };
+
+  return fieldset('Spotlight', [
+    fieldLabel('Title'),
+    textInput(state.spotlight.title, function(v) { state.spotlight.title = v; rerender(); }, 'Spotlight title'),
+    fieldLabel('Body (separate paragraphs with blank line)'),
+    textareaInput(state.spotlight.body, function(v) { state.spotlight.body = v; rerender(); }, 'Spotlight content...', 6)
+  ]);
+}
+
+function buildResourcesSection() {
+  var rows = state.resources.map(function(r, idx) {
+    return el('div', { class: 'row' }, [
+      el('div', { class: 'row-grid cols-emoji-title-url' }, [
+        textInput(r.emoji, function(v) { r.emoji = v; rerender(); }, '📄'),
+        textInput(r.title, function(v) { r.title = v; rerender(); }, 'Resource title'),
+        textInput(r.url, function(v) { r.url = v; rerender(); }, 'https://...')
+      ]),
+      rowActions(state.resources, idx, fullRerender)
+    ]);
+  });
+  return fieldset('Key Resources', rows.concat([
+    btnAdd('Add resource', function() { state.resources.push({ emoji: '📄', title: '', url: '#' }); fullRerender(); })
+  ]));
+}
+
+function buildFooterSection() {
+  return fieldset('Footer', [
+    fieldLabel('SME Count'),
+    textInput(state.footer.smeCount, function(v) { state.footer.smeCount = v; rerender(); }, '79'),
+    fieldLabel('Month text'),
+    textInput(state.footer.monthText, function(v) { state.footer.monthText = v; rerender(); }, 'March 2026'),
+    fieldLabel('Confidentiality notice'),
+    textInput(state.footer.confidentiality, function(v) { state.footer.confidentiality = v; rerender(); }, 'Microsoft Confidential...')
+  ]);
+}
+
+function buildEmailSection() {
+  if (!state.email) state.email = { to: '', cc: '', subject: '', importance: 'normal' };
+  return fieldset('Email Settings (Graph API)', [
+    helpText('Sign in with your Microsoft account. On first use you will be prompted to consent to the Mail.Send permission.'),
+    fieldLabel('To (semicolon-separated)'),
+    textInput(state.email.to, function(v) { state.email.to = v; rerender(); }, 'recipient1@microsoft.com; recipient2@microsoft.com'),
+    fieldLabel('CC (semicolon-separated)'),
+    textInput(state.email.cc, function(v) { state.email.cc = v; rerender(); }, 'cc1@microsoft.com; cc2@microsoft.com'),
+    fieldLabel('Subject'),
+    textInput(state.email.subject, function(v) { state.email.subject = v; rerender(); }, 'TCOE Copilot - Community Newsletter March 2026'),
+    fieldLabel('Importance'),
+    selectInput(state.email.importance || 'normal', ['low', 'normal', 'high'], function(v) { state.email.importance = v; rerender(); })
+  ]);
+}
+
+function buildFormatHelp() {
+  return fieldset('Formatting tips', [
+    helpText('Wrap text in **two stars** to make it bold, e.g. **52%**.'),
+    helpText('Wrap text in *single stars* to italicise it.'),
+    helpText('In paragraph fields (Spotlight, Insights body), leave a blank line between paragraphs.'),
+    helpText('Emojis: paste from your emoji picker (e.g. 📊 💡 🎯 🧪).')
+  ]);
+}
+
+// =========== TOOLBAR ===========
+
+function showToast(msg, isError) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(function() { t.className = 'toast' + (isError ? ' error' : ''); }, 2500);
+}
+
+document.getElementById('btn-copy').addEventListener('click', async function() {
+  var html = renderEmail(state);
+  try {
+    if (navigator.clipboard && window.ClipboardItem) {
+      var item = new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([html], { type: 'text/plain' })
+      });
+      await navigator.clipboard.write([item]);
+      showToast('Copied! Now paste into Outlook.');
+      return;
+    }
+  } catch (e) { /* fall through */ }
+  try {
+    var iframe = document.getElementById('preview');
+    var doc = iframe.contentDocument;
+    var range = doc.createRange();
+    range.selectNodeContents(doc.body);
+    var sel = iframe.contentWindow.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    iframe.contentWindow.focus();
+    var ok = doc.execCommand('copy');
+    sel.removeAllRanges();
+    if (ok) {
+      showToast('Copied! Now paste into Outlook.');
+    } else {
+      throw new Error('execCommand failed');
+    }
+  } catch (e) {
+    showToast('Could not copy — try Chrome or Edge.', true);
+  }
+});
+
+document.getElementById('btn-save').addEventListener('click', function() {
+  var data = JSON.stringify(state, null, 2);
+  var blob = new Blob([data], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var safeMonth = (state.header.month || 'newsletter').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+  a.href = url;
+  a.download = 'tcoe-newsletter-' + safeMonth + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  showToast('Saved — keep this file for next month.');
+});
+
+document.getElementById('file-load').addEventListener('change', function(ev) {
+  var file = ev.target.files && ev.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function() {
+    try {
+      var parsed = JSON.parse(reader.result);
+      if (!validateState(parsed)) throw new Error('That file does not look like a TCOE newsletter data file.');
+      state = parsed;
+      fullRerender();
+      showToast('Loaded — fields updated.');
+    } catch (e) {
+      showToast('Could not load file: ' + e.message, true);
+    }
+  };
+  reader.onerror = function() { showToast('Could not read file.', true); };
+  reader.readAsText(file);
+  ev.target.value = '';
+});
+
+document.getElementById('btn-reset').addEventListener('click', function() {
+  if (!confirm('Reset all fields to the sample content? Anything unsaved will be lost.')) return;
+  state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  fullRerender();
+  showToast('Reset to sample content.');
+});
+
+// =========== MSAL / GRAPH SEND ===========
+
+var msalInstance = null;
+var msalAccount = null;
+
+function getMsalConfig() {
+  if (!GRAPH_CLIENT_ID || GRAPH_CLIENT_ID === 'YOUR_GRAPH_CLIENT_ID_HERE') return null;
+  return {
+    auth: {
+      clientId: GRAPH_CLIENT_ID,
+      authority: 'https://login.microsoftonline.com/common',
+      redirectUri: window.location.origin + window.location.pathname
+    },
+    cache: {
+      cacheLocation: 'sessionStorage',
+      storeAuthStateInCookie: false
+    }
+  };
+}
+
+function initMsal() {
+  var config = getMsalConfig();
+  if (!config) {
+    msalInstance = null;
+    msalAccount = null;
+    updateAuthUI();
+    return;
+  }
+  try {
+    msalInstance = new msal.PublicClientApplication(config);
+    msalInstance.initialize().then(function() {
+      // var accounts = msalInstance.getAllAccounts();
+      // if (accounts.length > 0) {
+      //   msalAccount = accounts[0];
+      // }
+      updateAuthUI();
+    }).catch(function() {
+      updateAuthUI();
+    });
+  } catch (e) {
+    console.error(`MSAL initialization failed ${e.message}`);
+    msalInstance = null;
+    updateAuthUI();
+  }
+}
+
+function updateAuthUI() {
+  var dot = document.getElementById('auth-dot');
+  var label = document.getElementById('auth-label');
+  var signinBtn = document.getElementById('btn-signin');
+  var sendBtn = document.getElementById('btn-send');
+
+  if (msalAccount) {
+    dot.className = 'dot green';
+    label.textContent = msalAccount.username;
+    signinBtn.textContent = 'Sign out';
+    sendBtn.disabled = false;
+  } else {
+    dot.className = 'dot gray';
+    label.textContent = 'Not signed in';
+    signinBtn.textContent = 'Sign in';
+    sendBtn.disabled = true;
+  }
+}
+
+document.getElementById('btn-signin').addEventListener('click', async function() {
+  if (!msalInstance) initMsal();
+  if (!msalInstance) {
+    showToast('Graph API client is not configured. Contact the app owner.', true);
+    return;
+  }
+
+  if (msalAccount) {
+    // Sign out
+    msalInstance.logoutPopup({ account: msalAccount }).then(function() {
+      msalAccount = null;
+      updateAuthUI();
+      showToast('Signed out.');
+    }).catch(function() {
+      msalAccount = null;
+      updateAuthUI();
+    });
+  } else {
+    // Sign in — prompt consent so the user explicitly grants Mail.Send
+    try {
+      var response = await msalInstance.loginPopup({
+        scopes: ['Mail.Send'],
+        prompt: 'consent'
+      });
+      msalAccount = response.account;
+      updateAuthUI();
+      showToast('Signed in as ' + msalAccount.username);
+    } catch (e) {
+      if (e.errorCode !== 'user_cancelled') {
+        showToast('Sign-in failed: ' + e.message, true);
+      }
+    }
+  }
+});
+
+async function getAccessToken() {
+  if (!msalInstance || !msalAccount) throw new Error('Not signed in');
+  try {
+    var response = await msalInstance.acquireTokenSilent({
+      scopes: ['Mail.Send'],
+      account: msalAccount
+    });
+    return response.accessToken;
+  } catch (e) {
+    // Silent failed, try interactive
+    var response = await msalInstance.acquireTokenPopup({
+      scopes: ['Mail.Send'],
+      account: msalAccount
+    });
+    return response.accessToken;
+  }
+}
+
+function buildRecipients(addressStr) {
+  if (!addressStr) return [];
+  return addressStr.split(';')
+    .map(function(a) { return a.trim(); })
+    .filter(function(a) { return a.length > 0; })
+    .map(function(a) {
+      return { emailAddress: { address: a, name: a } };
+    });
+}
+
+document.getElementById('btn-send').addEventListener('click', function() {
+  if (!msalAccount) {
+    showToast('Sign in first to send email.', true);
+    return;
+  }
+  // Populate modal fields from state
+  var email = state.email || {};
+  document.getElementById('send-to').value = email.to || '';
+  document.getElementById('send-cc').value = email.cc || '';
+  document.getElementById('send-subject').value = email.subject || '';
+  document.getElementById('send-importance').value = email.importance || 'normal';
+  document.getElementById('send-status').textContent = '';
+  document.getElementById('send-confirm').disabled = false;
+  document.getElementById('send-modal').classList.add('show');
+});
+
+document.getElementById('send-cancel').addEventListener('click', function() {
+  document.getElementById('send-modal').classList.remove('show');
+});
+
+document.getElementById('send-modal').addEventListener('click', function(ev) {
+  if (ev.target === this) this.classList.remove('show');
+});
+
+document.getElementById('send-confirm').addEventListener('click', async function() {
+  var toAddr = document.getElementById('send-to').value.trim();
+  var ccAddr = document.getElementById('send-cc').value.trim();
+  var subject = document.getElementById('send-subject').value.trim();
+  var importance = document.getElementById('send-importance').value;
+  var statusEl = document.getElementById('send-status');
+  var confirmBtn = document.getElementById('send-confirm');
+
+  if (!toAddr) {
+    statusEl.textContent = 'A "To" address is required.';
+    statusEl.style.color = '#D13438';
+    return;
+  }
+  if (!subject) {
+    statusEl.textContent = 'A subject is required.';
+    statusEl.style.color = '#D13438';
+    return;
+  }
+
+  // Save back to state
+  state.email.to = toAddr;
+  state.email.cc = ccAddr;
+  state.email.subject = subject;
+  state.email.importance = importance;
+  saveState();
+
+  confirmBtn.disabled = true;
+  statusEl.textContent = 'Acquiring token...';
+  statusEl.style.color = '#555';
+
+  try {
+    var token = await getAccessToken();
+    statusEl.textContent = 'Sending email...';
+
+    var htmlBody = renderEmail(state);
+
+    var mailPayload = {
+      message: {
+        subject: subject,
+        importance: importance,
+        body: {
+          contentType: 'HTML',
+          content: htmlBody
+        },
+        toRecipients: buildRecipients(toAddr),
+        ccRecipients: buildRecipients(ccAddr)
+      },
+      saveToSentItems: true
+    };
+
+    var response = await fetch('https://graph.microsoft.com/v1.0/me/sendMail', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(mailPayload)
+    });
+
+    if (response.status === 202 || response.ok) {
+      document.getElementById('send-modal').classList.remove('show');
+      showToast('Email sent successfully!');
+    } else {
+      var errBody = await response.json().catch(function() { return {}; });
+      var errMsg = (errBody.error && errBody.error.message) ? errBody.error.message : ('HTTP ' + response.status);
+      statusEl.textContent = 'Failed: ' + errMsg;
+      statusEl.style.color = '#D13438';
+      confirmBtn.disabled = false;
+    }
+  } catch (e) {
+    statusEl.textContent = 'Error: ' + e.message;
+    statusEl.style.color = '#D13438';
+    confirmBtn.disabled = false;
+  }
+});
+
+// =========== INIT ===========
+renderForm();
+renderPreview();
+initMsal();
+</script>
+</body>
+</html>
