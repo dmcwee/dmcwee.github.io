@@ -249,6 +249,7 @@
 'use strict';
 
 var STORAGE_KEY = 'tcoe-newsletter-v2';
+var CURRENT_STATE_VERSION = 2;
 var FONT = 'Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif';
 
 var COLOR_OPTIONS = ['Blue', 'Green', 'Purple', 'Teal', 'Red', 'Orange'];
@@ -262,6 +263,7 @@ var COLOR_MAP = {
 };
 
 var DEFAULT_STATE = {
+  version: CURRENT_STATE_VERSION,
   header: {
     community: 'Copilot',
     month: 'March 2026',
@@ -336,12 +338,346 @@ function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+function serializeState(obj) {
+  return normalizeV2State(obj || DEFAULT_STATE);
+}
+
+function isV2State(obj) {
+  return !!(obj && typeof obj === 'object' && obj.header && obj.footer && Array.isArray(obj.sections));
+}
+
+function isV1State(obj) {
+  return !!(obj && typeof obj === 'object'
+    && obj.header && obj.iyr && obj.ttr && obj.themes && obj.sdg
+    && Array.isArray(obj.events)
+    && Array.isArray(obj.insights)
+    && Array.isArray(obj.podUpdates)
+    && Array.isArray(obj.incubation)
+    && Array.isArray(obj.resources)
+    && obj.footer);
+}
+
+function normalizeText(value) {
+  return value == null ? '' : String(value);
+}
+
+function normalizeV2Element(item) {
+  var type = item && item.type;
+  if (type === 'metrics') {
+    return {
+      type: 'metrics',
+      title: normalizeText(item.title),
+      columns: clampMetricColumns(item.columns),
+      stats: Array.isArray(item.stats) ? item.stats.map(function(stat) {
+        return {
+          label: normalizeText(stat && stat.label),
+          value: normalizeText(stat && stat.value),
+          color: normalizeText(stat && stat.color) || 'Blue'
+        };
+      }) : []
+    };
+  }
+  if (type === 'table') {
+    return {
+      type: 'table',
+      title: normalizeText(item.title),
+      headers: {
+        left: normalizeText(item.headers && item.headers.left) || 'Name',
+        right: normalizeText(item.headers && item.headers.right) || 'Value'
+      },
+      rows: Array.isArray(item.rows) ? item.rows.map(function(row) {
+        return {
+          left: normalizeText(row && row.left),
+          right: normalizeText(row && row.right)
+        };
+      }) : []
+    };
+  }
+  return {
+    type: 'text',
+    description: normalizeText(item && item.description),
+    linkText: normalizeText(item && item.linkText),
+    linkUrl: normalizeText(item && item.linkUrl)
+  };
+}
+
+function normalizeV2Card(card) {
+  var layout = card && card.layout;
+  if (layout !== 'left' && layout !== 'top' && layout !== 'none') layout = 'left';
+  return {
+    layout: layout,
+    color: normalizeText(card && card.color) || 'Blue',
+    title: normalizeText(card && card.title),
+    subtitle: normalizeText(card && card.subtitle),
+    elements: Array.isArray(card && card.elements) ? card.elements.map(normalizeV2Element) : []
+  };
+}
+
+function normalizeV2State(obj) {
+  var next = clone(obj || DEFAULT_STATE);
+  next.version = typeof next.version === 'number' && next.version >= CURRENT_STATE_VERSION ? next.version : CURRENT_STATE_VERSION;
+  next.header = next.header || {};
+  next.header.community = normalizeText(next.header.community) || DEFAULT_STATE.header.community;
+  next.header.month = normalizeText(next.header.month) || DEFAULT_STATE.header.month;
+  next.header.introText = normalizeText(next.header.introText) || DEFAULT_STATE.header.introText;
+  next.header.reminder = normalizeText(next.header.reminder);
+  next.sections = Array.isArray(next.sections) ? next.sections.map(function(section) {
+    return {
+      title: normalizeText(section && section.title),
+      columns: clampSectionColumns(section && section.columns),
+      cards: Array.isArray(section && section.cards) ? section.cards.map(normalizeV2Card) : []
+    };
+  }) : [];
+  next.footer = next.footer || {};
+  next.footer.smeCount = normalizeText(next.footer.smeCount) || DEFAULT_STATE.footer.smeCount;
+  next.footer.monthText = normalizeText(next.footer.monthText) || next.header.month || DEFAULT_STATE.footer.monthText;
+  next.footer.confidentiality = normalizeText(next.footer.confidentiality) || DEFAULT_STATE.footer.confidentiality;
+  return next;
+}
+
+function makeTextElement(description, linkText, linkUrl) {
+  return {
+    type: 'text',
+    description: normalizeText(description),
+    linkText: normalizeText(linkText),
+    linkUrl: normalizeText(linkUrl)
+  };
+}
+
+function makeMetricsElementFromV1Stats(stats, defaultColor) {
+  var rows = Array.isArray(stats) ? stats : [];
+  return {
+    type: 'metrics',
+    title: '',
+    columns: clampMetricColumns(rows.length || 2),
+    stats: rows.map(function(stat) {
+      var label = normalizeText(stat && (stat.label || stat.name || stat.metric || stat.text));
+      var value = normalizeText(stat && (stat.value || stat.count || stat.pct || stat.percentage));
+      return {
+        label: label,
+        value: value,
+        color: normalizeText(stat && stat.color) || defaultColor || 'Blue'
+      };
+    })
+  };
+}
+
+function makeTableElementFromRows(title, leftHeader, rightHeader, rows, leftKey, rightKey) {
+  var list = Array.isArray(rows) ? rows : [];
+  var lKey = leftKey || 'name';
+  var rKey = rightKey || 'value';
+  return {
+    type: 'table',
+    title: normalizeText(title),
+    headers: { left: normalizeText(leftHeader) || 'Name', right: normalizeText(rightHeader) || 'Value' },
+    rows: list.map(function(row) {
+      return {
+        left: normalizeText(row && row[lKey]),
+        right: normalizeText(row && row[rKey])
+      };
+    })
+  };
+}
+
+function upgradeV1ToV2(obj) {
+  var next = {
+    version: CURRENT_STATE_VERSION,
+    header: {
+      community: normalizeText(obj.header && obj.header.community) || DEFAULT_STATE.header.community,
+      month: normalizeText(obj.header && obj.header.month) || DEFAULT_STATE.header.month,
+      introText: normalizeText(obj.header && obj.header.introText) || DEFAULT_STATE.header.introText,
+      reminder: normalizeText(obj.header && obj.header.reminder)
+    },
+    sections: [],
+    footer: {
+      smeCount: normalizeText(obj.footer && obj.footer.smeCount) || DEFAULT_STATE.footer.smeCount,
+      monthText: normalizeText(obj.footer && obj.footer.monthText) || normalizeText(obj.header && obj.header.month) || DEFAULT_STATE.footer.monthText,
+      confidentiality: normalizeText(obj.footer && obj.footer.confidentiality) || DEFAULT_STATE.footer.confidentiality
+    }
+  };
+
+  if (obj.email && typeof obj.email === 'object') {
+    next.email = clone(obj.email);
+  }
+
+  var successCards = [];
+  if (obj.iyr) {
+    successCards.push({
+      layout: 'left',
+      color: 'Blue',
+      title: 'Insight Yield Rate (IYR)',
+      subtitle: '',
+      elements: [makeMetricsElementFromV1Stats(obj.iyr.stats, 'Blue')]
+        .concat(obj.iyr.commentary ? [makeTextElement(obj.iyr.commentary)] : [])
+    });
+  }
+  if (obj.ttr) {
+    successCards.push({
+      layout: 'left',
+      color: 'Green',
+      title: 'Time-to-Respond (TTR)',
+      subtitle: 'Average time from SME request to first response.',
+      elements: [
+        makeMetricsElementFromV1Stats(obj.ttr.stats, 'Green'),
+        makeTableElementFromRows('', 'Workload', 'Requests', obj.ttr.workloads, 'name', 'count')
+      ]
+    });
+  }
+  if (obj.themes) {
+    successCards.push({
+      layout: 'left',
+      color: 'Purple',
+      title: 'SME Request Theme Analysis',
+      subtitle: normalizeText(obj.themes.description),
+      elements: [
+        makeTableElementFromRows('', 'Theme', '%', obj.themes.rows, 'name', 'pct')
+      ]
+    });
+  }
+  if (obj.sdg) {
+    successCards.push({
+      layout: 'left',
+      color: 'Teal',
+      title: 'SME-Derived-Growth (SDG)',
+      subtitle: 'Tracks MAU growth influenced by SME engagement.',
+      elements: [
+        makeMetricsElementFromV1Stats(obj.sdg.stats, 'Teal'),
+        makeTableElementFromRows('', 'Workload', 'SDG', obj.sdg.workloads, 'name', 'value')
+      ]
+    });
+  }
+  if (successCards.length) {
+    next.sections.push({ title: 'Success Measures', columns: 1, cards: successCards });
+  }
+
+  if (Array.isArray(obj.events) && obj.events.length) {
+    next.sections.push({
+      title: 'Key Events & Community Calls',
+      columns: clampSectionColumns(obj.eventsCols || 3),
+      cards: obj.events.map(function(item) {
+        return {
+          layout: 'top',
+          color: normalizeText(item && item.color) || 'Blue',
+          title: normalizeText(item && item.title),
+          subtitle: normalizeText(item && item.date),
+          elements: [makeTextElement(item && item.description, item && item.linkText, item && item.linkUrl)]
+        };
+      })
+    });
+  }
+
+  if (Array.isArray(obj.insights) && obj.insights.length) {
+    next.sections.push({
+      title: 'Insights',
+      columns: clampSectionColumns(obj.insightsCols || 1),
+      cards: obj.insights.map(function(item) {
+        return {
+          layout: 'left',
+          color: 'Green',
+          title: normalizeText(item && item.title),
+          subtitle: normalizeText(item && item.subtitle),
+          elements: [makeTextElement(item && item.body, item && item.linkText, item && item.linkUrl)]
+        };
+      })
+    });
+  }
+
+  if (Array.isArray(obj.podUpdates) && obj.podUpdates.length) {
+    next.sections.push({
+      title: 'Pod Updates',
+      columns: clampSectionColumns(obj.podCols || 2),
+      cards: obj.podUpdates.map(function(item) {
+        return {
+          layout: 'left',
+          color: normalizeText(item && item.color) || 'Blue',
+          title: normalizeText(item && item.title),
+          subtitle: '',
+          elements: [makeTextElement(item && item.description)]
+        };
+      })
+    });
+  }
+
+  if (Array.isArray(obj.incubation) && obj.incubation.length) {
+    next.sections.push({
+      title: 'Incubation',
+      columns: clampSectionColumns(obj.incubationCols || 2),
+      cards: obj.incubation.map(function(item) {
+        return {
+          layout: 'top',
+          color: normalizeText(item && item.color) || 'Blue',
+          title: normalizeText(item && item.title),
+          subtitle: '',
+          elements: [makeTextElement(item && item.description, item && item.linkText, item && item.linkUrl)]
+        };
+      })
+    });
+  }
+
+  if (obj.spotlight && (obj.spotlight.title || obj.spotlight.body)) {
+    next.sections.push({
+      title: 'Spotlight',
+      columns: 1,
+      cards: [{
+        layout: 'left',
+        color: 'Green',
+        title: normalizeText(obj.spotlight.title),
+        subtitle: '',
+        elements: [makeTextElement(obj.spotlight.body)]
+      }]
+    });
+  }
+
+  if (Array.isArray(obj.newsEvents) && obj.newsEvents.length) {
+    next.sections.push({
+      title: 'News & External Links',
+      columns: 1,
+      cards: [{
+        layout: 'none',
+        color: 'Blue',
+        title: 'News Events',
+        subtitle: '',
+        elements: [makeTableElementFromRows('', 'Title', 'URL', obj.newsEvents, 'title', 'url')]
+      }]
+    });
+  }
+
+  if (Array.isArray(obj.resources) && obj.resources.length) {
+    next.sections.push({
+      title: 'Key Resources',
+      columns: 3,
+      cards: obj.resources.map(function(item) {
+        return {
+          layout: 'none',
+          color: 'Blue',
+          title: normalizeText(item && item.title),
+          subtitle: normalizeText(item && item.emoji),
+          elements: [makeTextElement('', 'Open resource', item && item.url)]
+        };
+      })
+    });
+  }
+
+  return normalizeV2State(next);
+}
+
+function parseLoadedState(obj) {
+  if (isV2State(obj)) {
+    return { state: normalizeV2State(obj), upgradedFromV1: false };
+  }
+  if (isV1State(obj)) {
+    return { state: upgradeV1ToV2(obj), upgradedFromV1: true };
+  }
+  return null;
+}
+
 function loadState() {
   try {
     var raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     var parsed = JSON.parse(raw);
-    return validateState(parsed) ? parsed : null;
+    var result = parseLoadedState(parsed);
+    return result ? result.state : null;
   } catch (e) {
     return null;
   }
@@ -349,15 +685,12 @@ function loadState() {
 
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(serializeState(state)));
   } catch (e) {}
 }
 
 function validateState(obj) {
-  if (!obj || typeof obj !== 'object') return false;
-  if (!obj.header || !obj.footer) return false;
-  if (!Array.isArray(obj.sections)) return false;
-  return true;
+  return isV2State(obj);
 }
 
 function clampSectionColumns(value) {
@@ -980,7 +1313,7 @@ function copyFallback(html) {
 }
 
 function saveJson() {
-  var data = JSON.stringify(state, null, 2);
+  var data = JSON.stringify(serializeState(state), null, 2);
   var blob = new Blob([data], { type: 'application/json' });
   var a = document.createElement('a');
   var safeMonth = (state.header.month || 'newsletter').replace(/[^a-z0-9-]+/gi, '-').replace(/^-+|-+$/g, '');
@@ -1001,10 +1334,11 @@ function loadJson(file) {
   reader.onload = function() {
     try {
       var parsed = JSON.parse(reader.result);
-      if (!validateState(parsed)) throw new Error('Invalid structure');
-      state = parsed;
+      var result = parseLoadedState(parsed);
+      if (!result) throw new Error('Invalid structure');
+      state = result.state;
       fullRerender();
-      showToast('Newsletter data loaded.');
+      showToast(result.upgradedFromV1 ? 'V1 newsletter data upgraded and loaded.' : 'Newsletter data loaded.');
     } catch (e) {
       showToast('Invalid JSON file.', true);
     }
