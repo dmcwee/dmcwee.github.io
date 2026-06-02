@@ -147,6 +147,7 @@
   }
   .row-grid.cols-2 { grid-template-columns: 1fr 1fr; align-items: start; }
   .row-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; align-items: start; }
+  .row-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; align-items: end; }
   .row-grid.cols-label-val { grid-template-columns: 1fr 130px; align-items: start; }
   .row-actions {
     display: flex;
@@ -207,6 +208,10 @@
     color: #666;
     margin: 4px 0 0;
     line-height: 1.4;
+  }
+  .field-label.compact {
+    margin: 0 0 2px;
+    font-size: 11px;
   }
   .toast {
     position: fixed;
@@ -404,8 +409,10 @@ function normalizeV2Element(item) {
 function normalizeV2Card(card) {
   var layout = card && card.layout;
   if (layout !== 'left' && layout !== 'top' && layout !== 'none') layout = 'left';
+  var alignment = card && (card.alignment === 'center' || card.alignment === 'right') ? card.alignment : 'left';
   return {
     layout: layout,
+    alignment: alignment,
     color: normalizeText(card && card.color) || 'Blue',
     title: normalizeText(card && card.title),
     subtitle: normalizeText(card && card.subtitle),
@@ -631,14 +638,16 @@ function upgradeV1ToV2(obj) {
   if (Array.isArray(obj.newsEvents) && obj.newsEvents.length) {
     next.sections.push({
       title: 'News & External Links',
-      columns: 1,
-      cards: [{
-        layout: 'none',
-        color: 'Blue',
-        title: 'News Events',
-        subtitle: '',
-        elements: [makeTableElementFromRows('', 'Title', 'URL', obj.newsEvents, 'title', 'url')]
-      }]
+      columns: clampSectionColumns(Math.min(obj.newsEvents.length, 2)),
+      cards: obj.newsEvents.map(function(item) {
+        return {
+          layout: 'top',
+          color: 'Blue',
+          title: normalizeText(item && item.title),
+          subtitle: '',
+          elements: [makeTextElement('', 'Open link', item && item.url)]
+        };
+      })
     });
   }
 
@@ -649,10 +658,11 @@ function upgradeV1ToV2(obj) {
       cards: obj.resources.map(function(item) {
         return {
           layout: 'none',
+          alignment: 'center',
           color: 'Blue',
-          title: normalizeText(item && item.title),
-          subtitle: normalizeText(item && item.emoji),
-          elements: [makeTextElement('', 'Open resource', item && item.url)]
+          title: normalizeText(item && item.emoji),
+          subtitle: '',
+          elements: [makeTextElement('', normalizeText(item && item.title), item && item.url)]
         };
       })
     });
@@ -893,13 +903,14 @@ function tableElementHtml(item) {
   return html;
 }
 
-function textElementHtml(item, cardColor) {
+function textElementHtml(item, cardColor, cardAlignment) {
+  var alignment = cardAlignment === 'center' || cardAlignment === 'right' ? cardAlignment : 'left';
   var html = '<div style="margin-top:10px;">';
   if (item.description) {
-    html += '<div style="font-family:' + FONT + ';font-size:11pt;color:#333;line-height:1.5;margin:0;">' + rich(item.description) + '</div>';
+    html += '<div style="font-family:' + FONT + ';font-size:11pt;color:#333;line-height:1.5;margin:0;text-align:' + alignment + ';">' + rich(item.description) + '</div>';
   }
   if (item.linkText && item.linkUrl) {
-    html += '<a href="' + escapeHtml(item.linkUrl) + '" style="font-family:' + FONT + ';font-size:11pt;color:' + cardColor + ';text-decoration:none;font-weight:600;display:inline-block;margin-top:6px;">' + escapeHtml(item.linkText) + ' -></a>';
+    html += '<div style="text-align:' + alignment + ';"><a href="' + escapeHtml(item.linkUrl) + '" style="font-family:' + FONT + ';font-size:11pt;color:' + cardColor + ';text-decoration:none;font-weight:600;display:inline-block;margin-top:6px;">' + escapeHtml(item.linkText) + '</a></div>';
   }
   html += '</div>';
   return html;
@@ -907,14 +918,15 @@ function textElementHtml(item, cardColor) {
 
 function cardHtml(card) {
   var cardColor = COLOR_MAP[card.color] || card.color || '#0078D4';
-  var title = card.title ? '<div style="font-family:' + FONT + ';font-size:14px;font-weight:700;color:#333;">' + escapeHtml(card.title) + '</div>' : '';
-  var subtitle = card.subtitle ? '<div style="font-family:' + FONT + ';font-size:12px;color:#666;line-height:1.5;margin-top:4px;">' + rich(card.subtitle) + '</div>' : '';
+  var cardAlignment = card.alignment === 'center' || card.alignment === 'right' ? card.alignment : 'left';
+  var title = card.title ? '<div style="font-family:' + FONT + ';font-size:14px;font-weight:700;color:#333;text-align:' + cardAlignment + ';">' + escapeHtml(card.title) + '</div>' : '';
+  var subtitle = card.subtitle ? '<div style="font-family:' + FONT + ';font-size:12px;color:#666;line-height:1.5;margin-top:4px;text-align:' + cardAlignment + ';">' + rich(card.subtitle) + '</div>' : '';
 
   var elementsHtml = '';
   (card.elements || []).forEach(function(item) {
     if (item.type === 'metrics') elementsHtml += metricsElementHtml(item);
     else if (item.type === 'table') elementsHtml += tableElementHtml(item);
-    else elementsHtml += textElementHtml(item, cardColor);
+    else elementsHtml += textElementHtml(item, cardColor, cardAlignment);
   });
 
   if (!elementsHtml) {
@@ -1050,6 +1062,7 @@ function buildIssueSection() {
 function createDefaultCard(layout) {
   return {
     layout: layout,
+    alignment: 'left',
     color: layout === 'left' ? 'Blue' : 'Teal',
     title: '',
     subtitle: '',
@@ -1163,11 +1176,28 @@ function buildElementEditor(elements, elIndex, onChange) {
 
 function buildCardEditor(cards, cardIndex, onChange) {
   var card = cards[cardIndex];
+  card.alignment = card.alignment === 'center' || card.alignment === 'right' ? card.alignment : 'left';
+  function compactLabel(text) {
+    return el('div', { class: 'field-label compact' }, [text]);
+  }
   var cardWrap = el('div', { class: 'row' }, [
-    el('div', { class: 'row-grid cols-3' }, [
-      selectInput(card.layout || 'left', ['left', 'top', 'none'], function(v) { card.layout = v; rerender(); }),
-      selectInput(card.color || 'Blue', COLOR_OPTIONS, function(v) { card.color = v; rerender(); }),
+    el('div', null, [
+      compactLabel('Card title'),
       textInput(card.title || '', function(v) { card.title = v; rerender(); }, 'Card title')
+    ]),
+    el('div', { class: 'row-grid cols-3' }, [
+      el('div', null, [
+        compactLabel('Card style'),
+        selectInput(card.layout || 'left', ['left', 'top', 'none'], function(v) { card.layout = v; rerender(); })
+      ]),
+      el('div', null, [
+        compactLabel('Text alignment'),
+        selectInput(card.alignment || 'left', ['left', 'center', 'right'], function(v) { card.alignment = v; rerender(); })
+      ]),
+      el('div', null, [
+        compactLabel('Accent color'),
+        selectInput(card.color || 'Blue', COLOR_OPTIONS, function(v) { card.color = v; rerender(); })
+      ])
     ]),
     fieldLabel('Card subtitle / description'),
     textareaInput(card.subtitle || '', function(v) { card.subtitle = v; rerender(); }, 'Optional subtitle', 2),
