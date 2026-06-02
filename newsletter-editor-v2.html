@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCOE Newsletter Editor v2</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #eef0f3;
+    color: #222;
+    font-size: 14px;
+  }
+  header {
+    background: #0C64C0;
+    color: #fff;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .toolbar button,
+  .toolbar label.btn {
+    background: #fff;
+    color: #0C64C0;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 1.2;
+  }
+  .toolbar button.primary {
+    background: #ffc107;
+    color: #5d2e00;
+  }
+  .toolbar button:hover,
+  .toolbar label.btn:hover {
+    filter: brightness(0.95);
+  }
+  .toolbar input[type="file"] {
+    display: none;
+  }
+  main {
+    display: grid;
+    grid-template-columns: minmax(420px, 1fr) minmax(360px, 1fr);
+    gap: 12px;
+    padding: 12px;
+    height: calc(100vh - 56px);
+  }
+  @media (max-width: 980px) {
+    main {
+      grid-template-columns: 1fr;
+      height: auto;
+      min-height: calc(100vh - 56px);
+    }
+  }
+  .panel {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    overflow: auto;
+    min-height: 0;
+  }
+  .form-panel { padding: 14px 18px 80px; }
+  .preview-panel { padding: 0; }
+  .preview-panel iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 700px;
+    border: 0;
+    background: #f5f5f5;
+    display: block;
+  }
+  fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 10px 14px 12px;
+    margin: 0 0 14px;
+  }
+  legend {
+    font-weight: 700;
+    color: #0C64C0;
+    padding: 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .field-label {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin: 8px 0 3px;
+    font-weight: 600;
+  }
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 6px 9px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 13px;
+    background: #fafafa;
+    color: #222;
+  }
+  input[type="text"]:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid #0078D4;
+    outline-offset: -1px;
+    background: #fff;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 50px;
+    line-height: 1.45;
+    font-family: inherit;
+  }
+  .row {
+    border: 1px solid #ececec;
+    padding: 8px 10px 6px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    background: #fafafa;
+  }
+  .row + .row { margin-top: 8px; }
+  .row-grid {
+    display: grid;
+    gap: 6px;
+  }
+  .row-grid.cols-2 { grid-template-columns: 1fr 1fr; align-items: start; }
+  .row-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; align-items: start; }
+  .row-grid.cols-label-val { grid-template-columns: 1fr 130px; align-items: start; }
+  .row-actions {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  .btn-small {
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+    color: #666;
+    font-family: inherit;
+  }
+  .btn-small:hover {
+    background: #f4f4f4;
+    color: #0C64C0;
+    border-color: #0C64C0;
+  }
+  .btn-add {
+    width: 100%;
+    padding: 6px;
+    border: 1px dashed #0078D4;
+    background: #f0f7ff;
+    color: #0C64C0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: inherit;
+    margin-top: 6px;
+  }
+  .btn-add:hover { background: #dceeff; }
+  .btn-add-row {
+    width: auto;
+    padding: 4px 10px;
+    margin-top: 6px;
+    font-size: 11px;
+  }
+  .group-title {
+    margin: 12px 0 6px;
+    font-size: 12px;
+    color: #0C64C0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .nested {
+    margin-top: 8px;
+    border-left: 2px solid #ddeaf7;
+    padding-left: 10px;
+  }
+  .hint {
+    font-size: 11px;
+    color: #666;
+    margin: 4px 0 0;
+    line-height: 1.4;
+  }
+  .toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #107C10;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { background: #D13438; }
+</style>
+</head>
+<body>
+<header>
+  <h1>TCOE Newsletter Editor v2 (Modular)</h1>
+  <div class="toolbar">
+    <button id="btn-copy" class="primary" title="Copy the styled newsletter to your clipboard">Copy for email</button>
+    <button id="btn-save" title="Download a .json file of this content">Save data</button>
+    <label class="btn" for="file-load" title="Load a previously saved .json file">Load data</label>
+    <input type="file" id="file-load" accept=".json,application/json">
+    <button id="btn-reset" title="Clear all fields and start over">Reset</button>
+  </div>
+</header>
+<main>
+  <section class="panel form-panel" id="form-panel"></section>
+  <section class="panel preview-panel"><iframe id="preview" title="Newsletter preview"></iframe></section>
+</main>
+<div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+
+var STORAGE_KEY = 'tcoe-newsletter-v2';
+var FONT = 'Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif';
+
+var COLOR_OPTIONS = ['Blue', 'Green', 'Purple', 'Teal', 'Red', 'Orange'];
+var COLOR_MAP = {
+  Blue: '#0078D4',
+  Green: '#107C10',
+  Purple: '#5C2D91',
+  Teal: '#008575',
+  Red: '#D13438',
+  Orange: '#CA5010'
+};
+
+var DEFAULT_STATE = {
+  header: {
+    community: 'Copilot',
+    month: 'March 2026',
+    introText: 'Welcome to the March edition of the Copilot Community Newsletter from the Technical Center of Excellence (TCoE).',
+    reminder: ''
+  },
+  sections: [
+    {
+      title: 'Key Events & Community Calls',
+      columns: 1,
+      cards: [
+        {
+          layout: 'left',
+          color: 'Red',
+          title: 'Agent 365 - Overview',
+          subtitle: 'Deep dive into the Agent 365 platform capabilities and roadmap.',
+          elements: [
+            {
+              type: 'text',
+              title: 'Recording',
+              description: 'Watch the complete session to review scenarios and timeline updates.',
+              linkText: 'View recording',
+              linkUrl: '#'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Insights',
+      columns: 1,
+      cards: [
+        {
+          layout: 'top',
+          color: 'Blue',
+          title: 'Feedback Success - Connector Sync Progress',
+          subtitle: 'Customer Impact',
+          elements: [
+            {
+              type: 'metrics',
+              title: 'Impact Snapshot',
+              columns: 2,
+              stats: [
+                { label: 'Tenants Enabled', value: '112', color: 'Blue' },
+                { label: 'Admin Satisfaction', value: '92%', color: 'Green' }
+              ]
+            },
+            {
+              type: 'table',
+              title: 'Rollout Status',
+              headers: { left: 'Region', right: 'Status' },
+              rows: [
+                { left: 'NA', right: 'Complete' },
+                { left: 'EMEA', right: 'In Progress' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  footer: {
+    smeCount: '79',
+    monthText: 'March 2026',
+    confidentiality: 'Microsoft Confidential - Internal Use Only'
+  }
+};
+
+var state = loadState() || clone(DEFAULT_STATE);
+
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    return validateState(parsed) ? parsed : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+function validateState(obj) {
+  if (!obj || typeof obj !== 'object') return false;
+  if (!obj.header || !obj.footer) return false;
+  if (!Array.isArray(obj.sections)) return false;
+  return true;
+}
+
+function clampSectionColumns(value) {
+  var num = parseInt(value, 10);
+  if (!num || num < 1) return 1;
+  if (num > 4) return 4;
+  return num;
+}
+
+function clampMetricColumns(value) {
+  var num = parseInt(value, 10);
+  if (!num || num < 1) return 1;
+  if (num > 4) return 4;
+  return num;
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function rich(s) {
+  return escapeHtml(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+}
+
+function showToast(msg, isError) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  requestAnimationFrame(function() { t.classList.add('show'); });
+  setTimeout(function() { t.classList.remove('show'); }, 1800);
+}
+
+function el(tag, attrs, children) {
+  var e = document.createElement(tag);
+  if (attrs) {
+    for (var k in attrs) {
+      if (k === 'class') e.className = attrs[k];
+      else if (k === 'value') e.value = attrs[k];
+      else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+      else e.setAttribute(k, attrs[k]);
+    }
+  }
+  (children || []).forEach(function(c) {
+    if (c == null) return;
+    if (typeof c === 'string') e.appendChild(document.createTextNode(c));
+    else e.appendChild(c);
+  });
+  return e;
+}
+
+function fieldset(title, children) {
+  return el('fieldset', null, [el('legend', null, [title])].concat(children || []));
+}
+
+function fieldLabel(text) {
+  return el('div', { class: 'field-label' }, [text]);
+}
+
+function textInput(value, onChange, placeholder) {
+  return el('input', {
+    type: 'text',
+    value: value || '',
+    placeholder: placeholder || '',
+    oninput: function(ev) { onChange(ev.target.value); }
+  });
+}
+
+function textareaInput(value, onChange, placeholder, rows) {
+  var t = el('textarea', {
+    placeholder: placeholder || '',
+    oninput: function(ev) { onChange(ev.target.value); }
+  });
+  t.value = value || '';
+  if (rows) t.rows = rows;
+  return t;
+}
+
+function selectInput(value, options, onChange) {
+  var sel = el('select', {
+    onchange: function(ev) { onChange(ev.target.value); }
+  });
+  options.forEach(function(optValue) {
+    var opt = el('option', { value: optValue }, [optValue]);
+    if (optValue === value) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  return sel;
+}
+
+function btnSmall(label, onClick) {
+  return el('button', { type: 'button', class: 'btn-small', onclick: onClick }, [label]);
+}
+
+function btnAdd(label, onClick, extraClass) {
+  return el('button', { type: 'button', class: 'btn-add' + (extraClass ? ' ' + extraClass : ''), onclick: onClick }, ['+ ' + label]);
+}
+
+function rowActions(arr, idx, onChange) {
+  return el('div', { class: 'row-actions' }, [
+    idx > 0 ? btnSmall('Up', function() {
+      var t = arr[idx - 1];
+      arr[idx - 1] = arr[idx];
+      arr[idx] = t;
+      onChange();
+    }) : null,
+    idx < arr.length - 1 ? btnSmall('Down', function() {
+      var t = arr[idx + 1];
+      arr[idx + 1] = arr[idx];
+      arr[idx] = t;
+      onChange();
+    }) : null,
+    btnSmall('Remove', function() {
+      arr.splice(idx, 1);
+      onChange();
+    })
+  ]);
+}
+
+function rerender() {
+  saveState();
+  renderPreview();
+}
+
+function fullRerender() {
+  saveState();
+  renderForm();
+  renderPreview();
+}
+
+function sectionHeaderHtml(title) {
+  return '<tr><td style="padding:22px 30px 0;">' +
+    '<div style="font-family:' + FONT + ';font-size:18pt;color:black;margin:0 0 4px;"><b>' + escapeHtml(title) + '</b></div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-bottom:2px solid rgb(0,120,212);padding-bottom:2px;">&nbsp;</td></tr></table>' +
+  '</td></tr>';
+}
+
+function statCardHtml(stat) {
+  var c = COLOR_MAP[stat.color] || stat.color || '#0078D4';
+  return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:2px solid ' + c + ';border-radius:6px;">' +
+    '<tr><td align="center" style="padding:10px 4px 2px;">' +
+      '<div style="font-family:' + FONT + ';font-size:11pt;color:black;">' + escapeHtml(stat.label) + '</div>' +
+    '</td></tr>' +
+    '<tr><td align="center" style="padding:0 4px 10px;">' +
+      '<div style="font-family:' + FONT + ';font-size:11pt;font-weight:700;color:black;">' + escapeHtml(stat.value) + '</div>' +
+    '</td></tr></table>';
+}
+
+function metricsElementHtml(item) {
+  var title = item.title ? '<div style="font-family:' + FONT + ';font-size:11pt;font-weight:700;color:#333;margin:0 0 8px;">' + escapeHtml(item.title) + '</div>' : '';
+  var stats = Array.isArray(item.stats) ? item.stats : [];
+  var columns = clampMetricColumns(item.columns);
+  var colWidth = Math.floor(100 / columns);
+  var statsHtml = '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
+  if (!stats.length) {
+    statsHtml += '<tr><td style="font-family:' + FONT + ';font-size:11pt;color:#666;padding:4px;">No stat rows configured.</td></tr>';
+  } else {
+    for (var statIdx = 0; statIdx < stats.length; statIdx += columns) {
+      statsHtml += '<tr>';
+      for (var colIdx = 0; colIdx < columns; colIdx++) {
+        var stat = stats[statIdx + colIdx];
+        statsHtml += '<td width="' + colWidth + '%" valign="top" style="padding:4px;">' + (stat ? statCardHtml(stat) : '') + '</td>';
+      }
+      statsHtml += '</tr>';
+    }
+  }
+  statsHtml += '</table>';
+  return '<div style="margin-top:10px;">' + title + statsHtml + '</div>';
+}
+
+function tableElementHtml(item) {
+  var rows = Array.isArray(item.rows) ? item.rows : [];
+  var hLeft = (item.headers && item.headers.left) || 'Name';
+  var hRight = (item.headers && item.headers.right) || 'Value';
+  var html = '<div style="margin-top:10px;">';
+  if (item.title) {
+    html += '<div style="font-family:' + FONT + ';font-size:11pt;font-weight:700;color:#333;margin:0 0 8px;">' + escapeHtml(item.title) + '</div>';
+  }
+  html += '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+    '<tr><td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;border-radius:4px 0 0 0;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;font-weight:700;color:#ffffff;"><font face="Aptos, Calibri, Helvetica, sans-serif" color="#ffffff" size="2">' + escapeHtml(hLeft) + '</font></td></tr></table>' +
+    '</td>' +
+    '<td bgcolor="#0C64C0" style="background:#0C64C0;padding:6px 12px;text-align:right;border-radius:0 4px 0 0;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="right" style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;font-weight:700;color:#ffffff;"><font face="Aptos, Calibri, Helvetica, sans-serif" color="#ffffff" size="2">' + escapeHtml(hRight) + '</font></td></tr></table>' +
+    '</td></tr>';
+
+  if (!rows.length) {
+    html += '<tr><td colspan="2" style="padding:8px 12px;font-family:' + FONT + ';font-size:12px;color:#666;background:#f5f5f5;">No rows configured.</td></tr>';
+  } else {
+    rows.forEach(function(row, idx) {
+      var bg = idx % 2 === 0 ? '#fff' : '#f5f5f5';
+      html += '<tr bgcolor="' + bg + '"><td style="padding:6px 12px;font-family:' + FONT + ';font-size:13px;color:#333;">' + escapeHtml(row.left) + '</td>' +
+        '<td style="padding:6px 12px;font-family:' + FONT + ';font-size:13px;color:#333;text-align:right;font-weight:bold;">' + escapeHtml(row.right) + '</td></tr>';
+    });
+  }
+  html += '</table></div>';
+  return html;
+}
+
+function textElementHtml(item, cardColor) {
+  var html = '<div style="margin-top:10px;">';
+  if (item.description) {
+    html += '<div style="font-family:' + FONT + ';font-size:11pt;color:#333;line-height:1.5;margin:0;">' + rich(item.description) + '</div>';
+  }
+  if (item.linkText && item.linkUrl) {
+    html += '<a href="' + escapeHtml(item.linkUrl) + '" style="font-family:' + FONT + ';font-size:11pt;color:' + cardColor + ';text-decoration:none;font-weight:600;display:inline-block;margin-top:6px;">' + escapeHtml(item.linkText) + ' -></a>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function cardHtml(card) {
+  var cardColor = COLOR_MAP[card.color] || card.color || '#0078D4';
+  var title = card.title ? '<div style="font-family:' + FONT + ';font-size:14px;font-weight:700;color:#333;">' + escapeHtml(card.title) + '</div>' : '';
+  var subtitle = card.subtitle ? '<div style="font-family:' + FONT + ';font-size:12px;color:#666;line-height:1.5;margin-top:4px;">' + rich(card.subtitle) + '</div>' : '';
+
+  var elementsHtml = '';
+  (card.elements || []).forEach(function(item) {
+    if (item.type === 'metrics') elementsHtml += metricsElementHtml(item);
+    else if (item.type === 'table') elementsHtml += tableElementHtml(item);
+    else elementsHtml += textElementHtml(item, cardColor);
+  });
+
+  if (!elementsHtml) {
+    elementsHtml = '<div style="margin-top:10px;font-family:' + FONT + ';font-size:11pt;color:#666;">No elements configured.</div>';
+  }
+
+  if (card.layout === 'top') {
+    return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e0e0;border-top:4px solid ' + cardColor + ';border-radius:6px;">' +
+      '<tr><td style="padding:14px;">' + title + subtitle + elementsHtml + '</td></tr></table>';
+  }
+
+  if (card.layout === 'none') {
+    return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e0e0;border-radius:6px;margin-bottom:8px;background:#fff;">' +
+      '<tr><td style="padding:12px 16px;">' + title + subtitle + elementsHtml + '</td></tr></table>';
+  }
+
+  return '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:4px solid ' + cardColor + ';border-radius:0;margin-bottom:8px;background:#fff;">' +
+    '<tr><td style="padding:12px 16px;">' + title + subtitle + elementsHtml + '</td></tr></table>';
+}
+
+function renderEmail(s) {
+  var sectionNavItems = (s.sections || []).map(function(section) {
+    return section && section.title ? '<b>' + escapeHtml(section.title) + '</b>' : '';
+  }).filter(Boolean);
+  var sectionNavHtml = sectionNavItems.length ? sectionNavItems.join('&nbsp;&nbsp;• &nbsp;') : '<b>Newsletter</b>';
+
+  var headerHtml =
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:28px 40px 10px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;line-height:1.2;color:#ffffff;">' +
+        '<span style="letter-spacing:3px;">FastTrack Delivery</span>' +
+      '</td></tr></table>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Aptos, Calibri, Helvetica, sans-serif; font-size:26pt; line-height:1.2; color:#ffffff; padding-top:2px;">' +
+        '<b>Technical Center of Excellence</b>' +
+      '</td></tr></table>' +
+    '</td></tr>' +
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:0 40px 24px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:16pt;line-height:1.2;margin:0;padding-top:6px;color:#cccccc">' +
+        '<span style="font-weight:300;">' + escapeHtml(s.header.community) + ' Community News</span>' +
+        '<span style="font-weight:300;">&nbsp;- ' + escapeHtml(s.header.month) + '</span>' +
+      '</td></tr></table>' +
+    '</td></tr>' +
+    '<tr><td style="line-height:0;background-color:rgb(0,120,212);height:4px;">&nbsp;</td></tr>' +
+    '<tr><td style="background-color:rgb(240,244,248);padding:10px 20px;">' +
+      '<div style="text-align:center;font-family:' + FONT + ';font-size:11pt;color:rgb(12,100,192);letter-spacing:0.3px;">' + sectionNavHtml + '</div>' +
+    '</td></tr>' +
+    '<tr><td style="padding:18px 30px 0;">' +
+      '<div style="font-family:' + FONT + ';font-size:11pt;color:black;line-height:1.5;margin:0;"><i>' + rich(s.header.introText) + '</i></div>' +
+    '</td></tr>' +
+    (s.header.reminder ?
+      '<tr><td style="direction:ltr;padding-top:14px;padding-right:30px;padding-left:30px;box-sizing:border-box;">' +
+        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="direction:ltr;border-width:1px 1px 1px 4px;border-style:solid;border-color:rgb(224,224,224) rgb(224,224,224) rgb(224,224,224) rgb(255,92,57);border-radius:0 6px 6px 0;width:100%;box-sizing:border-box;border-collapse:collapse;border-spacing:0;">' +
+          '<tbody><tr><td style="direction:ltr;padding:14px 16px;">' +
+            '<div style="direction:ltr;margin:0 0 4px;font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;color:rgb(0,0,0);"><font face="Aptos, Calibri, Helvetica, sans-serif" color="#000000" size="2"><span style="font-weight:700;">! Important Reminder</span></font></div>' +
+            '<div style="direction:ltr;line-height:1.5;margin:0;font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;color:rgb(0,0,0);"><font face="Aptos, Calibri, Helvetica, sans-serif" color="#000000" size="2">' + rich(s.header.reminder) + '</font></div>' +
+          '</td></tr></tbody>' +
+        '</table>' +
+      '</td></tr>' : '');
+
+  var bodyHtml = '';
+  (s.sections || []).forEach(function(section) {
+    var columns = clampSectionColumns(section.columns);
+    var colWidth = Math.floor((100 - (columns - 1) * 2) / columns);
+    bodyHtml += sectionHeaderHtml(section.title || 'Untitled Section');
+    bodyHtml += '<tr><td style="padding:12px 30px 0;"><table width="100%" cellpadding="0" cellspacing="0" border="0">';
+    if (!section.cards || !section.cards.length) {
+      bodyHtml += '<tr><td style="padding:8px 0;font-family:' + FONT + ';font-size:11pt;color:#666;">No cards configured in this section.</td></tr>';
+    } else {
+      for (var cardIdx = 0; cardIdx < section.cards.length; cardIdx += columns) {
+        bodyHtml += '<tr>';
+        for (var colIdx = 0; colIdx < columns; colIdx++) {
+          var sectionCard = section.cards[cardIdx + colIdx];
+          if (colIdx > 0) bodyHtml += '<td style="width:2%;"></td>';
+          bodyHtml += '<td width="' + colWidth + '%" valign="top" style="padding:4px 0;">' + (sectionCard ? cardHtml(sectionCard) : '') + '</td>';
+        }
+        bodyHtml += '</tr>';
+      }
+    }
+    bodyHtml += '</table></td></tr>';
+  });
+
+  var footerHtml =
+    '<tr><td style="height:24px;">&nbsp;</td></tr>' +
+    '<tr><td style="padding:0 30px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' +
+        '<td align="center" bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:14px 16px;">' +
+          '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:12pt;line-height:1.2;color:#ffffff;">' +
+            '<b>' + escapeHtml(s.header.community) + ' SMEs: ' + escapeHtml(s.footer.smeCount) + '</b>' +
+          '</td></tr></table>' +
+        '</td>' +
+      '</tr></table>' +
+    '</td></tr>' +
+    '<tr><td style="height:20px;">&nbsp;</td></tr>' +
+    '<tr><td bgcolor="#0C64C0" style="background-color:rgb(12,100,192);padding:20px 30px;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Aptos, Calibri, Helvetica, sans-serif;font-size:11pt;line-height:1.3;">' +
+        '<font color="#ffffff"><b>FastTrack Delivery -&nbsp;Technical Center of Excellence</b><br>' +
+        escapeHtml(s.header.community) + ' News &nbsp;|&nbsp; ' + escapeHtml(s.footer.monthText) + '<br>' +
+        escapeHtml(s.footer.confidentiality) + '</font>' +
+      '</td></tr></table>'+
+    '</td></tr>';
+
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+    '<title>TCoE Newsletter Modular v2 - ' + escapeHtml(s.header.month) + '</title></head>' +
+    '<body style="margin:0;padding:20px;background-color:#f5f5f5;font-family:' + FONT + ';">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">' +
+        '<tr>' +
+          '<td align="center" style="padding:0; text-align:center;">' +
+            '<table width="700" cellpadding="0" cellspacing="0" border="0" role="presentation" style="width:700px;max-width:700px;background-color:#ffffff;border-collapse:collapse;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin:0 auto; text-align:left;">' +
+            headerHtml + bodyHtml + footerHtml +
+            '</table>' +
+          '</td>' +
+        '</tr>' +
+      '</table>' +
+    '</body></html>';
+}
+
+function renderPreview() {
+  document.getElementById('preview').srcdoc = renderEmail(state);
+}
+
+function buildIssueSection() {
+  return fieldset('Issue Header', [
+    fieldLabel('Community name'),
+    textInput(state.header.community, function(v) { state.header.community = v; rerender(); }, 'e.g. Copilot'),
+    fieldLabel('Month / Year'),
+    textInput(state.header.month, function(v) { state.header.month = v; rerender(); }, 'e.g. March 2026'),
+    fieldLabel('Intro text (italic)'),
+    textareaInput(state.header.introText, function(v) { state.header.introText = v; rerender(); }, 'Welcome text...', 3),
+    fieldLabel('Reminder text (optional)'),
+    textareaInput(state.header.reminder, function(v) { state.header.reminder = v; rerender(); }, 'Optional reminder', 3)
+  ]);
+}
+
+function createDefaultCard(layout) {
+  return {
+    layout: layout,
+    color: layout === 'left' ? 'Blue' : 'Teal',
+    title: '',
+    subtitle: '',
+    elements: []
+  };
+}
+
+function createDefaultElement(type) {
+  if (type === 'metrics') {
+    return {
+      type: 'metrics',
+      title: '',
+      columns: 2,
+      stats: [
+        { label: 'Metric', value: '0', color: 'Blue' }
+      ]
+    };
+  }
+  if (type === 'table') {
+    return {
+      type: 'table',
+      title: '',
+      headers: { left: 'Name', right: 'Value' },
+      rows: [
+        { left: 'Row 1', right: 'Value' }
+      ]
+    };
+  }
+  return {
+    type: 'text',
+    description: '',
+    linkText: '',
+    linkUrl: ''
+  };
+}
+
+function buildElementEditor(elements, elIndex, onChange) {
+  var item = elements[elIndex];
+  var wrap = el('div', { class: 'row' }, [
+    el('div', { class: 'row-grid cols-3' }, [
+      selectInput(item.type, ['metrics', 'table', 'text'], function(v) {
+        elements[elIndex] = createDefaultElement(v);
+        onChange();
+      }),
+      item.type === 'text'
+        ? el('div', null, [el('div', { class: 'hint' }, ['Text element has description and optional link'])])
+        : textInput(item.title || '', function(v) { item.title = v; rerender(); }, 'Element title'),
+      el('div', null, [
+        el('div', { class: 'hint' }, ['Type defines available fields'])
+      ])
+    ])
+  ]);
+
+  if (item.type === 'metrics') {
+    item.columns = clampMetricColumns(item.columns);
+    var stats = Array.isArray(item.stats) ? item.stats : (item.stats = []);
+    wrap.appendChild(el('div', { class: 'group-title' }, ['Stat Cards']));
+    wrap.appendChild(fieldLabel('Stat card columns'));
+    wrap.appendChild(selectInput(String(item.columns), ['1', '2', '3', '4'], function(v) {
+      item.columns = clampMetricColumns(v);
+      rerender();
+    }));
+    stats.forEach(function(st, statIdx) {
+      wrap.appendChild(el('div', { class: 'row nested' }, [
+        el('div', { class: 'row-grid cols-label-val' }, [
+          textInput(st.label, function(v) { st.label = v; rerender(); }, 'Label'),
+          textInput(st.value, function(v) { st.value = v; rerender(); }, 'Value')
+        ]),
+        selectInput(st.color || 'Blue', COLOR_OPTIONS, function(v) { st.color = v; rerender(); }),
+        rowActions(stats, statIdx, onChange)
+      ]));
+    });
+    wrap.appendChild(btnAdd('Add stat card', function() {
+      stats.push({ label: '', value: '', color: 'Blue' });
+      onChange();
+    }, 'btn-add-row'));
+  } else if (item.type === 'table') {
+    if (!item.headers) item.headers = { left: 'Name', right: 'Value' };
+    var rows = Array.isArray(item.rows) ? item.rows : (item.rows = []);
+    wrap.appendChild(el('div', { class: 'group-title' }, ['Table Headers']));
+    wrap.appendChild(el('div', { class: 'row-grid cols-2' }, [
+      textInput(item.headers.left, function(v) { item.headers.left = v; rerender(); }, 'Left header'),
+      textInput(item.headers.right, function(v) { item.headers.right = v; rerender(); }, 'Right header')
+    ]));
+    wrap.appendChild(el('div', { class: 'group-title' }, ['Table Rows']));
+    rows.forEach(function(row, rowIdx) {
+      wrap.appendChild(el('div', { class: 'row nested' }, [
+        el('div', { class: 'row-grid cols-2' }, [
+          textInput(row.left, function(v) { row.left = v; rerender(); }, 'Left value'),
+          textInput(row.right, function(v) { row.right = v; rerender(); }, 'Right value')
+        ]),
+        rowActions(rows, rowIdx, onChange)
+      ]));
+    });
+    wrap.appendChild(btnAdd('Add table row', function() {
+      rows.push({ left: '', right: '' });
+      onChange();
+    }, 'btn-add-row'));
+  } else {
+    wrap.appendChild(fieldLabel('Description'));
+    wrap.appendChild(textareaInput(item.description, function(v) { item.description = v; rerender(); }, 'Text element description', 3));
+    wrap.appendChild(fieldLabel('Link text'));
+    wrap.appendChild(textInput(item.linkText, function(v) { item.linkText = v; rerender(); }, 'Optional link text'));
+    wrap.appendChild(fieldLabel('Link URL'));
+    wrap.appendChild(textInput(item.linkUrl, function(v) { item.linkUrl = v; rerender(); }, 'https://...'));
+  }
+
+  wrap.appendChild(rowActions(elements, elIndex, onChange));
+  return wrap;
+}
+
+function buildCardEditor(cards, cardIndex, onChange) {
+  var card = cards[cardIndex];
+  var cardWrap = el('div', { class: 'row' }, [
+    el('div', { class: 'row-grid cols-3' }, [
+      selectInput(card.layout || 'left', ['left', 'top', 'none'], function(v) { card.layout = v; rerender(); }),
+      selectInput(card.color || 'Blue', COLOR_OPTIONS, function(v) { card.color = v; rerender(); }),
+      textInput(card.title || '', function(v) { card.title = v; rerender(); }, 'Card title')
+    ]),
+    fieldLabel('Card subtitle / description'),
+    textareaInput(card.subtitle || '', function(v) { card.subtitle = v; rerender(); }, 'Optional subtitle', 2),
+    el('div', { class: 'group-title' }, ['Elements'])
+  ]);
+
+  var elements = Array.isArray(card.elements) ? card.elements : (card.elements = []);
+  if (!elements.length) {
+    cardWrap.appendChild(el('div', { class: 'hint' }, ['This card has no elements yet. Add metrics, table, or text.']));
+  }
+
+  elements.forEach(function(_, elIndex) {
+    cardWrap.appendChild(buildElementEditor(elements, elIndex, onChange));
+  });
+
+  cardWrap.appendChild(el('div', { class: 'row-grid cols-3' }, [
+    btnAdd('Metrics element', function() {
+      elements.push(createDefaultElement('metrics'));
+      onChange();
+    }),
+    btnAdd('Table element', function() {
+      elements.push(createDefaultElement('table'));
+      onChange();
+    }),
+    btnAdd('Text element', function() {
+      elements.push(createDefaultElement('text'));
+      onChange();
+    })
+  ]));
+
+  cardWrap.appendChild(rowActions(cards, cardIndex, onChange));
+  return cardWrap;
+}
+
+function buildSectionsEditor() {
+  var blocks = [
+    el('div', { class: 'hint' }, ['Add, move, and remove sections. Inside each section, add left border, top border, or no border cards with metrics, tables, and text elements.'])
+  ];
+
+  state.sections.forEach(function(section, sectionIndex) {
+    section.columns = clampSectionColumns(section.columns);
+    var sectionWrap = el('div', { class: 'row' }, [
+      fieldLabel('Section title'),
+      textInput(section.title, function(v) { section.title = v; rerender(); }, 'Section title'),
+      fieldLabel('Card columns'),
+      selectInput(String(section.columns), ['1', '2', '3', '4'], function(v) { section.columns = clampSectionColumns(v); rerender(); }),
+      el('div', { class: 'group-title' }, ['Cards'])
+    ]);
+
+    var cards = Array.isArray(section.cards) ? section.cards : (section.cards = []);
+    if (!cards.length) {
+      sectionWrap.appendChild(el('div', { class: 'hint' }, ['No cards yet for this section.']));
+    }
+
+    cards.forEach(function(_, cardIndex) {
+      sectionWrap.appendChild(buildCardEditor(cards, cardIndex, fullRerender));
+    });
+
+    sectionWrap.appendChild(el('div', { class: 'row-grid cols-3' }, [
+      btnAdd('Left styled card', function() {
+        cards.push(createDefaultCard('left'));
+        fullRerender();
+      }),
+      btnAdd('Top styled card', function() {
+        cards.push(createDefaultCard('top'));
+        fullRerender();
+      }),
+      btnAdd('No border card', function() {
+        cards.push(createDefaultCard('none'));
+        fullRerender();
+      })
+    ]));
+
+    sectionWrap.appendChild(rowActions(state.sections, sectionIndex, fullRerender));
+    blocks.push(sectionWrap);
+  });
+
+  blocks.push(btnAdd('Add section', function() {
+    state.sections.push({ title: 'New Section', columns: 1, cards: [] });
+    fullRerender();
+  }));
+
+  return fieldset('Modular Sections', blocks);
+}
+
+function buildFooterSection() {
+  return fieldset('Footer', [
+    fieldLabel('SME Count'),
+    textInput(state.footer.smeCount, function(v) { state.footer.smeCount = v; rerender(); }, '79'),
+    fieldLabel('Month label'),
+    textInput(state.footer.monthText, function(v) { state.footer.monthText = v; rerender(); }, 'March 2026'),
+    fieldLabel('Confidentiality text'),
+    textInput(state.footer.confidentiality, function(v) { state.footer.confidentiality = v; rerender(); }, 'Microsoft Confidential - Internal Use Only')
+  ]);
+}
+
+function buildHelpSection() {
+  return fieldset('Formatting Help', [
+    el('div', { class: 'hint' }, ['Use **bold** and *italic* in text fields.'])
+  ]);
+}
+
+function renderForm() {
+  var root = document.getElementById('form-panel');
+  root.innerHTML = '';
+  root.appendChild(buildIssueSection());
+  root.appendChild(buildSectionsEditor());
+  root.appendChild(buildFooterSection());
+  root.appendChild(buildHelpSection());
+}
+
+function copyForEmail() {
+  var html = renderEmail(state);
+  if (navigator.clipboard && window.ClipboardItem) {
+    var item = new ClipboardItem({
+      'text/html': new Blob([html], { type: 'text/html' }),
+      'text/plain': new Blob([html], { type: 'text/plain' })
+    });
+    navigator.clipboard.write([item]).then(function() {
+      showToast('Newsletter copied as rich HTML.');
+    }).catch(function() {
+      copyFallback(html);
+    });
+    return;
+  }
+  copyFallback(html);
+}
+
+function copyFallback(html) {
+  var ta = document.createElement('textarea');
+  ta.value = html;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('Newsletter HTML copied.');
+  } catch (e) {
+    showToast('Copy failed. Use Save data as backup.', true);
+  }
+  document.body.removeChild(ta);
+}
+
+function saveJson() {
+  var data = JSON.stringify(state, null, 2);
+  var blob = new Blob([data], { type: 'application/json' });
+  var a = document.createElement('a');
+  var safeMonth = (state.header.month || 'newsletter').replace(/[^a-z0-9-]+/gi, '-').replace(/^-+|-+$/g, '');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'tcoe-newsletter-v2-' + (safeMonth || 'data') + '.json';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+    URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+  }, 0);
+  showToast('Newsletter data saved.');
+}
+
+function loadJson(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function() {
+    try {
+      var parsed = JSON.parse(reader.result);
+      if (!validateState(parsed)) throw new Error('Invalid structure');
+      state = parsed;
+      fullRerender();
+      showToast('Newsletter data loaded.');
+    } catch (e) {
+      showToast('Invalid JSON file.', true);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetAll() {
+  if (!confirm('Reset all newsletter fields?')) return;
+  state = clone(DEFAULT_STATE);
+  fullRerender();
+  showToast('Reset complete.');
+}
+
+function bindToolbar() {
+  document.getElementById('btn-copy').addEventListener('click', copyForEmail);
+  document.getElementById('btn-save').addEventListener('click', saveJson);
+  document.getElementById('btn-reset').addEventListener('click', resetAll);
+  document.getElementById('file-load').addEventListener('change', function(ev) {
+    loadJson(ev.target.files[0]);
+    ev.target.value = '';
+  });
+}
+
+bindToolbar();
+renderForm();
+renderPreview();
+</script>
+</body>
+</html>
