@@ -9,8 +9,8 @@ tags:
 - MDE
 - Microsoft Defender for Endpoint
 - Microsoft Defender for Cloud
-image: /assets/images/2026/03/mde-missed-detection.jpg
-banner: /assets/images/2026/03/mde-missed-detection.jpg
+image: /assets/images/2026/08/broken_azure_policy.png
+banner: /assets/images/2026/08/broken_azure_policy.png
 theme: light
 excerpt: Azure Policies and Resource Tags are a great way to handle Mixed Mode licensing of Defender for Server, but the Azure Policy may not work as you expect.
 ---
