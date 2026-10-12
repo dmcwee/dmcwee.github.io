@@ -41,3 +41,6 @@ gem "rouge"
 
 # Issue without having webrick
 gem "webrick", "~> 1.8"
+
+gem "csv"
+gem "bigdecimal"
